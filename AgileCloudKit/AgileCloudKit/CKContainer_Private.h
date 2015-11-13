@@ -1,0 +1,32 @@
+//
+//  CKContainer_Private.h
+//  AgileCloudKit
+//
+//  Created by Adam Wulf on 9/17/15.
+//  Copyright © 2015 AgileBits. All rights reserved.
+//
+
+
+@interface CKContainer ()
+
++ (NSOperationQueue *)urlQueue;
++ (NSURLSession *)downloadSession;
++ (NSURLSession *)uploadSession;
+
+@property(nonatomic, readonly) NSString *cloudKitContainerName;
+@property(nonatomic, readonly) NSString *cloudKitAPIToken;
+@property(nonatomic, readonly) NSString *cloudKitEnvironment;
+
+- (JSValue *)asJSValue;
+
+#pragma mark - Push Notifications
+
+- (void)registerForRemoteNotifications;
+
+#pragma mark - Web Services
+
++ (void)sendPOSTRequestTo:(NSURL *)fetchURL withJSON:(id)postData completionHandler:(void (^)(id jsonResponse, NSError *error))completionHandler;
++ (void)sendPOSTRequestTo:(NSURL *)uploadDestination withFile:(NSURL *)localFile completionHandler:(void (^)(id jsonResponse, NSError *error))completionHandler;
++ (NSString *)percentEscape:(NSString *)str;
+
+@end

@@ -1,0 +1,735 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C5150AC61BA6936600850891 /* CKFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AC41BA6936600850891 /* CKFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5150AC71BA6936600850891 /* CKFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150AC51BA6936600850891 /* CKFilter.m */; settings = {ASSET_TAGS = (); }; };
+		C5150AC91BA6948400850891 /* CKFilterType.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AC81BA6948400850891 /* CKFilterType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5150AD41BA6975900850891 /* NSString+CKFilterType.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AD21BA6975900850891 /* NSString+CKFilterType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5150AD81BA697C900850891 /* CKReference+CKFilterType.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AD61BA697C900850891 /* CKReference+CKFilterType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5150ADC1BA6987D00850891 /* NSDate+CKFilterType.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150ADA1BA6987D00850891 /* NSDate+CKFilterType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5150AE01BA698C400850891 /* NSNumber+CKFilterType.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150ADE1BA698C400850891 /* NSNumber+CKFilterType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5150AE41BA698EC00850891 /* NSArray+CKFilterType.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AE21BA698EC00850891 /* NSArray+CKFilterType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5150AE81BA6991000850891 /* CLLocation+CKFilterType.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AE61BA6991000850891 /* CLLocation+CKFilterType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5150AEC1BA69BAF00850891 /* CLLocation+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AEA1BA69BAF00850891 /* CLLocation+AgileDictionary.h */; settings = {ASSET_TAGS = (); }; };
+		C5150AED1BA69BAF00850891 /* CLLocation+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150AEB1BA69BAF00850891 /* CLLocation+AgileDictionary.m */; settings = {ASSET_TAGS = (); }; };
+		C5150AF01BA69C0B00850891 /* CKReference+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AEE1BA69C0B00850891 /* CKReference+AgileDictionary.h */; settings = {ASSET_TAGS = (); }; };
+		C5150AF11BA69C0B00850891 /* CKReference+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150AEF1BA69C0B00850891 /* CKReference+AgileDictionary.m */; settings = {ASSET_TAGS = (); }; };
+		C5233DCF1BA671C20075BC5C /* CKSubscription+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5233DCD1BA671C20075BC5C /* CKSubscription+AgileDictionary.h */; settings = {ASSET_TAGS = (); }; };
+		C5233DD01BA671C20075BC5C /* CKSubscription+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5233DCE1BA671C20075BC5C /* CKSubscription+AgileDictionary.m */; settings = {ASSET_TAGS = (); }; };
+		C5233DD31BA672D70075BC5C /* CKNotificationInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = C5233DD11BA672D70075BC5C /* CKNotificationInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5233DD41BA672D70075BC5C /* CKNotificationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C5233DD21BA672D70075BC5C /* CKNotificationInfo.m */; settings = {ASSET_TAGS = (); }; };
+		C53390F11B8A5CE200DD1596 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53390F01B8A5CE200DD1596 /* JavaScriptCore.framework */; };
+		C53391021B8AB36300DD1596 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53391011B8AB36300DD1596 /* WebKit.framework */; };
+		C53391081B8AB67400DD1596 /* CKMediator.h in Headers */ = {isa = PBXBuildFile; fileRef = C53391061B8AB67400DD1596 /* CKMediator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C53391091B8AB67400DD1596 /* CKMediator.m in Sources */ = {isa = PBXBuildFile; fileRef = C53391071B8AB67400DD1596 /* CKMediator.m */; };
+		C533910B1B8AB88100DD1596 /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = C533910A1B8AB88100DD1596 /* test.html */; };
+		C535F1361BAF52E40023318D /* NSApplication+AgileCloudKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C535F1341BAF52E40023318D /* NSApplication+AgileCloudKit.h */; settings = {ASSET_TAGS = (); }; };
+		C535F1371BAF52E40023318D /* NSApplication+AgileCloudKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F1351BAF52E40023318D /* NSApplication+AgileCloudKit.m */; settings = {ASSET_TAGS = (); }; };
+		C55554741BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C55554721BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.h */; settings = {ASSET_TAGS = (); }; };
+		C55554751BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C55554731BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.m */; settings = {ASSET_TAGS = (); }; };
+		C55E96EF1BA15EA6007B4A9B /* NSArray+AgileMap.h in Headers */ = {isa = PBXBuildFile; fileRef = C55E96ED1BA15EA6007B4A9B /* NSArray+AgileMap.h */; };
+		C55E96F01BA15EA6007B4A9B /* NSArray+AgileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E96EE1BA15EA6007B4A9B /* NSArray+AgileMap.m */; };
+		C56E2FBF1BA4C26D000365E0 /* CKAsset+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C56E2FBD1BA4C26D000365E0 /* CKAsset+AgileDictionary.h */; };
+		C56E2FC01BA4C26D000365E0 /* CKAsset+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C56E2FBE1BA4C26D000365E0 /* CKAsset+AgileDictionary.m */; };
+		C57539E11B859F9900B9B6DE /* AgileCloudKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C57539E01B859F9900B9B6DE /* AgileCloudKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C578F6E11B9EBF8700F5D43E /* CKRecordID+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C578F6DF1B9EBF8700F5D43E /* CKRecordID+AgileDictionary.h */; };
+		C578F6E21B9EBF8700F5D43E /* CKRecordID+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C578F6E01B9EBF8700F5D43E /* CKRecordID+AgileDictionary.m */; };
+		C578F6E51B9EC51F00F5D43E /* CKRecord+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C578F6E31B9EC51F00F5D43E /* CKRecord+AgileDictionary.h */; };
+		C578F6E61B9EC51F00F5D43E /* CKRecord+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C578F6E41B9EC51F00F5D43E /* CKRecord+AgileDictionary.m */; };
+		C585BF821B8AB920005F0199 /* config-format.js in Resources */ = {isa = PBXBuildFile; fileRef = C585BF811B8AB920005F0199 /* config-format.js */; };
+		C58B3C021B8ECBFC0077F1C0 /* CKMediator_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C58B3C011B8ECBFC0077F1C0 /* CKMediator_Private.h */; };
+		C58B3C071B8EDFF10077F1C0 /* JSValue+AgileCloudKitExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = C58B3C051B8EDFF10077F1C0 /* JSValue+AgileCloudKitExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C58B3C081B8EDFF10077F1C0 /* JSValue+AgileCloudKitExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C58B3C061B8EDFF10077F1C0 /* JSValue+AgileCloudKitExtensions.m */; };
+		C58B3C0C1B8EE30B0077F1C0 /* NSError+AgileCloudKitExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = C58B3C0A1B8EE30B0077F1C0 /* NSError+AgileCloudKitExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C58B3C0D1B8EE30B0077F1C0 /* NSError+AgileCloudKitExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C58B3C0B1B8EE30B0077F1C0 /* NSError+AgileCloudKitExtensions.m */; };
+		C59FC3FC1BA3D33800C31A49 /* CKServerChangeToken+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C59FC3FA1BA3D33800C31A49 /* CKServerChangeToken+AgileDictionary.h */; };
+		C59FC3FD1BA3D33800C31A49 /* CKServerChangeToken+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C59FC3FB1BA3D33800C31A49 /* CKServerChangeToken+AgileDictionary.m */; };
+		C5A573721B89115D00264AC9 /* CKAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A573601B89115D00264AC9 /* CKAsset.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A573731B89115D00264AC9 /* CKContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A573611B89115D00264AC9 /* CKContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A573741B89115D00264AC9 /* CKDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A573621B89115D00264AC9 /* CKDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A573751B89115D00264AC9 /* CKDatabaseOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A573631B89115D00264AC9 /* CKDatabaseOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A573761B89115D00264AC9 /* CKDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A573641B89115D00264AC9 /* CKDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A573771B89115D00264AC9 /* CKFetchRecordChangesOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A573651B89115D00264AC9 /* CKFetchRecordChangesOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A573781B89115D00264AC9 /* CKFetchRecordsOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A573661B89115D00264AC9 /* CKFetchRecordsOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A573791B89115D00264AC9 /* CKFetchRecordZonesOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A573671B89115D00264AC9 /* CKFetchRecordZonesOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A5737A1B89115D00264AC9 /* CKModifyRecordsOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A573681B89115D00264AC9 /* CKModifyRecordsOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A5737B1B89115D00264AC9 /* CKModifyRecordZonesOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A573691B89115D00264AC9 /* CKModifyRecordZonesOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A5737C1B89115D00264AC9 /* CKModifySubscriptionsOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5736A1B89115D00264AC9 /* CKModifySubscriptionsOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A5737D1B89115D00264AC9 /* CKNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5736B1B89115D00264AC9 /* CKNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A5737E1B89115D00264AC9 /* CKRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5736C1B89115D00264AC9 /* CKRecord.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A5737F1B89115D00264AC9 /* CKRecordID.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5736D1B89115D00264AC9 /* CKRecordID.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A573801B89115D00264AC9 /* CKRecordZone.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5736E1B89115D00264AC9 /* CKRecordZone.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A573811B89115D00264AC9 /* CKRecordZoneID.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5736F1B89115D00264AC9 /* CKRecordZoneID.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A573821B89115D00264AC9 /* CKServerChangeToken.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A573701B89115D00264AC9 /* CKServerChangeToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A573831B89115D00264AC9 /* CKSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A573711B89115D00264AC9 /* CKSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A573851B8911F700264AC9 /* CKOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A573841B8911F700264AC9 /* CKOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A573871B89120E00264AC9 /* CKReference.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A573861B89120E00264AC9 /* CKReference.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A573891B89122300264AC9 /* CKDiscoveredUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A573881B89122300264AC9 /* CKDiscoveredUserInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A5738B1B89128D00264AC9 /* CKFetchNotificationChangesOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5738A1B89128D00264AC9 /* CKFetchNotificationChangesOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A5738D1B8912D600264AC9 /* CKError.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5738C1B8912D600264AC9 /* CKError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A5738F1B89133600264AC9 /* CKMarkNotificationsReadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5738E1B89133600264AC9 /* CKMarkNotificationsReadOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5A573AD1B89153700264AC9 /* CKMarkNotificationsReadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573921B89153600264AC9 /* CKMarkNotificationsReadOperation.m */; };
+		C5A573AF1B89153700264AC9 /* CKFetchNotificationChangesOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573941B89153600264AC9 /* CKFetchNotificationChangesOperation.m */; };
+		C5A573B01B89153700264AC9 /* CKContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573951B89153600264AC9 /* CKContainer.m */; };
+		C5A573B11B89153700264AC9 /* CKDatabaseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573961B89153600264AC9 /* CKDatabaseOperation.m */; };
+		C5A573B21B89153700264AC9 /* CKFetchRecordChangesOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573971B89153600264AC9 /* CKFetchRecordChangesOperation.m */; };
+		C5A573B31B89153700264AC9 /* CKFetchRecordsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573981B89153600264AC9 /* CKFetchRecordsOperation.m */; };
+		C5A573B41B89153700264AC9 /* CKFetchRecordZonesOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573991B89153600264AC9 /* CKFetchRecordZonesOperation.m */; };
+		C5A573B51B89153700264AC9 /* CKModifyRecordsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5739A1B89153600264AC9 /* CKModifyRecordsOperation.m */; };
+		C5A573B61B89153700264AC9 /* CKModifyRecordZonesOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5739B1B89153600264AC9 /* CKModifyRecordZonesOperation.m */; };
+		C5A573B71B89153700264AC9 /* CKModifySubscriptionsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5739C1B89153600264AC9 /* CKModifySubscriptionsOperation.m */; };
+		C5A573B81B89153700264AC9 /* CKRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5739D1B89153600264AC9 /* CKRecord.m */; };
+		C5A573B91B89153700264AC9 /* CKRecordZone.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5739E1B89153600264AC9 /* CKRecordZone.m */; };
+		C5A573BA1B89153700264AC9 /* CKServerChangeToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5739F1B89153600264AC9 /* CKServerChangeToken.m */; };
+		C5A573BB1B89153700264AC9 /* CKSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573A01B89153600264AC9 /* CKSubscription.m */; };
+		C5A573BE1B89153700264AC9 /* CKDiscoveredUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573A31B89153600264AC9 /* CKDiscoveredUserInfo.m */; };
+		C5A573C01B89153700264AC9 /* CKRecordZoneID.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573A51B89153600264AC9 /* CKRecordZoneID.m */; };
+		C5A573C11B89153700264AC9 /* CKAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573A61B89153600264AC9 /* CKAsset.m */; };
+		C5A573C21B89153700264AC9 /* CKDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573A71B89153700264AC9 /* CKDatabase.m */; };
+		C5A573C31B89153700264AC9 /* CKNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573A81B89153700264AC9 /* CKNotification.m */; };
+		C5A573C41B89153700264AC9 /* CKOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573A91B89153700264AC9 /* CKOperation.m */; };
+		C5A573C61B89153700264AC9 /* CKRecordID.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573AB1B89153700264AC9 /* CKRecordID.m */; };
+		C5A573C71B89153700264AC9 /* CKReference.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573AC1B89153700264AC9 /* CKReference.m */; };
+		C5A573C91B89191800264AC9 /* CKError.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573C81B89191800264AC9 /* CKError.m */; };
+		C5A66A3C1BAB565E00867BF5 /* container-config-format.json in Resources */ = {isa = PBXBuildFile; fileRef = C5A66A3B1BAB565E00867BF5 /* container-config-format.json */; settings = {ASSET_TAGS = (); }; };
+		C5E43FD31B9BBD9500CD93CA /* CKMediatorDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E43FD21B9BBD9500CD93CA /* CKMediatorDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5EBCD531B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5EBCD511B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.h */; };
+		C5EBCD541B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EBCD521B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.m */; };
+		C5EEC9A71BAC79000027B4F1 /* CKBlockOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5EEC9A51BAC79000027B4F1 /* CKBlockOperation.h */; settings = {ASSET_TAGS = (); }; };
+		C5EEC9A81BAC79000027B4F1 /* CKBlockOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEC9A61BAC79000027B4F1 /* CKBlockOperation.m */; settings = {ASSET_TAGS = (); }; };
+		C5EF10341BD045A00083BE81 /* CKRecordZone+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5EF10321BD045A00083BE81 /* CKRecordZone+AgileDictionary.h */; settings = {ASSET_TAGS = (); }; };
+		C5EF10351BD045A00083BE81 /* CKRecordZone+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EF10331BD045A00083BE81 /* CKRecordZone+AgileDictionary.m */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C5150AC41BA6936600850891 /* CKFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKFilter.h; sourceTree = "<group>"; };
+		C5150AC51BA6936600850891 /* CKFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKFilter.m; sourceTree = "<group>"; };
+		C5150AC81BA6948400850891 /* CKFilterType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKFilterType.h; sourceTree = "<group>"; };
+		C5150AD21BA6975900850891 /* NSString+CKFilterType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CKFilterType.h"; sourceTree = "<group>"; };
+		C5150AD61BA697C900850891 /* CKReference+CKFilterType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKReference+CKFilterType.h"; sourceTree = "<group>"; };
+		C5150ADA1BA6987D00850891 /* NSDate+CKFilterType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+CKFilterType.h"; sourceTree = "<group>"; };
+		C5150ADE1BA698C400850891 /* NSNumber+CKFilterType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+CKFilterType.h"; sourceTree = "<group>"; };
+		C5150AE21BA698EC00850891 /* NSArray+CKFilterType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+CKFilterType.h"; sourceTree = "<group>"; };
+		C5150AE61BA6991000850891 /* CLLocation+CKFilterType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+CKFilterType.h"; sourceTree = "<group>"; };
+		C5150AEA1BA69BAF00850891 /* CLLocation+AgileDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+AgileDictionary.h"; sourceTree = "<group>"; };
+		C5150AEB1BA69BAF00850891 /* CLLocation+AgileDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+AgileDictionary.m"; sourceTree = "<group>"; };
+		C5150AEE1BA69C0B00850891 /* CKReference+AgileDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKReference+AgileDictionary.h"; sourceTree = "<group>"; };
+		C5150AEF1BA69C0B00850891 /* CKReference+AgileDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKReference+AgileDictionary.m"; sourceTree = "<group>"; };
+		C5150AF21BA6A3CD00850891 /* CKFilter_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKFilter_Private.h; sourceTree = "<group>"; };
+		C5233DCD1BA671C20075BC5C /* CKSubscription+AgileDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKSubscription+AgileDictionary.h"; sourceTree = "<group>"; };
+		C5233DCE1BA671C20075BC5C /* CKSubscription+AgileDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKSubscription+AgileDictionary.m"; sourceTree = "<group>"; };
+		C5233DD11BA672D70075BC5C /* CKNotificationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKNotificationInfo.h; sourceTree = "<group>"; };
+		C5233DD21BA672D70075BC5C /* CKNotificationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKNotificationInfo.m; sourceTree = "<group>"; };
+		C5233DD51BA675710075BC5C /* CKSubscription_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKSubscription_Private.h; sourceTree = "<group>"; };
+		C5233DD61BA67DEE0075BC5C /* CKRecordZoneID_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKRecordZoneID_Private.h; sourceTree = "<group>"; };
+		C53390F01B8A5CE200DD1596 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		C53391011B8AB36300DD1596 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		C53391061B8AB67400DD1596 /* CKMediator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMediator.h; sourceTree = "<group>"; };
+		C53391071B8AB67400DD1596 /* CKMediator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMediator.m; sourceTree = "<group>"; };
+		C533910A1B8AB88100DD1596 /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
+		C535F1341BAF52E40023318D /* NSApplication+AgileCloudKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+AgileCloudKit.h"; sourceTree = "<group>"; };
+		C535F1351BAF52E40023318D /* NSApplication+AgileCloudKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+AgileCloudKit.m"; sourceTree = "<group>"; };
+		C53A75661BA01395008F5D9D /* CKReference_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKReference_Private.h; sourceTree = "<group>"; };
+		C5440DC81BA169A500C8454B /* CKDatabase_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKDatabase_Private.h; sourceTree = "<group>"; };
+		C54C03861B9BEF1300EFB597 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
+		C55554711BA7A36200347276 /* CKNotificationInfo_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKNotificationInfo_Private.h; sourceTree = "<group>"; };
+		C55554721BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKNotificationInfo+AgileDictionary.h"; sourceTree = "<group>"; };
+		C55554731BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKNotificationInfo+AgileDictionary.m"; sourceTree = "<group>"; };
+		C55E96ED1BA15EA6007B4A9B /* NSArray+AgileMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+AgileMap.h"; sourceTree = "<group>"; };
+		C55E96EE1BA15EA6007B4A9B /* NSArray+AgileMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AgileMap.m"; sourceTree = "<group>"; };
+		C56E2FBD1BA4C26D000365E0 /* CKAsset+AgileDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKAsset+AgileDictionary.h"; sourceTree = "<group>"; };
+		C56E2FBE1BA4C26D000365E0 /* CKAsset+AgileDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKAsset+AgileDictionary.m"; sourceTree = "<group>"; };
+		C56E2FC11BA4C27C000365E0 /* CKAsset_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKAsset_Private.h; sourceTree = "<group>"; };
+		C57539DB1B859F9900B9B6DE /* AgileCloudKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AgileCloudKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C57539DF1B859F9900B9B6DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C57539E01B859F9900B9B6DE /* AgileCloudKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgileCloudKit.h; sourceTree = "<group>"; };
+		C578F6DF1B9EBF8700F5D43E /* CKRecordID+AgileDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKRecordID+AgileDictionary.h"; sourceTree = "<group>"; };
+		C578F6E01B9EBF8700F5D43E /* CKRecordID+AgileDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKRecordID+AgileDictionary.m"; sourceTree = "<group>"; };
+		C578F6E31B9EC51F00F5D43E /* CKRecord+AgileDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKRecord+AgileDictionary.h"; sourceTree = "<group>"; };
+		C578F6E41B9EC51F00F5D43E /* CKRecord+AgileDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKRecord+AgileDictionary.m"; sourceTree = "<group>"; };
+		C585BF811B8AB920005F0199 /* config-format.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "config-format.js"; sourceTree = "<group>"; };
+		C58B3C011B8ECBFC0077F1C0 /* CKMediator_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMediator_Private.h; sourceTree = "<group>"; };
+		C58B3C051B8EDFF10077F1C0 /* JSValue+AgileCloudKitExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSValue+AgileCloudKitExtensions.h"; sourceTree = "<group>"; };
+		C58B3C061B8EDFF10077F1C0 /* JSValue+AgileCloudKitExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSValue+AgileCloudKitExtensions.m"; sourceTree = "<group>"; };
+		C58B3C0A1B8EE30B0077F1C0 /* NSError+AgileCloudKitExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+AgileCloudKitExtensions.h"; sourceTree = "<group>"; };
+		C58B3C0B1B8EE30B0077F1C0 /* NSError+AgileCloudKitExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+AgileCloudKitExtensions.m"; sourceTree = "<group>"; };
+		C59FC3FA1BA3D33800C31A49 /* CKServerChangeToken+AgileDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKServerChangeToken+AgileDictionary.h"; sourceTree = "<group>"; };
+		C59FC3FB1BA3D33800C31A49 /* CKServerChangeToken+AgileDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKServerChangeToken+AgileDictionary.m"; sourceTree = "<group>"; };
+		C59FC3FE1BA3D6BE00C31A49 /* CKServerChangeToken_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKServerChangeToken_Private.h; sourceTree = "<group>"; };
+		C5A573601B89115D00264AC9 /* CKAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKAsset.h; sourceTree = "<group>"; };
+		C5A573611B89115D00264AC9 /* CKContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKContainer.h; sourceTree = "<group>"; };
+		C5A573621B89115D00264AC9 /* CKDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKDatabase.h; sourceTree = "<group>"; };
+		C5A573631B89115D00264AC9 /* CKDatabaseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKDatabaseOperation.h; sourceTree = "<group>"; };
+		C5A573641B89115D00264AC9 /* CKDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKDefines.h; sourceTree = "<group>"; };
+		C5A573651B89115D00264AC9 /* CKFetchRecordChangesOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKFetchRecordChangesOperation.h; sourceTree = "<group>"; };
+		C5A573661B89115D00264AC9 /* CKFetchRecordsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKFetchRecordsOperation.h; sourceTree = "<group>"; };
+		C5A573671B89115D00264AC9 /* CKFetchRecordZonesOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKFetchRecordZonesOperation.h; sourceTree = "<group>"; };
+		C5A573681B89115D00264AC9 /* CKModifyRecordsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKModifyRecordsOperation.h; sourceTree = "<group>"; };
+		C5A573691B89115D00264AC9 /* CKModifyRecordZonesOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKModifyRecordZonesOperation.h; sourceTree = "<group>"; };
+		C5A5736A1B89115D00264AC9 /* CKModifySubscriptionsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKModifySubscriptionsOperation.h; sourceTree = "<group>"; };
+		C5A5736B1B89115D00264AC9 /* CKNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKNotification.h; sourceTree = "<group>"; };
+		C5A5736C1B89115D00264AC9 /* CKRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRecord.h; sourceTree = "<group>"; };
+		C5A5736D1B89115D00264AC9 /* CKRecordID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRecordID.h; sourceTree = "<group>"; };
+		C5A5736E1B89115D00264AC9 /* CKRecordZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRecordZone.h; sourceTree = "<group>"; };
+		C5A5736F1B89115D00264AC9 /* CKRecordZoneID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRecordZoneID.h; sourceTree = "<group>"; };
+		C5A573701B89115D00264AC9 /* CKServerChangeToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKServerChangeToken.h; sourceTree = "<group>"; };
+		C5A573711B89115D00264AC9 /* CKSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSubscription.h; sourceTree = "<group>"; };
+		C5A573841B8911F700264AC9 /* CKOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKOperation.h; sourceTree = "<group>"; };
+		C5A573861B89120E00264AC9 /* CKReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKReference.h; sourceTree = "<group>"; };
+		C5A573881B89122300264AC9 /* CKDiscoveredUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKDiscoveredUserInfo.h; sourceTree = "<group>"; };
+		C5A5738A1B89128D00264AC9 /* CKFetchNotificationChangesOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKFetchNotificationChangesOperation.h; sourceTree = "<group>"; };
+		C5A5738C1B8912D600264AC9 /* CKError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKError.h; sourceTree = "<group>"; };
+		C5A5738E1B89133600264AC9 /* CKMarkNotificationsReadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMarkNotificationsReadOperation.h; sourceTree = "<group>"; };
+		C5A573921B89153600264AC9 /* CKMarkNotificationsReadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMarkNotificationsReadOperation.m; sourceTree = "<group>"; };
+		C5A573941B89153600264AC9 /* CKFetchNotificationChangesOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKFetchNotificationChangesOperation.m; sourceTree = "<group>"; };
+		C5A573951B89153600264AC9 /* CKContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKContainer.m; sourceTree = "<group>"; };
+		C5A573961B89153600264AC9 /* CKDatabaseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKDatabaseOperation.m; sourceTree = "<group>"; };
+		C5A573971B89153600264AC9 /* CKFetchRecordChangesOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKFetchRecordChangesOperation.m; sourceTree = "<group>"; };
+		C5A573981B89153600264AC9 /* CKFetchRecordsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKFetchRecordsOperation.m; sourceTree = "<group>"; };
+		C5A573991B89153600264AC9 /* CKFetchRecordZonesOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKFetchRecordZonesOperation.m; sourceTree = "<group>"; };
+		C5A5739A1B89153600264AC9 /* CKModifyRecordsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKModifyRecordsOperation.m; sourceTree = "<group>"; };
+		C5A5739B1B89153600264AC9 /* CKModifyRecordZonesOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKModifyRecordZonesOperation.m; sourceTree = "<group>"; };
+		C5A5739C1B89153600264AC9 /* CKModifySubscriptionsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKModifySubscriptionsOperation.m; sourceTree = "<group>"; };
+		C5A5739D1B89153600264AC9 /* CKRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRecord.m; sourceTree = "<group>"; };
+		C5A5739E1B89153600264AC9 /* CKRecordZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRecordZone.m; sourceTree = "<group>"; };
+		C5A5739F1B89153600264AC9 /* CKServerChangeToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKServerChangeToken.m; sourceTree = "<group>"; };
+		C5A573A01B89153600264AC9 /* CKSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKSubscription.m; sourceTree = "<group>"; };
+		C5A573A31B89153600264AC9 /* CKDiscoveredUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKDiscoveredUserInfo.m; sourceTree = "<group>"; };
+		C5A573A51B89153600264AC9 /* CKRecordZoneID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRecordZoneID.m; sourceTree = "<group>"; };
+		C5A573A61B89153600264AC9 /* CKAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKAsset.m; sourceTree = "<group>"; };
+		C5A573A71B89153700264AC9 /* CKDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKDatabase.m; sourceTree = "<group>"; };
+		C5A573A81B89153700264AC9 /* CKNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKNotification.m; sourceTree = "<group>"; };
+		C5A573A91B89153700264AC9 /* CKOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKOperation.m; sourceTree = "<group>"; };
+		C5A573AB1B89153700264AC9 /* CKRecordID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRecordID.m; sourceTree = "<group>"; };
+		C5A573AC1B89153700264AC9 /* CKReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKReference.m; sourceTree = "<group>"; };
+		C5A573C81B89191800264AC9 /* CKError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKError.m; sourceTree = "<group>"; };
+		C5A66A3B1BAB565E00867BF5 /* container-config-format.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "container-config-format.json"; sourceTree = "<group>"; };
+		C5A66A3D1BAB57B700867BF5 /* CKContainer_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKContainer_Private.h; sourceTree = "<group>"; };
+		C5E03A751B941D5600FFFA28 /* CKDatabaseOperation_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKDatabaseOperation_Private.h; sourceTree = "<group>"; };
+		C5E43FD21B9BBD9500CD93CA /* CKMediatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMediatorDelegate.h; sourceTree = "<group>"; };
+		C5EBCD511B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKRecordZoneID+AgileDictionary.h"; sourceTree = "<group>"; };
+		C5EBCD521B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKRecordZoneID+AgileDictionary.m"; sourceTree = "<group>"; };
+		C5EBCD551B9ECEBD006B602E /* CKRecord_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKRecord_Private.h; sourceTree = "<group>"; };
+		C5EEC9A51BAC79000027B4F1 /* CKBlockOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKBlockOperation.h; sourceTree = "<group>"; };
+		C5EEC9A61BAC79000027B4F1 /* CKBlockOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKBlockOperation.m; sourceTree = "<group>"; };
+		C5EF10321BD045A00083BE81 /* CKRecordZone+AgileDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKRecordZone+AgileDictionary.h"; sourceTree = "<group>"; };
+		C5EF10331BD045A00083BE81 /* CKRecordZone+AgileDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKRecordZone+AgileDictionary.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C57539D71B859F9900B9B6DE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C53391021B8AB36300DD1596 /* WebKit.framework in Frameworks */,
+				C53390F11B8A5CE200DD1596 /* JavaScriptCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C57539D11B859F9900B9B6DE = {
+			isa = PBXGroup;
+			children = (
+				C57539DD1B859F9900B9B6DE /* AgileCloudKit */,
+				C585BF881B8AC835005F0199 /* Frameworks */,
+				C57539DC1B859F9900B9B6DE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C57539DC1B859F9900B9B6DE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C57539DB1B859F9900B9B6DE /* AgileCloudKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C57539DD1B859F9900B9B6DE /* AgileCloudKit */ = {
+			isa = PBXGroup;
+			children = (
+				C57539E01B859F9900B9B6DE /* AgileCloudKit.h */,
+				C585BF801B8AB8F9005F0199 /* Resources */,
+				C58B3C091B8EE0170077F1C0 /* Categories */,
+				C5A573911B89152900264AC9 /* Source */,
+				C57539DE1B859F9900B9B6DE /* Supporting Files */,
+				C54C03861B9BEF1300EFB597 /* Defines.h */,
+			);
+			path = AgileCloudKit;
+			sourceTree = "<group>";
+		};
+		C57539DE1B859F9900B9B6DE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C57539DF1B859F9900B9B6DE /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C585BF801B8AB8F9005F0199 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C585BF811B8AB920005F0199 /* config-format.js */,
+				C5A66A3B1BAB565E00867BF5 /* container-config-format.json */,
+				C533910A1B8AB88100DD1596 /* test.html */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		C585BF881B8AC835005F0199 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C53391011B8AB36300DD1596 /* WebKit.framework */,
+				C53390F01B8A5CE200DD1596 /* JavaScriptCore.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C58B3C091B8EE0170077F1C0 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				C535F1341BAF52E40023318D /* NSApplication+AgileCloudKit.h */,
+				C535F1351BAF52E40023318D /* NSApplication+AgileCloudKit.m */,
+				C58B3C051B8EDFF10077F1C0 /* JSValue+AgileCloudKitExtensions.h */,
+				C58B3C061B8EDFF10077F1C0 /* JSValue+AgileCloudKitExtensions.m */,
+				C58B3C0A1B8EE30B0077F1C0 /* NSError+AgileCloudKitExtensions.h */,
+				C58B3C0B1B8EE30B0077F1C0 /* NSError+AgileCloudKitExtensions.m */,
+				C55E96ED1BA15EA6007B4A9B /* NSArray+AgileMap.h */,
+				C55E96EE1BA15EA6007B4A9B /* NSArray+AgileMap.m */,
+				C5150AD21BA6975900850891 /* NSString+CKFilterType.h */,
+				C5150AD61BA697C900850891 /* CKReference+CKFilterType.h */,
+				C5150ADA1BA6987D00850891 /* NSDate+CKFilterType.h */,
+				C5150ADE1BA698C400850891 /* NSNumber+CKFilterType.h */,
+				C5150AE21BA698EC00850891 /* NSArray+CKFilterType.h */,
+				C5150AE61BA6991000850891 /* CLLocation+CKFilterType.h */,
+				C5150AEA1BA69BAF00850891 /* CLLocation+AgileDictionary.h */,
+				C5150AEB1BA69BAF00850891 /* CLLocation+AgileDictionary.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		C5A573911B89152900264AC9 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				C53391061B8AB67400DD1596 /* CKMediator.h */,
+				C58B3C011B8ECBFC0077F1C0 /* CKMediator_Private.h */,
+				C53391071B8AB67400DD1596 /* CKMediator.m */,
+				C5E43FD21B9BBD9500CD93CA /* CKMediatorDelegate.h */,
+				C5A573601B89115D00264AC9 /* CKAsset.h */,
+				C56E2FC11BA4C27C000365E0 /* CKAsset_Private.h */,
+				C5A573A61B89153600264AC9 /* CKAsset.m */,
+				C56E2FBD1BA4C26D000365E0 /* CKAsset+AgileDictionary.h */,
+				C56E2FBE1BA4C26D000365E0 /* CKAsset+AgileDictionary.m */,
+				C5EEC9A51BAC79000027B4F1 /* CKBlockOperation.h */,
+				C5EEC9A61BAC79000027B4F1 /* CKBlockOperation.m */,
+				C5A573611B89115D00264AC9 /* CKContainer.h */,
+				C5A66A3D1BAB57B700867BF5 /* CKContainer_Private.h */,
+				C5A573951B89153600264AC9 /* CKContainer.m */,
+				C5A573621B89115D00264AC9 /* CKDatabase.h */,
+				C5440DC81BA169A500C8454B /* CKDatabase_Private.h */,
+				C5A573A71B89153700264AC9 /* CKDatabase.m */,
+				C5A573631B89115D00264AC9 /* CKDatabaseOperation.h */,
+				C5E03A751B941D5600FFFA28 /* CKDatabaseOperation_Private.h */,
+				C5A573961B89153600264AC9 /* CKDatabaseOperation.m */,
+				C5A573881B89122300264AC9 /* CKDiscoveredUserInfo.h */,
+				C5A573A31B89153600264AC9 /* CKDiscoveredUserInfo.m */,
+				C5A5738A1B89128D00264AC9 /* CKFetchNotificationChangesOperation.h */,
+				C5A573941B89153600264AC9 /* CKFetchNotificationChangesOperation.m */,
+				C5A573651B89115D00264AC9 /* CKFetchRecordChangesOperation.h */,
+				C5A573971B89153600264AC9 /* CKFetchRecordChangesOperation.m */,
+				C5A573661B89115D00264AC9 /* CKFetchRecordsOperation.h */,
+				C5A573981B89153600264AC9 /* CKFetchRecordsOperation.m */,
+				C5A573671B89115D00264AC9 /* CKFetchRecordZonesOperation.h */,
+				C5A573991B89153600264AC9 /* CKFetchRecordZonesOperation.m */,
+				C5A5738E1B89133600264AC9 /* CKMarkNotificationsReadOperation.h */,
+				C5A573921B89153600264AC9 /* CKMarkNotificationsReadOperation.m */,
+				C5A573681B89115D00264AC9 /* CKModifyRecordsOperation.h */,
+				C5A5739A1B89153600264AC9 /* CKModifyRecordsOperation.m */,
+				C5A573691B89115D00264AC9 /* CKModifyRecordZonesOperation.h */,
+				C5A5739B1B89153600264AC9 /* CKModifyRecordZonesOperation.m */,
+				C5A5736A1B89115D00264AC9 /* CKModifySubscriptionsOperation.h */,
+				C5A5739C1B89153600264AC9 /* CKModifySubscriptionsOperation.m */,
+				C5A5736B1B89115D00264AC9 /* CKNotification.h */,
+				C5A573A81B89153700264AC9 /* CKNotification.m */,
+				C5233DD11BA672D70075BC5C /* CKNotificationInfo.h */,
+				C55554711BA7A36200347276 /* CKNotificationInfo_Private.h */,
+				C5233DD21BA672D70075BC5C /* CKNotificationInfo.m */,
+				C55554721BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.h */,
+				C55554731BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.m */,
+				C5A573841B8911F700264AC9 /* CKOperation.h */,
+				C5A573A91B89153700264AC9 /* CKOperation.m */,
+				C5A5736C1B89115D00264AC9 /* CKRecord.h */,
+				C5EBCD551B9ECEBD006B602E /* CKRecord_Private.h */,
+				C5A5739D1B89153600264AC9 /* CKRecord.m */,
+				C578F6E31B9EC51F00F5D43E /* CKRecord+AgileDictionary.h */,
+				C578F6E41B9EC51F00F5D43E /* CKRecord+AgileDictionary.m */,
+				C5A5736D1B89115D00264AC9 /* CKRecordID.h */,
+				C5A573AB1B89153700264AC9 /* CKRecordID.m */,
+				C578F6DF1B9EBF8700F5D43E /* CKRecordID+AgileDictionary.h */,
+				C578F6E01B9EBF8700F5D43E /* CKRecordID+AgileDictionary.m */,
+				C5A5736E1B89115D00264AC9 /* CKRecordZone.h */,
+				C5A5739E1B89153600264AC9 /* CKRecordZone.m */,
+				C5EF10321BD045A00083BE81 /* CKRecordZone+AgileDictionary.h */,
+				C5EF10331BD045A00083BE81 /* CKRecordZone+AgileDictionary.m */,
+				C5A5736F1B89115D00264AC9 /* CKRecordZoneID.h */,
+				C5233DD61BA67DEE0075BC5C /* CKRecordZoneID_Private.h */,
+				C5A573A51B89153600264AC9 /* CKRecordZoneID.m */,
+				C5EBCD511B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.h */,
+				C5EBCD521B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.m */,
+				C5A573861B89120E00264AC9 /* CKReference.h */,
+				C53A75661BA01395008F5D9D /* CKReference_Private.h */,
+				C5A573AC1B89153700264AC9 /* CKReference.m */,
+				C5150AEE1BA69C0B00850891 /* CKReference+AgileDictionary.h */,
+				C5150AEF1BA69C0B00850891 /* CKReference+AgileDictionary.m */,
+				C5A573701B89115D00264AC9 /* CKServerChangeToken.h */,
+				C59FC3FE1BA3D6BE00C31A49 /* CKServerChangeToken_Private.h */,
+				C5A5739F1B89153600264AC9 /* CKServerChangeToken.m */,
+				C59FC3FA1BA3D33800C31A49 /* CKServerChangeToken+AgileDictionary.h */,
+				C59FC3FB1BA3D33800C31A49 /* CKServerChangeToken+AgileDictionary.m */,
+				C5A573711B89115D00264AC9 /* CKSubscription.h */,
+				C5233DD51BA675710075BC5C /* CKSubscription_Private.h */,
+				C5A573A01B89153600264AC9 /* CKSubscription.m */,
+				C5233DCD1BA671C20075BC5C /* CKSubscription+AgileDictionary.h */,
+				C5233DCE1BA671C20075BC5C /* CKSubscription+AgileDictionary.m */,
+				C5A5738C1B8912D600264AC9 /* CKError.h */,
+				C5A573C81B89191800264AC9 /* CKError.m */,
+				C5A573641B89115D00264AC9 /* CKDefines.h */,
+				C5150AC41BA6936600850891 /* CKFilter.h */,
+				C5150AF21BA6A3CD00850891 /* CKFilter_Private.h */,
+				C5150AC51BA6936600850891 /* CKFilter.m */,
+				C5150AC81BA6948400850891 /* CKFilterType.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C57539D81B859F9900B9B6DE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C578F6E51B9EC51F00F5D43E /* CKRecord+AgileDictionary.h in Headers */,
+				C5A5737D1B89115D00264AC9 /* CKNotification.h in Headers */,
+				C5A573751B89115D00264AC9 /* CKDatabaseOperation.h in Headers */,
+				C5A5737F1B89115D00264AC9 /* CKRecordID.h in Headers */,
+				C56E2FBF1BA4C26D000365E0 /* CKAsset+AgileDictionary.h in Headers */,
+				C5A573731B89115D00264AC9 /* CKContainer.h in Headers */,
+				C5A573781B89115D00264AC9 /* CKFetchRecordsOperation.h in Headers */,
+				C5A573811B89115D00264AC9 /* CKRecordZoneID.h in Headers */,
+				C5A5737A1B89115D00264AC9 /* CKModifyRecordsOperation.h in Headers */,
+				C5A5737E1B89115D00264AC9 /* CKRecord.h in Headers */,
+				C5A573741B89115D00264AC9 /* CKDatabase.h in Headers */,
+				C57539E11B859F9900B9B6DE /* AgileCloudKit.h in Headers */,
+				C5EEC9A71BAC79000027B4F1 /* CKBlockOperation.h in Headers */,
+				C5233DCF1BA671C20075BC5C /* CKSubscription+AgileDictionary.h in Headers */,
+				C58B3C021B8ECBFC0077F1C0 /* CKMediator_Private.h in Headers */,
+				C5EBCD531B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.h in Headers */,
+				C5A573791B89115D00264AC9 /* CKFetchRecordZonesOperation.h in Headers */,
+				C5A573831B89115D00264AC9 /* CKSubscription.h in Headers */,
+				C5A573821B89115D00264AC9 /* CKServerChangeToken.h in Headers */,
+				C5A573721B89115D00264AC9 /* CKAsset.h in Headers */,
+				C5EF10341BD045A00083BE81 /* CKRecordZone+AgileDictionary.h in Headers */,
+				C5150AF01BA69C0B00850891 /* CKReference+AgileDictionary.h in Headers */,
+				C5A573871B89120E00264AC9 /* CKReference.h in Headers */,
+				C59FC3FC1BA3D33800C31A49 /* CKServerChangeToken+AgileDictionary.h in Headers */,
+				C55554741BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.h in Headers */,
+				C535F1361BAF52E40023318D /* NSApplication+AgileCloudKit.h in Headers */,
+				C5A573851B8911F700264AC9 /* CKOperation.h in Headers */,
+				C55E96EF1BA15EA6007B4A9B /* NSArray+AgileMap.h in Headers */,
+				C5A5738D1B8912D600264AC9 /* CKError.h in Headers */,
+				C5A573761B89115D00264AC9 /* CKDefines.h in Headers */,
+				C5150AC91BA6948400850891 /* CKFilterType.h in Headers */,
+				C5233DD31BA672D70075BC5C /* CKNotificationInfo.h in Headers */,
+				C5150AE01BA698C400850891 /* NSNumber+CKFilterType.h in Headers */,
+				C5A573891B89122300264AC9 /* CKDiscoveredUserInfo.h in Headers */,
+				C5150AE81BA6991000850891 /* CLLocation+CKFilterType.h in Headers */,
+				C5150AD81BA697C900850891 /* CKReference+CKFilterType.h in Headers */,
+				C5150AD41BA6975900850891 /* NSString+CKFilterType.h in Headers */,
+				C5150ADC1BA6987D00850891 /* NSDate+CKFilterType.h in Headers */,
+				C5150AC61BA6936600850891 /* CKFilter.h in Headers */,
+				C5150AEC1BA69BAF00850891 /* CLLocation+AgileDictionary.h in Headers */,
+				C5150AE41BA698EC00850891 /* NSArray+CKFilterType.h in Headers */,
+				C5A5738F1B89133600264AC9 /* CKMarkNotificationsReadOperation.h in Headers */,
+				C5A5738B1B89128D00264AC9 /* CKFetchNotificationChangesOperation.h in Headers */,
+				C578F6E11B9EBF8700F5D43E /* CKRecordID+AgileDictionary.h in Headers */,
+				C5A5737B1B89115D00264AC9 /* CKModifyRecordZonesOperation.h in Headers */,
+				C53391081B8AB67400DD1596 /* CKMediator.h in Headers */,
+				C5E43FD31B9BBD9500CD93CA /* CKMediatorDelegate.h in Headers */,
+				C58B3C071B8EDFF10077F1C0 /* JSValue+AgileCloudKitExtensions.h in Headers */,
+				C5A573801B89115D00264AC9 /* CKRecordZone.h in Headers */,
+				C58B3C0C1B8EE30B0077F1C0 /* NSError+AgileCloudKitExtensions.h in Headers */,
+				C5A5737C1B89115D00264AC9 /* CKModifySubscriptionsOperation.h in Headers */,
+				C5A573771B89115D00264AC9 /* CKFetchRecordChangesOperation.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		C57539DA1B859F9900B9B6DE /* AgileCloudKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C57539F11B859F9900B9B6DE /* Build configuration list for PBXNativeTarget "AgileCloudKit" */;
+			buildPhases = (
+				C57539D61B859F9900B9B6DE /* Sources */,
+				C57539D71B859F9900B9B6DE /* Frameworks */,
+				C57539D81B859F9900B9B6DE /* Headers */,
+				C57539D91B859F9900B9B6DE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AgileCloudKit;
+			productName = AgileCloudKit;
+			productReference = C57539DB1B859F9900B9B6DE /* AgileCloudKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C57539D21B859F9900B9B6DE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = AgileBits;
+				TargetAttributes = {
+					C57539DA1B859F9900B9B6DE = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = C57539D51B859F9900B9B6DE /* Build configuration list for PBXProject "AgileCloudKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C57539D11B859F9900B9B6DE;
+			productRefGroup = C57539DC1B859F9900B9B6DE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C57539DA1B859F9900B9B6DE /* AgileCloudKit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C57539D91B859F9900B9B6DE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C533910B1B8AB88100DD1596 /* test.html in Resources */,
+				C5A66A3C1BAB565E00867BF5 /* container-config-format.json in Resources */,
+				C585BF821B8AB920005F0199 /* config-format.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C57539D61B859F9900B9B6DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5A573B71B89153700264AC9 /* CKModifySubscriptionsOperation.m in Sources */,
+				C5150AC71BA6936600850891 /* CKFilter.m in Sources */,
+				C5A573B11B89153700264AC9 /* CKDatabaseOperation.m in Sources */,
+				C5EF10351BD045A00083BE81 /* CKRecordZone+AgileDictionary.m in Sources */,
+				C5A573C31B89153700264AC9 /* CKNotification.m in Sources */,
+				C5A573C41B89153700264AC9 /* CKOperation.m in Sources */,
+				C5A573B81B89153700264AC9 /* CKRecord.m in Sources */,
+				C56E2FC01BA4C26D000365E0 /* CKAsset+AgileDictionary.m in Sources */,
+				C5A573BB1B89153700264AC9 /* CKSubscription.m in Sources */,
+				C578F6E21B9EBF8700F5D43E /* CKRecordID+AgileDictionary.m in Sources */,
+				C5150AF11BA69C0B00850891 /* CKReference+AgileDictionary.m in Sources */,
+				C59FC3FD1BA3D33800C31A49 /* CKServerChangeToken+AgileDictionary.m in Sources */,
+				C5A573AF1B89153700264AC9 /* CKFetchNotificationChangesOperation.m in Sources */,
+				C55E96F01BA15EA6007B4A9B /* NSArray+AgileMap.m in Sources */,
+				C55554751BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.m in Sources */,
+				C58B3C0D1B8EE30B0077F1C0 /* NSError+AgileCloudKitExtensions.m in Sources */,
+				C5A573B51B89153700264AC9 /* CKModifyRecordsOperation.m in Sources */,
+				C5A573C91B89191800264AC9 /* CKError.m in Sources */,
+				C58B3C081B8EDFF10077F1C0 /* JSValue+AgileCloudKitExtensions.m in Sources */,
+				C5EBCD541B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.m in Sources */,
+				C5A573B01B89153700264AC9 /* CKContainer.m in Sources */,
+				C578F6E61B9EC51F00F5D43E /* CKRecord+AgileDictionary.m in Sources */,
+				C5A573BE1B89153700264AC9 /* CKDiscoveredUserInfo.m in Sources */,
+				C5A573AD1B89153700264AC9 /* CKMarkNotificationsReadOperation.m in Sources */,
+				C5A573C71B89153700264AC9 /* CKReference.m in Sources */,
+				C5233DD01BA671C20075BC5C /* CKSubscription+AgileDictionary.m in Sources */,
+				C5A573BA1B89153700264AC9 /* CKServerChangeToken.m in Sources */,
+				C5A573B91B89153700264AC9 /* CKRecordZone.m in Sources */,
+				C5A573C01B89153700264AC9 /* CKRecordZoneID.m in Sources */,
+				C5A573C21B89153700264AC9 /* CKDatabase.m in Sources */,
+				C5233DD41BA672D70075BC5C /* CKNotificationInfo.m in Sources */,
+				C5A573B21B89153700264AC9 /* CKFetchRecordChangesOperation.m in Sources */,
+				C5A573B31B89153700264AC9 /* CKFetchRecordsOperation.m in Sources */,
+				C5150AED1BA69BAF00850891 /* CLLocation+AgileDictionary.m in Sources */,
+				C535F1371BAF52E40023318D /* NSApplication+AgileCloudKit.m in Sources */,
+				C5A573C11B89153700264AC9 /* CKAsset.m in Sources */,
+				C5A573B61B89153700264AC9 /* CKModifyRecordZonesOperation.m in Sources */,
+				C5A573B41B89153700264AC9 /* CKFetchRecordZonesOperation.m in Sources */,
+				C5A573C61B89153700264AC9 /* CKRecordID.m in Sources */,
+				C5EEC9A81BAC79000027B4F1 /* CKBlockOperation.m in Sources */,
+				C53391091B8AB67400DD1596 /* CKMediator.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C57539EF1B859F9900B9B6DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C57539F01B859F9900B9B6DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		C57539F21B859F9900B9B6DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = AgileCloudKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C57539F31B859F9900B9B6DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = AgileCloudKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C57539D51B859F9900B9B6DE /* Build configuration list for PBXProject "AgileCloudKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C57539EF1B859F9900B9B6DE /* Debug */,
+				C57539F01B859F9900B9B6DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C57539F11B859F9900B9B6DE /* Build configuration list for PBXNativeTarget "AgileCloudKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C57539F21B859F9900B9B6DE /* Debug */,
+				C57539F31B859F9900B9B6DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C57539D21B859F9900B9B6DE /* Project object */;
+}

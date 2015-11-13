@@ -1,0 +1,492 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C52140CB1BA4BC67009D06F5 /* kitten.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C52140CA1BA4BC67009D06F5 /* kitten.jpg */; };
+		C52140CC1BA4BC67009D06F5 /* kitten.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C52140CA1BA4BC67009D06F5 /* kitten.jpg */; };
+		C5233DCB1BA66E500075BC5C /* otherkitten.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5233DCA1BA66E500075BC5C /* otherkitten.jpg */; };
+		C5233DCC1BA66E500075BC5C /* otherkitten.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5233DCA1BA66E500075BC5C /* otherkitten.jpg */; };
+		C53391041B8AB56100DD1596 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53391031B8AB56100DD1596 /* WebKit.framework */; };
+		C54C03811B9BE83900EFB597 /* AgileCloudKitView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C03801B9BE83900EFB597 /* AgileCloudKitView.m */; };
+		C54C03841B9BE8F600EFB597 /* CloudKitView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C03831B9BE8F600EFB597 /* CloudKitView.m */; };
+		C54C03851B9BE8FF00EFB597 /* CloudKitView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C03831B9BE8F600EFB597 /* CloudKitView.m */; };
+		C5A5733A1B890E7700264AC9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E14DC21B89012B003DE11F /* ViewController.m */; };
+		C5A5733D1B890E7700264AC9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E14DBF1B89012B003DE11F /* main.m */; };
+		C5A573401B890E7700264AC9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E14DBD1B89012B003DE11F /* AppDelegate.m */; };
+		C5A573551B890E7700264AC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5E14DC41B89012B003DE11F /* Images.xcassets */; };
+		C5A573561B890E7700264AC9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5E14DC61B89012B003DE11F /* Main.storyboard */; };
+		C5A5735F1B890F0600264AC9 /* AgileCloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A5735E1B890F0600264AC9 /* AgileCloudKit.framework */; };
+		C5AB84481BAFADF5000BD1EB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5AB84471BAFADF5000BD1EB /* CloudKit.framework */; };
+		C5E14DBE1B89012B003DE11F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E14DBD1B89012B003DE11F /* AppDelegate.m */; };
+		C5E14DC01B89012B003DE11F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E14DBF1B89012B003DE11F /* main.m */; };
+		C5E14DC31B89012B003DE11F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E14DC21B89012B003DE11F /* ViewController.m */; };
+		C5E14DC51B89012B003DE11F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5E14DC41B89012B003DE11F /* Images.xcassets */; };
+		C5E14DC81B89012B003DE11F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5E14DC61B89012B003DE11F /* Main.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C52140CA1BA4BC67009D06F5 /* kitten.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = kitten.jpg; sourceTree = "<group>"; };
+		C5233DCA1BA66E500075BC5C /* otherkitten.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = otherkitten.jpg; sourceTree = "<group>"; };
+		C53391031B8AB56100DD1596 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		C54C037F1B9BE83900EFB597 /* AgileCloudKitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgileCloudKitView.h; sourceTree = "<group>"; };
+		C54C03801B9BE83900EFB597 /* AgileCloudKitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgileCloudKitView.m; sourceTree = "<group>"; };
+		C54C03821B9BE8F600EFB597 /* CloudKitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudKitView.h; sourceTree = "<group>"; };
+		C54C03831B9BE8F600EFB597 /* CloudKitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudKitView.m; sourceTree = "<group>"; };
+		C559C74D1BA0013C0081FBA1 /* CloudZone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CloudZone-Info.plist"; sourceTree = "<group>"; };
+		C5A5730D1B890B7000264AC9 /* CloudZone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CloudZone.entitlements; sourceTree = "<group>"; };
+		C5A573361B890D7500264AC9 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		C5A5735A1B890E7700264AC9 /* AgileCloudZone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgileCloudZone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5A5735C1B890E8200264AC9 /* AgileCloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgileCloudKit.framework; path = ../AgileCloudKit/build/Debug/AgileCloudKit.framework; sourceTree = "<group>"; };
+		C5A5735E1B890F0600264AC9 /* AgileCloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgileCloudKit.framework; path = "../../../../Library/Developer/Xcode/DerivedData/AgileCloud-gunpumbwsakjhfadxtdcjuydmbko/Build/Products/Debug/AgileCloudKit.framework"; sourceTree = "<group>"; };
+		C5AB84471BAFADF5000BD1EB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		C5E14DB71B89012B003DE11F /* CloudZone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudZone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5E14DBB1B89012B003DE11F /* AgileCloudZone-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AgileCloudZone-Info.plist"; sourceTree = "<group>"; };
+		C5E14DBC1B89012B003DE11F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C5E14DBD1B89012B003DE11F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C5E14DBF1B89012B003DE11F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C5E14DC11B89012B003DE11F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		C5E14DC21B89012B003DE11F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C5E14DC41B89012B003DE11F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C5E14DC71B89012B003DE11F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C5A573521B890E7700264AC9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C53391041B8AB56100DD1596 /* WebKit.framework in Frameworks */,
+				C5A5735F1B890F0600264AC9 /* AgileCloudKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5E14DB41B89012B003DE11F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5AB84481BAFADF5000BD1EB /* CloudKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C54C037E1B9BE82500EFB597 /* AgileCloudKitUI */ = {
+			isa = PBXGroup;
+			children = (
+				C54C037F1B9BE83900EFB597 /* AgileCloudKitView.h */,
+				C54C03801B9BE83900EFB597 /* AgileCloudKitView.m */,
+				C54C03821B9BE8F600EFB597 /* CloudKitView.h */,
+				C54C03831B9BE8F600EFB597 /* CloudKitView.m */,
+			);
+			name = AgileCloudKitUI;
+			sourceTree = "<group>";
+		};
+		C5A573101B890C8600264AC9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C5AB84471BAFADF5000BD1EB /* CloudKit.framework */,
+				C53391031B8AB56100DD1596 /* WebKit.framework */,
+				C5A5735E1B890F0600264AC9 /* AgileCloudKit.framework */,
+				C5A5735C1B890E8200264AC9 /* AgileCloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C5E14DAE1B89012B003DE11F = {
+			isa = PBXGroup;
+			children = (
+				C5E14DB91B89012B003DE11F /* CloudZone */,
+				C5A573101B890C8600264AC9 /* Frameworks */,
+				C5E14DB81B89012B003DE11F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C5E14DB81B89012B003DE11F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C5E14DB71B89012B003DE11F /* CloudZone.app */,
+				C5A5735A1B890E7700264AC9 /* AgileCloudZone.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C5E14DB91B89012B003DE11F /* CloudZone */ = {
+			isa = PBXGroup;
+			children = (
+				C5A573361B890D7500264AC9 /* Constants.h */,
+				C54C037E1B9BE82500EFB597 /* AgileCloudKitUI */,
+				C5E14DBC1B89012B003DE11F /* AppDelegate.h */,
+				C5E14DBD1B89012B003DE11F /* AppDelegate.m */,
+				C5E14DC11B89012B003DE11F /* ViewController.h */,
+				C5E14DC21B89012B003DE11F /* ViewController.m */,
+				C5E14DBA1B89012B003DE11F /* Supporting Files */,
+			);
+			path = CloudZone;
+			sourceTree = "<group>";
+		};
+		C5E14DBA1B89012B003DE11F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C5E14DC61B89012B003DE11F /* Main.storyboard */,
+				C5E14DC41B89012B003DE11F /* Images.xcassets */,
+				C5233DCA1BA66E500075BC5C /* otherkitten.jpg */,
+				C52140CA1BA4BC67009D06F5 /* kitten.jpg */,
+				C5A5730D1B890B7000264AC9 /* CloudZone.entitlements */,
+				C559C74D1BA0013C0081FBA1 /* CloudZone-Info.plist */,
+				C5E14DBB1B89012B003DE11F /* AgileCloudZone-Info.plist */,
+				C5E14DBF1B89012B003DE11F /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C5A573371B890E7700264AC9 /* AgileCloudZone */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5A573571B890E7700264AC9 /* Build configuration list for PBXNativeTarget "AgileCloudZone" */;
+			buildPhases = (
+				C5A573381B890E7700264AC9 /* Sources */,
+				C5A573521B890E7700264AC9 /* Frameworks */,
+				C5A573541B890E7700264AC9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AgileCloudZone;
+			productName = CloudZone;
+			productReference = C5A5735A1B890E7700264AC9 /* AgileCloudZone.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C5E14DB61B89012B003DE11F /* CloudZone */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5E14DD71B89012B003DE11F /* Build configuration list for PBXNativeTarget "CloudZone" */;
+			buildPhases = (
+				C5E14DB31B89012B003DE11F /* Sources */,
+				C5E14DB41B89012B003DE11F /* Frameworks */,
+				C5E14DB51B89012B003DE11F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CloudZone;
+			productName = CloudZone;
+			productReference = C5E14DB71B89012B003DE11F /* CloudZone.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C5E14DAF1B89012B003DE11F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Adam Wulf";
+				TargetAttributes = {
+					C5A573371B890E7700264AC9 = {
+						DevelopmentTeam = MU27A4SCKC;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
+					};
+					C5E14DB61B89012B003DE11F = {
+						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = MU27A4SCKC;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = C5E14DB21B89012B003DE11F /* Build configuration list for PBXProject "CloudZone" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C5E14DAE1B89012B003DE11F;
+			productRefGroup = C5E14DB81B89012B003DE11F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C5E14DB61B89012B003DE11F /* CloudZone */,
+				C5A573371B890E7700264AC9 /* AgileCloudZone */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C5A573541B890E7700264AC9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C52140CC1BA4BC67009D06F5 /* kitten.jpg in Resources */,
+				C5A573551B890E7700264AC9 /* Images.xcassets in Resources */,
+				C5A573561B890E7700264AC9 /* Main.storyboard in Resources */,
+				C5233DCC1BA66E500075BC5C /* otherkitten.jpg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5E14DB51B89012B003DE11F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E14DC51B89012B003DE11F /* Images.xcassets in Resources */,
+				C52140CB1BA4BC67009D06F5 /* kitten.jpg in Resources */,
+				C5E14DC81B89012B003DE11F /* Main.storyboard in Resources */,
+				C5233DCB1BA66E500075BC5C /* otherkitten.jpg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C5A573381B890E7700264AC9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5A5733A1B890E7700264AC9 /* ViewController.m in Sources */,
+				C5A5733D1B890E7700264AC9 /* main.m in Sources */,
+				C5A573401B890E7700264AC9 /* AppDelegate.m in Sources */,
+				C54C03851B9BE8FF00EFB597 /* CloudKitView.m in Sources */,
+				C54C03811B9BE83900EFB597 /* AgileCloudKitView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5E14DB31B89012B003DE11F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E14DC31B89012B003DE11F /* ViewController.m in Sources */,
+				C5E14DC01B89012B003DE11F /* main.m in Sources */,
+				C54C03841B9BE8F600EFB597 /* CloudKitView.m in Sources */,
+				C5E14DBE1B89012B003DE11F /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C5E14DC61B89012B003DE11F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C5E14DC71B89012B003DE11F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C5A573581B890E7700264AC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/AgileCloud-gunpumbwsakjhfadxtdcjuydmbko/Build/Products/Debug",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"AGILECLOUDKIT=1",
+				);
+				INFOPLIST_FILE = "CloudZone/AgileCloudZone-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = AgileCloudZone;
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		C5A573591B890E7700264AC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/AgileCloud-gunpumbwsakjhfadxtdcjuydmbko/Build/Products/Debug",
+				);
+				INFOPLIST_FILE = "CloudZone/AgileCloudZone-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = AgileCloudZone;
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		C5E14DD51B89012B003DE11F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C5E14DD61B89012B003DE11F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C5E14DD81B89012B003DE11F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CloudZone/CloudZone.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "CloudZone/CloudZone-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		C5E14DD91B89012B003DE11F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CloudZone/CloudZone.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "CloudZone/CloudZone-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C5A573571B890E7700264AC9 /* Build configuration list for PBXNativeTarget "AgileCloudZone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5A573581B890E7700264AC9 /* Debug */,
+				C5A573591B890E7700264AC9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C5E14DB21B89012B003DE11F /* Build configuration list for PBXProject "CloudZone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5E14DD51B89012B003DE11F /* Debug */,
+				C5E14DD61B89012B003DE11F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C5E14DD71B89012B003DE11F /* Build configuration list for PBXNativeTarget "CloudZone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5E14DD81B89012B003DE11F /* Debug */,
+				C5E14DD91B89012B003DE11F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C5E14DAF1B89012B003DE11F /* Project object */;
+}

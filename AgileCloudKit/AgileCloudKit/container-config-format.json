@@ -1,0 +1,14 @@
+{
+
+    // Change this to a container identifier you own.
+containerIdentifier: '%@',
+
+    // And generate an API token through CloudKit Dashboard.
+apiToken: '%@',
+
+auth: {
+buttonSize: 'medium',
+persist: true // Sets a cookie.
+},
+environment: '%@'
+}
