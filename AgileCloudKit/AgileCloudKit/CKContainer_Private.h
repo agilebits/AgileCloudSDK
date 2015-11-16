@@ -17,6 +17,8 @@
 @property(nonatomic, readonly) NSString *cloudKitAPIToken;
 @property(nonatomic, readonly) NSString *cloudKitEnvironment;
 
+@property (nonatomic, copy) void (^accountStatusCompletionHandler)(CKAccountStatus, NSError *);
+
 - (JSValue *)asJSValue;
 
 #pragma mark - Push Notifications
