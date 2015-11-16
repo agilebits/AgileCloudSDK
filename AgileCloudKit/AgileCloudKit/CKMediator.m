@@ -69,13 +69,6 @@ static CKMediator *_mediator;
             [self bootstrapCloudKitJS];
         });
 
-        // make sure we register to handle the redirect URL from
-        // a CloudKit login from Safari
-        NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
-        [appleEventManager setEventHandler:self
-                               andSelector:@selector(handleGetURLEvent:withReplyEvent:)
-                             forEventClass:kInternetEventClass
-                                andEventID:kAEGetURL];
     }
     return self;
 }

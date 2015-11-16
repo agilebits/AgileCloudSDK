@@ -36,6 +36,14 @@
     AgileCloudKitView *agileView = [[AgileCloudKitView alloc] initWithFrame:self.view.bounds];
     agileView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     [self.view addSubview:agileView];
+
+	// make sure we register to handle the redirect URL from
+	// a CloudKit login from Safari
+	NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
+	[appleEventManager setEventHandler:[CKMediator sharedMediator]
+						   andSelector:@selector(handleGetURLEvent:withReplyEvent:)
+						 forEventClass:kInternetEventClass
+							andEventID:kAEGetURL];
 #else
     CloudKitView *cloudKitView = [[CloudKitView alloc] initWithFrame:self.view.bounds];
     cloudKitView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
