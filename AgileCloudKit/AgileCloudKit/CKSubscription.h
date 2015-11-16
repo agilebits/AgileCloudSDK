@@ -27,9 +27,9 @@ typedef NS_OPTIONS(NSUInteger, CKSubscriptionOptions) {
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 
-- (instancetype)initWithRecordType:(NSString *)recordType predicate:(NSPredicate *)predicate options:(CKSubscriptionOptions)subscriptionOptions NS_UNAVAILABLE;
+- (instancetype)initWithRecordType:(NSString *)recordType predicate:(NSPredicate *)predicate options:(CKSubscriptionOptions)subscriptionOptions /* NS_UNAVAILABLE */;
 
-- (instancetype)initWithRecordType:(NSString *)recordType predicate:(NSPredicate *)predicate subscriptionID:(NSString *)subscriptionID options:(CKSubscriptionOptions)subscriptionOptions NS_DESIGNATED_INITIALIZER NS_UNAVAILABLE;
+- (instancetype)initWithRecordType:(NSString *)recordType predicate:(NSPredicate *)predicate subscriptionID:(NSString *)subscriptionID options:(CKSubscriptionOptions)subscriptionOptions NS_DESIGNATED_INITIALIZER /* NS_UNAVAILABLE */;
 
 - (instancetype)initWithRecordType:(NSString *)recordType filters:(NSArray *)filters options:(CKSubscriptionOptions)subscriptionOptions;
 
