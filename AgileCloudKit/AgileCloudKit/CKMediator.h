@@ -24,4 +24,6 @@ extern NSString *const kAgileCloudKitInitializedNotification;
 - (void)logout;
 - (void)login;
 
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
+
 @end

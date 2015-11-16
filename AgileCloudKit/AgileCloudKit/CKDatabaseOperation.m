@@ -5,7 +5,6 @@
 //  Copyright (c) 2014 Apple Inc. All rights reserved.
 //
 
-#import <AgileCloudKit/CKOperation.h>
 #import <AgileCloudKit/AgileCloudKit.h>
 #import "CKDatabaseOperation.h"
 #import "CKMediator_Private.h"
