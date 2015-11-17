@@ -189,6 +189,7 @@ static CKMediator *_mediator;
 		dispatch_sync(dispatch_get_main_queue(), ^{
 			[self setupAuth];
 		});
+		return;
 	}
 
 	for (NSDictionary *container in _containerProperties) {
