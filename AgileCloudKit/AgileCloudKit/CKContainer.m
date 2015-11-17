@@ -13,6 +13,7 @@
 #import "CKMediator_Private.h"
 #import "CKBlockOperation.h"
 #import "Defines.h"
+#import "CKContainer_Private.h"
 
 // This constant represents the current user's ID for zone ID
 NSString *const CKOwnerDefaultName = @"CKOwnerDefaultName";
@@ -99,8 +100,14 @@ static NSMutableDictionary *containers;
             @throw [NSException exceptionWithName:@"CKContainerException" reason:@"No properties found for container" userInfo:nil];
         }
         _containerProperties = properties;
-    }
+
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cloudKitIdentityDidChange:) name:NSUbiquityIdentityDidChangeNotification object:nil];
+}
     return self;
+}
+
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (NSString *)containerIdentifier
@@ -175,7 +182,13 @@ static NSMutableDictionary *containers;
         }]] invokeMethod:@"catch"
          withArguments:@[^(id errorDictionary) {
             NSError* error = [[NSError alloc] initWithCKErrorDictionary:errorDictionary];
-            completionHandler(CKAccountStatusCouldNotDetermine, error);
+			if (error.code == CKErrorNotAuthenticated) {
+				self.accountStatusCompletionHandler = completionHandler;
+				[[CKMediator sharedMediator] login];
+			}
+			else {
+				completionHandler(CKAccountStatusCouldNotDetermine, error);
+			}
             opCompletionBlock();
         }]];
     }];
@@ -364,4 +377,12 @@ static NSMutableDictionary *containers;
     }];
 }
 
+#pragma mark - identity notification change
+
+- (void)cloudKitIdentityDidChange:(NSNotification *)note {
+	if (self.accountStatusCompletionHandler != nil) {
+		self.accountStatusCompletionHandler([note.userInfo[@"accountStatus"] integerValue], nil);
+		self.accountStatusCompletionHandler = nil;
+	}
+}
 @end

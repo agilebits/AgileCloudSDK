@@ -185,7 +185,14 @@ static CKMediator *_mediator;
 // and signal out to ObjC using URLs
 - (void)setupAuth
 {
-    for (NSDictionary *container in _containerProperties) {
+	if ([NSThread isMainThread] == NO) {
+		dispatch_sync(dispatch_get_main_queue(), ^{
+			[self setupAuth];
+		});
+		return;
+	}
+
+	for (NSDictionary *container in _containerProperties) {
         NSString *containerID = container[@"CloudKitJSContainerName"];
         [[[_context evaluateScript:[NSString stringWithFormat:@"CloudKit.getContainer('%@').setUpAuth()", containerID]] invokeMethod:@"then" withArguments:@[^(id response) {
             if(response && ![[NSNull null] isEqual:response]){
