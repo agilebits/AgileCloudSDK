@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C5150AC61BA6936600850891 /* CKFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AC41BA6936600850891 /* CKFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C5150AC71BA6936600850891 /* CKFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150AC51BA6936600850891 /* CKFilter.m */; settings = {ASSET_TAGS = (); }; };
+		C5150AC71BA6936600850891 /* CKFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150AC51BA6936600850891 /* CKFilter.m */; };
 		C5150AC91BA6948400850891 /* CKFilterType.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AC81BA6948400850891 /* CKFilterType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5150AD41BA6975900850891 /* NSString+CKFilterType.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AD21BA6975900850891 /* NSString+CKFilterType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5150AD81BA697C900850891 /* CKReference+CKFilterType.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AD61BA697C900850891 /* CKReference+CKFilterType.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -16,23 +16,23 @@
 		C5150AE01BA698C400850891 /* NSNumber+CKFilterType.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150ADE1BA698C400850891 /* NSNumber+CKFilterType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5150AE41BA698EC00850891 /* NSArray+CKFilterType.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AE21BA698EC00850891 /* NSArray+CKFilterType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5150AE81BA6991000850891 /* CLLocation+CKFilterType.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AE61BA6991000850891 /* CLLocation+CKFilterType.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C5150AEC1BA69BAF00850891 /* CLLocation+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AEA1BA69BAF00850891 /* CLLocation+AgileDictionary.h */; settings = {ASSET_TAGS = (); }; };
-		C5150AED1BA69BAF00850891 /* CLLocation+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150AEB1BA69BAF00850891 /* CLLocation+AgileDictionary.m */; settings = {ASSET_TAGS = (); }; };
-		C5150AF01BA69C0B00850891 /* CKReference+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AEE1BA69C0B00850891 /* CKReference+AgileDictionary.h */; settings = {ASSET_TAGS = (); }; };
-		C5150AF11BA69C0B00850891 /* CKReference+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150AEF1BA69C0B00850891 /* CKReference+AgileDictionary.m */; settings = {ASSET_TAGS = (); }; };
-		C5233DCF1BA671C20075BC5C /* CKSubscription+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5233DCD1BA671C20075BC5C /* CKSubscription+AgileDictionary.h */; settings = {ASSET_TAGS = (); }; };
-		C5233DD01BA671C20075BC5C /* CKSubscription+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5233DCE1BA671C20075BC5C /* CKSubscription+AgileDictionary.m */; settings = {ASSET_TAGS = (); }; };
+		C5150AEC1BA69BAF00850891 /* CLLocation+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AEA1BA69BAF00850891 /* CLLocation+AgileDictionary.h */; };
+		C5150AED1BA69BAF00850891 /* CLLocation+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150AEB1BA69BAF00850891 /* CLLocation+AgileDictionary.m */; };
+		C5150AF01BA69C0B00850891 /* CKReference+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150AEE1BA69C0B00850891 /* CKReference+AgileDictionary.h */; };
+		C5150AF11BA69C0B00850891 /* CKReference+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150AEF1BA69C0B00850891 /* CKReference+AgileDictionary.m */; };
+		C5233DCF1BA671C20075BC5C /* CKSubscription+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5233DCD1BA671C20075BC5C /* CKSubscription+AgileDictionary.h */; };
+		C5233DD01BA671C20075BC5C /* CKSubscription+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5233DCE1BA671C20075BC5C /* CKSubscription+AgileDictionary.m */; };
 		C5233DD31BA672D70075BC5C /* CKNotificationInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = C5233DD11BA672D70075BC5C /* CKNotificationInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C5233DD41BA672D70075BC5C /* CKNotificationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C5233DD21BA672D70075BC5C /* CKNotificationInfo.m */; settings = {ASSET_TAGS = (); }; };
+		C5233DD41BA672D70075BC5C /* CKNotificationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C5233DD21BA672D70075BC5C /* CKNotificationInfo.m */; };
 		C53390F11B8A5CE200DD1596 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53390F01B8A5CE200DD1596 /* JavaScriptCore.framework */; };
 		C53391021B8AB36300DD1596 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53391011B8AB36300DD1596 /* WebKit.framework */; };
 		C53391081B8AB67400DD1596 /* CKMediator.h in Headers */ = {isa = PBXBuildFile; fileRef = C53391061B8AB67400DD1596 /* CKMediator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C53391091B8AB67400DD1596 /* CKMediator.m in Sources */ = {isa = PBXBuildFile; fileRef = C53391071B8AB67400DD1596 /* CKMediator.m */; };
 		C533910B1B8AB88100DD1596 /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = C533910A1B8AB88100DD1596 /* test.html */; };
-		C535F1361BAF52E40023318D /* NSApplication+AgileCloudKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C535F1341BAF52E40023318D /* NSApplication+AgileCloudKit.h */; settings = {ASSET_TAGS = (); }; };
-		C535F1371BAF52E40023318D /* NSApplication+AgileCloudKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F1351BAF52E40023318D /* NSApplication+AgileCloudKit.m */; settings = {ASSET_TAGS = (); }; };
-		C55554741BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C55554721BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.h */; settings = {ASSET_TAGS = (); }; };
-		C55554751BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C55554731BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.m */; settings = {ASSET_TAGS = (); }; };
+		C535F1361BAF52E40023318D /* NSApplication+AgileCloudKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C535F1341BAF52E40023318D /* NSApplication+AgileCloudKit.h */; };
+		C535F1371BAF52E40023318D /* NSApplication+AgileCloudKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F1351BAF52E40023318D /* NSApplication+AgileCloudKit.m */; };
+		C55554741BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C55554721BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.h */; };
+		C55554751BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C55554731BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.m */; };
 		C55E96EF1BA15EA6007B4A9B /* NSArray+AgileMap.h in Headers */ = {isa = PBXBuildFile; fileRef = C55E96ED1BA15EA6007B4A9B /* NSArray+AgileMap.h */; };
 		C55E96F01BA15EA6007B4A9B /* NSArray+AgileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E96EE1BA15EA6007B4A9B /* NSArray+AgileMap.m */; };
 		C56E2FBF1BA4C26D000365E0 /* CKAsset+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C56E2FBD1BA4C26D000365E0 /* CKAsset+AgileDictionary.h */; };
@@ -97,14 +97,14 @@
 		C5A573C61B89153700264AC9 /* CKRecordID.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573AB1B89153700264AC9 /* CKRecordID.m */; };
 		C5A573C71B89153700264AC9 /* CKReference.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573AC1B89153700264AC9 /* CKReference.m */; };
 		C5A573C91B89191800264AC9 /* CKError.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573C81B89191800264AC9 /* CKError.m */; };
-		C5A66A3C1BAB565E00867BF5 /* container-config-format.json in Resources */ = {isa = PBXBuildFile; fileRef = C5A66A3B1BAB565E00867BF5 /* container-config-format.json */; settings = {ASSET_TAGS = (); }; };
+		C5A66A3C1BAB565E00867BF5 /* container-config-format.json in Resources */ = {isa = PBXBuildFile; fileRef = C5A66A3B1BAB565E00867BF5 /* container-config-format.json */; };
 		C5E43FD31B9BBD9500CD93CA /* CKMediatorDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E43FD21B9BBD9500CD93CA /* CKMediatorDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5EBCD531B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5EBCD511B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.h */; };
 		C5EBCD541B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EBCD521B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.m */; };
-		C5EEC9A71BAC79000027B4F1 /* CKBlockOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5EEC9A51BAC79000027B4F1 /* CKBlockOperation.h */; settings = {ASSET_TAGS = (); }; };
-		C5EEC9A81BAC79000027B4F1 /* CKBlockOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEC9A61BAC79000027B4F1 /* CKBlockOperation.m */; settings = {ASSET_TAGS = (); }; };
-		C5EF10341BD045A00083BE81 /* CKRecordZone+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5EF10321BD045A00083BE81 /* CKRecordZone+AgileDictionary.h */; settings = {ASSET_TAGS = (); }; };
-		C5EF10351BD045A00083BE81 /* CKRecordZone+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EF10331BD045A00083BE81 /* CKRecordZone+AgileDictionary.m */; settings = {ASSET_TAGS = (); }; };
+		C5EEC9A71BAC79000027B4F1 /* CKBlockOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5EEC9A51BAC79000027B4F1 /* CKBlockOperation.h */; };
+		C5EEC9A81BAC79000027B4F1 /* CKBlockOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEC9A61BAC79000027B4F1 /* CKBlockOperation.m */; };
+		C5EF10341BD045A00083BE81 /* CKRecordZone+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5EF10321BD045A00083BE81 /* CKRecordZone+AgileDictionary.h */; };
+		C5EF10351BD045A00083BE81 /* CKRecordZone+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EF10331BD045A00083BE81 /* CKRecordZone+AgileDictionary.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -588,6 +588,70 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		0AE05B991C1229A6002B85A7 /* Debug_WebStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug_WebStore;
+		};
+		0AE05B9A1C1229A6002B85A7 /* Debug_WebStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = AgileCloudKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug_WebStore;
+		};
 		C57539EF1B859F9900B9B6DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -715,6 +779,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C57539EF1B859F9900B9B6DE /* Debug */,
+				0AE05B991C1229A6002B85A7 /* Debug_WebStore */,
 				C57539F01B859F9900B9B6DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -724,6 +789,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C57539F21B859F9900B9B6DE /* Debug */,
+				0AE05B9A1C1229A6002B85A7 /* Debug_WebStore */,
 				C57539F31B859F9900B9B6DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

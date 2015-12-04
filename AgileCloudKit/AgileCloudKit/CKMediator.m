@@ -356,8 +356,7 @@ static CKMediator *_mediator;
 
 #pragma mark - Remote Notifications
 
-- (void)registerForRemoteNotifications
-{
+- (void)registerForRemoteNotifications {
     for (NSDictionary *containerProps in _containerProperties) {
         [[CKContainer containerWithIdentifier:containerProps[@"CloudKitJSContainerName"]] registerForRemoteNotifications];
     }
