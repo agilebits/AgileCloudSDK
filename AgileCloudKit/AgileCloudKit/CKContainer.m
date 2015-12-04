@@ -230,10 +230,10 @@ static NSMutableDictionary *containers;
 
         NSURL *url = [NSURL URLWithString:createRemoteNotificationTokenURL];
 
-        NSLog(@"url: %@", createRemoteNotificationTokenURL);
+        DebugLog(@"url: %@", createRemoteNotificationTokenURL);
 
         [CKContainer sendPOSTRequestTo:url withJSON:postData completionHandler:^(id jsonResponse, NSError *error) {
-            NSLog(@"json response: %@ %@", jsonResponse, error);
+            DebugLog(@"json response: %@ %@", jsonResponse, error);
 
             if(jsonResponse[@"webcourierURL"]){
                 NSData* tokenData = [jsonResponse[@"apnsToken"] dataUsingEncoding:NSUTF8StringEncoding];
@@ -267,7 +267,7 @@ static NSMutableDictionary *containers;
 
 #ifdef DEBUG
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    NSLog(@"sending json: %@", jsonString);
+    DebugLog(@"sending json: %@", jsonString);
 #endif
 
     [request setHTTPBody:jsonData];
@@ -280,7 +280,7 @@ static NSMutableDictionary *containers;
 
             if(jsonError){
                 NSString *receivedString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                NSLog(@"sending json: %@", receivedString);
+                DebugLog(@"sending json: %@", receivedString);
                 error = jsonError;
             }else if([jsonObj isKindOfClass:[NSDictionary class]] && jsonObj[@"serverErrorCode"]){
                 error = [[NSError alloc] initWithCKErrorDictionary:jsonObj];
@@ -341,7 +341,7 @@ static NSMutableDictionary *containers;
 {
     urlStr = [urlStr stringByReplacingOccurrencesOfString:@":443" withString:@""];
 
-    NSLog(@"long polling at: %@", urlStr);
+    DebugLog(@"long polling at: %@", urlStr);
 
     NSURL *longPollURL = [NSURL URLWithString:urlStr];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -368,7 +368,7 @@ static NSMutableDictionary *containers;
             dispatch_async(dispatch_get_main_queue(), ^{
                 // slowly retry every 1, 2, 4, 8 ... seconds up to 1 minute retry intervals
                 targetInterval = MAX(1, MIN(60, targetInterval * 2));
-                NSLog(@"Long poll failed, retrying in: %.2f", targetInterval);
+                DebugLog(@"Long poll failed, retrying in: %.2f", targetInterval);
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(targetInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self longPollAtURL:urlStr];
                 });

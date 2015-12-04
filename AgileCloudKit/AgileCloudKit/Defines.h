@@ -13,10 +13,10 @@
 #define kAbstractMethodException [NSException exceptionWithName:@"AbstractMethodException" reason:@"Must implement method in subclass" userInfo:nil]
 #define kInvalidMethodException [NSException exceptionWithName:@"InvalidMethodException" reason:@"This method cannot be called outside the class" userInfo:nil]
 
-#ifdef DEBUG
-#define DebugLog(__FORMAT__, ...) NSLog(__FORMAT__, ##__VA_ARGS__)
-#else
+//#ifdef DEBUG
+//#define DebugLog(__FORMAT__, ...) NSLog(__FORMAT__, ##__VA_ARGS__)
+//#else
 #define DebugLog(__FORMAT__, ...)
-#endif
+//#endif
 
 #endif /* Defines_h */
