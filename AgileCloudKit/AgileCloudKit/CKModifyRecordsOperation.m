@@ -72,9 +72,9 @@
 
             NSDictionary* recordDic = [obj asAgileDictionary];
             NSString* opType = recordDic[@"recordChangeTag"] ? @"update" : @"create";
-//            if(self.savePolicy == CKRecordSaveAllKeys){
+            if(self.savePolicy == CKRecordSaveAllKeys){
                 opType = @"forceUpdate";
-//            }
+            }
             return @{ @"operationType" : opType,
                       @"record" : recordDic };
         }]];

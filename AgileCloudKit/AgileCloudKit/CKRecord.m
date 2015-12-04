@@ -318,7 +318,12 @@
     [aCoder encodeObject:_recordType forKey:@"recordType"];
     [aCoder encodeObject:_recordID forKey:@"recordID"];
     [aCoder encodeObject:_userDefinedProperties forKey:@"userDefinedProperties"];
+	
+	[aCoder encodeObject:_creationDate forKey:@"creationDate"];
 	[aCoder encodeObject:_modificationDate forKey:@"modificationDate"];
+	[aCoder encodeObject:_recordChangeTag forKey:@"recordChangeTag"];
+	[aCoder encodeObject:_creatorUserRecordID forKey:@"creatorUserRecordID"];
+	[aCoder encodeObject:_lastModifiedUserRecordID forKey:@"lastModifiedUserRecordID"];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -328,7 +333,11 @@
     if (self = [self initWithRecordType:recordType recordID:recordID]) {
         NSDictionary *values = [aDecoder decodeObjectOfClass:[NSDictionary class] forKey:@"userDefinedProperties"];
         _userDefinedProperties = [NSMutableDictionary dictionaryWithDictionary:values];
+		_creationDate = [aDecoder decodeObjectOfClass:[NSDate class] forKey:@"creationDate"];
 		_modificationDate = [aDecoder decodeObjectOfClass:[NSDate class] forKey:@"modificationDate"];
+		_recordChangeTag = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"recordChangeTag"];
+		_creatorUserRecordID = [aDecoder decodeObjectOfClass:[CKRecordID class] forKey:@"creatorUserRecordID"];
+		_lastModifiedUserRecordID = [aDecoder decodeObjectOfClass:[CKRecordID class] forKey:@"lastModifiedUserRecordID"];
     }
     return self;
 }
