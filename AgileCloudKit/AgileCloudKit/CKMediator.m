@@ -128,13 +128,14 @@ static CKMediator *_mediator;
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
 {
-    NSURL *url = [NSURL URLWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
-    NSString *params = [url query];
-    NSArray *vals = [params componentsSeparatedByString:@"="];
-
-    [self saveSessionToken:[vals[1] stringByRemovingPercentEncoding]];
-
-    [self setupAuth];
+	NSURLComponents *urlComponents = [NSURLComponents componentsWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
+	NSArray *queryItems = urlComponents.queryItems;
+	for (NSURLQueryItem *queryItem in queryItems) {
+		if ([queryItem.name isEqualToString:@"ckSession"]) {
+			[self saveSessionToken:queryItem.value];
+			[self setupAuth];
+		}
+	}
 }
 
 #pragma mark - WebFrameLoadDelegate
