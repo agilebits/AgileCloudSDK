@@ -9,6 +9,7 @@
 #import "CKRecordZoneID.h"
 #import "Defines.h"
 #import "CKRecordZoneID_Private.h"
+#import "CKContainer.h"
 
 @implementation CKRecordZoneID
 
@@ -26,7 +27,7 @@
 {
     if (self = [super init]) {
         _zoneName = zoneName;
-        _ownerName = ownerName ? ownerName : @"__defaultOwner__";
+        _ownerName = ownerName ? ownerName : CKOwnerDefaultName;
     }
     return self;
 }

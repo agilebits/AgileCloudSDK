@@ -40,6 +40,8 @@
 
     if ([_recordZoneIDsToDelete count] || [_recordZonesToSave count]) {
         NSMutableDictionary *savedZoneIDToZone = [NSMutableDictionary dictionary];
+		// the response doesn't contain the owner name so we have to preserve it - kevin 2015-12-09
+		NSMutableDictionary *savedZoneIDOwnerNames = [NSMutableDictionary dictionary];
 
         NSArray *ops = @[];
         ops = [ops arrayByAddingObjectsFromArray:[_recordZoneIDsToDelete agile_mapUsingBlock:^id(id obj, NSUInteger idx) {
@@ -50,6 +52,7 @@
 
         ops = [ops arrayByAddingObjectsFromArray:[_recordZonesToSave agile_mapUsingBlock:^id(id obj, NSUInteger idx) {
             [savedZoneIDToZone setObject:obj forKey:[obj zoneID]];
+			[savedZoneIDOwnerNames setObject:[[obj zoneID] ownerName] forKey:[[obj zoneID] zoneName]];
             return @{ @"operationType" : @"create",
                       @"zone" : [obj asAgileDictionary] };
         }]];
@@ -64,7 +67,8 @@
             if([jsonResponse isKindOfClass:[NSDictionary class]] && jsonResponse[@"zones"]){
                 [jsonResponse[@"zones"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 
-                    CKRecordZoneID* savedZoneID = [[CKRecordZoneID alloc] initWithZoneName:obj[@"zoneID"][@"zoneName"]];
+					NSString *zoneName = obj[@"zoneID"][@"zoneName"];
+                    CKRecordZoneID* savedZoneID = [[CKRecordZoneID alloc] initWithZoneName:zoneName ownerName:savedZoneIDOwnerNames[zoneName]];
                     CKRecordZone* originalZone = savedZoneIDToZone[savedZoneID];
 
                     if(originalZone){
