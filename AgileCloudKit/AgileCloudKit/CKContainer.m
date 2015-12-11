@@ -16,7 +16,7 @@
 #import "CKContainer_Private.h"
 
 // This constant represents the current user's ID for zone ID
-NSString *const CKOwnerDefaultName = @"CKOwnerDefaultName";
+NSString *const CKOwnerDefaultName = @"__defaultOwner__";
 
 @interface CKContainer (Private)
 
