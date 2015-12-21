@@ -11,4 +11,9 @@
 
 @implementation CKMarkNotificationsReadOperation
 
+// this method is not used yet. Substituting init until its needed - kevin 2015-12-21
+- (instancetype)initWithNotificationIDsToMarkRead:(NSArray /* CKNotificationID */ *)notificationIDs {
+	return [super init];
+}
+
 @end

@@ -22,7 +22,8 @@ typedef NS_ENUM(NSInteger, CKNotificationType) {
 
 - (instancetype)init NS_UNAVAILABLE;
 
-+ (instancetype)notificationFromRemoteNotificationDictionary:(NSDictionary *)notificationDictionary;
+// not needed for now, implement when needed - kevin 2015-12-21
+//+ (instancetype)notificationFromRemoteNotificationDictionary:(NSDictionary *)notificationDictionary;
 
 /* When you instantiate a CKNotification from a remote notification dictionary, you will get back a concrete
  subclass defined below.  Use the type of notification to avoid -isKindOfClass: checks */
