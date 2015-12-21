@@ -9,7 +9,7 @@
 
 @class CKRecordID, CKRecordZoneID;
 
-@interface CKNotificationID : NSObject <NSCopying, NSSecureCoding>
+@interface CKNotificationID : NSObject
 @end
 
 typedef NS_ENUM(NSInteger, CKNotificationType) {
