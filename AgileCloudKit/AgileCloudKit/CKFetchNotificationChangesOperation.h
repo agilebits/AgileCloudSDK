@@ -16,7 +16,8 @@
     since that anchor will be fetched.
    If this is your first fetch, pass nil for the change anchor.
    Change anchors are opaque tokens and clients should not infer any behavior based on their content. */
-- (instancetype)initWithPreviousServerChangeToken:(CKServerChangeToken *)previousServerChangeToken;
+// not needed yet - kevin 2015-12-21
+//- (instancetype)initWithPreviousServerChangeToken:(CKServerChangeToken *)previousServerChangeToken;
 
 @property(nonatomic, copy) CKServerChangeToken *previousServerChangeToken;
 
