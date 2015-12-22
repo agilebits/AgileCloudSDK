@@ -268,7 +268,7 @@ static NSMutableDictionary *containers;
 #ifdef DEBUG
 	// TODO: uncomment below when we implement logging - kevin 2015-12-21
 //    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    DebugLog(@"sending json: %@", jsonString);
+//    DebugLog(@"sending json: %@", jsonString);
 #endif
 
     [request setHTTPBody:jsonData];
@@ -282,7 +282,7 @@ static NSMutableDictionary *containers;
             if(jsonError){
 				// uncomment next line when we implement logging - kevin 2015-12-21
 //                NSString *receivedString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                DebugLog(@"sending json: %@", receivedString);
+//                DebugLog(@"sending json: %@", receivedString);
                 error = jsonError;
             }else if([jsonObj isKindOfClass:[NSDictionary class]] && jsonObj[@"serverErrorCode"]){
                 error = [[NSError alloc] initWithCKErrorDictionary:jsonObj];
