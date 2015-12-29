@@ -66,7 +66,7 @@ static NSOperationQueue *_downloadQueue;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
-    if ([super init]) {
+    if (self = [super init]) {
         _fileURL = nil;
         _downloadURL = dictionary[@"downloadURL"];
         _downloadSema = dispatch_semaphore_create(0);
