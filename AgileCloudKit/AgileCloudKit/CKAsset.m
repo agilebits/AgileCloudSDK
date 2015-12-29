@@ -43,8 +43,7 @@ static NSOperationQueue *_downloadQueue;
 
 - (instancetype)init
 {
-	self = [self init];
-    if (self) {
+    if (self = [super init]) {
         _downloadSema = dispatch_semaphore_create(0);
     }
     return self;
@@ -58,8 +57,7 @@ static NSOperationQueue *_downloadQueue;
 /* Initialize an asset to be saved with the content at the given file URL */
 - (instancetype)initWithFileURL:(NSURL *)fileURL
 {
-	self = [self init];
-	if (self) {
+    if (self = [super init]) {
         _fileURL = fileURL;
         _downloadSema = dispatch_semaphore_create(0);
     }
@@ -68,8 +66,7 @@ static NSOperationQueue *_downloadQueue;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
-	self = [self init];
-	if (self) {
+    if (self = [super init]) {
         _fileURL = nil;
         _downloadURL = dictionary[@"downloadURL"];
         _downloadSema = dispatch_semaphore_create(0);
