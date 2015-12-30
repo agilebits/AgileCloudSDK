@@ -1,6 +1,6 @@
 //
 //  CKRecordID.h
-//  CloudKit
+//  AgileCloudKit
 //
 //  Copyright (c) 2015 AgileBits Inc. All rights reserved.
 //
