@@ -1,5 +1,5 @@
 //
-//  CKModifySubscriptionOperation.h
+//  CKModifySubscriptionOperation.m
 //  AgileCloudKit
 //
 //  Copyright (c) 2015 AgileBits Inc. All rights reserved.
