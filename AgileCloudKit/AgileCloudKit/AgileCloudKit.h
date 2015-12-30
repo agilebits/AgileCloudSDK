@@ -2,8 +2,7 @@
 //  AgileCloudKit.h
 //  AgileCloudKit
 //
-//  Created by Adam Wulf on 8/20/15.
-//  Copyright (c) 2015 Adam Wulf. All rights reserved.
+//  Copyright (c) 2015 AgileBits Inc. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

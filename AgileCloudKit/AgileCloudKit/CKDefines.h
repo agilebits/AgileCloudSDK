@@ -2,7 +2,7 @@
 //  CKDefines.h
 //  CloudKit
 //
-//  Copyright (c) 2014 Apple Inc. All rights reserved.
+//  Copyright (c) 2014 AgileBits Inc. All rights reserved.
 //
 
 #ifndef CK_EXTERN

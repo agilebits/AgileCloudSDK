@@ -2,8 +2,7 @@
 //  CKDatabaseOperation_Private.h
 //  AgileCloudKit
 //
-//  Created by Adam Wulf on 8/31/15.
-//  Copyright © 2015 AgileBits. All rights reserved.
+//  Copyright (c) 2015 AgileBits. All rights reserved.
 //
 
 @interface CKDatabaseOperation (AgilePrivate)

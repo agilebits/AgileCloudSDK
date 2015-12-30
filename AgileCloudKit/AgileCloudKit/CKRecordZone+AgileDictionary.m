@@ -2,8 +2,7 @@
 //  CKRecordZone+AgileDictionary.m
 //  AgileCloudKit
 //
-//  Created by Adam Wulf on 10/15/15.
-//  Copyright © 2015 AgileBits. All rights reserved.
+//  Copyright (c) 2015 AgileBits. All rights reserved.
 //
 
 #import "CKRecordZone+AgileDictionary.h"
