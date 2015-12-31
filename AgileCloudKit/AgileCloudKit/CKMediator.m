@@ -50,7 +50,6 @@ static CKMediator *_mediator;
         // shared operation queue for all cloudkit operations
         _queue = [[NSOperationQueue alloc] init];
         _queue.suspended = YES;
-		_queue.maxConcurrentOperationCount = 1;
 
         _urlQueue = [[NSOperationQueue alloc] init];
 
