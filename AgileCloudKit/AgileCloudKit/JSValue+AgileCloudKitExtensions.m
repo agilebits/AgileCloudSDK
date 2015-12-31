@@ -2,8 +2,7 @@
 //  JSValue+AgileCloudKitExtensions.m
 //  AgileCloudKit
 //
-//  Created by Adam Wulf on 8/27/15.
-//  Copyright © 2015 AgileBits. All rights reserved.
+//  Copyright (c) 2015 AgileBits. All rights reserved.
 //
 
 #import "JSValue+AgileCloudKitExtensions.h"

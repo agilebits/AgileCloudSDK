@@ -2,8 +2,7 @@
 //  NSApplication+AgileCloudKit.m
 //  AgileCloudKit
 //
-//  Created by Adam Wulf on 9/20/15.
-//  Copyright © 2015 AgileBits. All rights reserved.
+//  Copyright (c) 2015 AgileBits. All rights reserved.
 //
 
 #import "NSApplication+AgileCloudKit.h"

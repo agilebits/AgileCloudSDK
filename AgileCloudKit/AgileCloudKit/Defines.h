@@ -2,8 +2,7 @@
 //  Defines.h
 //  AgileCloudKit
 //
-//  Created by Adam Wulf on 9/5/15.
-//  Copyright © 2015 AgileBits. All rights reserved.
+//  Copyright (c) 2015 AgileBits. All rights reserved.
 //
 
 #ifndef Defines_h
