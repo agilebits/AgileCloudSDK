@@ -117,10 +117,10 @@
 }
 
 - (void)fetchAllRecordZonesWithCompletionHandler:(void (^)(NSArray /* CKRecordZone */ *zones, NSError *error))completionHandler {
-	[self fetchAllRecordZonesOnInnerQueue:NO withCompletionHandler:completionHandler];
+	[self fetchAllRecordZonesFromSender:self withCompletionHandler:completionHandler];
 }
 
-- (void)fetchAllRecordZonesOnInnerQueue:(BOOL)onInnerQueue withCompletionHandler:(void (^)(NSArray /* CKRecordZone */ *zones, NSError *error))completionHandler {
+- (void)fetchAllRecordZonesFromSender:(id)sender withCompletionHandler:(void (^)(NSArray /* CKRecordZone */ *zones, NSError *error))completionHandler {
     CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
         [[[[self asJSValue] agile_invokeMethod:@"fetchAllRecordZones"] invokeMethod:@"then" withArguments:@[^(id response) {
             if([response[@"_errors"] count]){
@@ -142,7 +142,7 @@
         }]];
     }];
 	
-	if (onInnerQueue) {
+	if ([sender isKindOfClass:[CKOperation class]] && ((CKOperation *)sender).isExecuting) {
 		[[CKMediator sharedMediator] addInnerOperation:blockOp];
 	}
 	else {
@@ -151,10 +151,10 @@
 }
 
 - (void)fetchRecordZoneWithID:(CKRecordZoneID *)zoneID completionHandler:(void (^)(CKRecordZone *zone, NSError *error))completionHandler {
-	[self fetchRecordZoneWithID:zoneID onInnerQueue:NO completionHandler:completionHandler];
+	[self fetchRecordZoneWithID:zoneID fromSender:self completionHandler:completionHandler];
 }
 
-- (void)fetchRecordZoneWithID:(CKRecordZoneID *)zoneID onInnerQueue:(BOOL)onInnerQueue completionHandler:(void (^)(CKRecordZone *zone, NSError *error))completionHandler {
+- (void)fetchRecordZoneWithID:(CKRecordZoneID *)zoneID fromSender:(id)sender completionHandler:(void (^)(CKRecordZone *zone, NSError *error))completionHandler {
     CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
         [[[[self asJSValue] invokeMethod:@"fetchRecordZone" withArguments:@[@{ @"zoneName": zoneID.zoneName }]] invokeMethod:@"then" withArguments:@[^(id response) {
             if([response[@"_errors"] count]){
@@ -176,7 +176,7 @@
         }]];
     }];
 
-	if (onInnerQueue) {
+	if ([sender isKindOfClass:[CKOperation class]] && ((CKOperation *)sender).isExecuting) {
 		[[CKMediator sharedMediator] addInnerOperation:blockOp];
 	}
 	else {
