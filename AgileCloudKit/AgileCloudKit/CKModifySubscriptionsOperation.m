@@ -91,14 +91,17 @@
             if(self.modifySubscriptionsCompletionBlock){
                 self.modifySubscriptionsCompletionBlock(savedSubs, deletedSubs, error);
             }
+			
+			[self setExecuting:NO];
+			[self setFinished:YES];
         }];
-
-        [self setExecuting:NO];
-        [self setFinished:YES];
     } else {
         if (self.modifySubscriptionsCompletionBlock) {
             self.modifySubscriptionsCompletionBlock(@[], @[], nil);
         }
+		
+		[self setExecuting:NO];
+		[self setFinished:YES];
     }
 }
 

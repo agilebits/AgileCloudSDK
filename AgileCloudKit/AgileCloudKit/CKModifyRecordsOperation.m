@@ -131,10 +131,10 @@
             if(self.modifyRecordsCompletionBlock){
                 self.modifyRecordsCompletionBlock(savedRecords, deletedRecords, error);
             }
-        }];
 
-        [self setExecuting:NO];
-        [self setFinished:YES];
+			[self setExecuting:NO];
+			[self setFinished:YES];
+        }];
     }
 }
 
