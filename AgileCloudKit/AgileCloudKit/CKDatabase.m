@@ -116,9 +116,11 @@
     @throw kAbstractMethodException;
 }
 
+- (void)fetchAllRecordZonesWithCompletionHandler:(void (^)(NSArray /* CKRecordZone */ *zones, NSError *error))completionHandler {
+	[self fetchAllRecordZonesOnInnerQueue:NO withCompletionHandler:completionHandler];
+}
 
-- (void)fetchAllRecordZonesWithCompletionHandler:(void (^)(NSArray /* CKRecordZone */ *zones, NSError *error))completionHandler
-{
+- (void)fetchAllRecordZonesOnInnerQueue:(BOOL)onInnerQueue withCompletionHandler:(void (^)(NSArray /* CKRecordZone */ *zones, NSError *error))completionHandler {
     CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
         [[[[self asJSValue] agile_invokeMethod:@"fetchAllRecordZones"] invokeMethod:@"then" withArguments:@[^(id response) {
             if([response[@"_errors"] count]){
@@ -139,11 +141,20 @@
             opCompletionBlock();
         }]];
     }];
-    [[[CKMediator sharedMediator] queue] addOperation:blockOp];
+	
+	if (onInnerQueue) {
+		[[CKMediator sharedMediator] addInnerOperation:blockOp];
+	}
+	else {
+		[[CKMediator sharedMediator] addOperation:blockOp];
+	}
 }
 
-- (void)fetchRecordZoneWithID:(CKRecordZoneID *)zoneID completionHandler:(void (^)(CKRecordZone *zone, NSError *error))completionHandler
-{
+- (void)fetchRecordZoneWithID:(CKRecordZoneID *)zoneID completionHandler:(void (^)(CKRecordZone *zone, NSError *error))completionHandler {
+	[self fetchRecordZoneWithID:zoneID onInnerQueue:NO completionHandler:completionHandler];
+}
+
+- (void)fetchRecordZoneWithID:(CKRecordZoneID *)zoneID onInnerQueue:(BOOL)onInnerQueue completionHandler:(void (^)(CKRecordZone *zone, NSError *error))completionHandler {
     CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
         [[[[self asJSValue] invokeMethod:@"fetchRecordZone" withArguments:@[@{ @"zoneName": zoneID.zoneName }]] invokeMethod:@"then" withArguments:@[^(id response) {
             if([response[@"_errors"] count]){
@@ -164,7 +175,13 @@
             opCompletionBlock();
         }]];
     }];
-    [[[CKMediator sharedMediator] queue] addOperation:blockOp];
+
+	if (onInnerQueue) {
+		[[CKMediator sharedMediator] addInnerOperation:blockOp];
+	}
+	else {
+		[[CKMediator sharedMediator] addOperation:blockOp];
+	}
 }
 
 - (void)saveRecordZone:(CKRecordZone *)zone completionHandler:(void (^)(CKRecordZone *zone, NSError *error))completionHandler

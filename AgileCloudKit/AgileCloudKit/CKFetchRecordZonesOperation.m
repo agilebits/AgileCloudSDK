@@ -7,6 +7,7 @@
 
 #import <AgileCloudKit/AgileCloudKit.h>
 #import "CKDatabaseOperation_Private.h"
+#import "CKDatabase_Private.h"
 #import "Defines.h"
 
 @implementation CKFetchRecordZonesOperation
@@ -43,7 +44,7 @@
     [self setExecuting:YES];
 
     if (!self.recordZoneIDs) {
-        [[self database] fetchAllRecordZonesWithCompletionHandler:^(NSArray *zones, NSError *error) {
+		[[self database] fetchAllRecordZonesOnInnerQueue:YES withCompletionHandler:^(NSArray *zones, NSError *error) {
             [self setExecuting:NO];
             [self setFinished:YES];
             
@@ -87,7 +88,7 @@
 
         // now save and delete everything
         for (CKRecordZoneID *zoneID in self.recordZoneIDs) {
-            [[self database] fetchRecordZoneWithID:zoneID completionHandler:^(CKRecordZone *zone, NSError *error) {
+			[[self database] fetchRecordZoneWithID:zoneID onInnerQueue:YES completionHandler:^(CKRecordZone *zone, NSError *error) {
                 if(error){
                     errors[zoneID] = error;
                 }else{

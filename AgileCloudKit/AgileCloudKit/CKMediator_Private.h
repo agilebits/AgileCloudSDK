@@ -10,6 +10,7 @@
 @interface CKMediator ()
 
 @property(nonatomic, readonly) NSOperationQueue *queue;
+@property(nonatomic, readonly) NSOperationQueue *innerQueue;
 @property(nonatomic, readonly) WebView *cloudKitWebView;
 @property(nonatomic, readonly) NSString *sessionToken;
 @property(nonatomic, readonly) NSArray *containerProperties;
@@ -19,5 +20,8 @@
 - (NSDictionary *)infoForContainerID:(NSString *)containerID;
 
 - (void)registerForRemoteNotifications;
+
+- (void)addOperation:(NSOperation *)operation;
+- (void)addInnerOperation:(NSOperation *)operation;
 
 @end

@@ -49,8 +49,14 @@ static CKMediator *_mediator;
 
         // shared operation queue for all cloudkit operations
         _queue = [[NSOperationQueue alloc] init];
+		_queue.maxConcurrentOperationCount = 1;
         _queue.suspended = YES;
 
+		// since _queue is serial, we often have nested operations, use an "inner queue" for that
+		_innerQueue = [[NSOperationQueue alloc] init];
+		_innerQueue.maxConcurrentOperationCount = 1;
+		_innerQueue.suspended = YES;
+		
         _urlQueue = [[NSOperationQueue alloc] init];
 
         // user's token, if any
@@ -102,6 +108,14 @@ static CKMediator *_mediator;
         delegate = _delegate;
         _sessionToken = [delegate loadSessionToken];
     }
+}
+
+- (void)addOperation:(NSOperation *)operation {
+	[self.queue addOperation:operation];
+}
+
+- (void)addInnerOperation:(NSOperation *)operation {
+	[self.innerQueue addOperation:operation];
 }
 
 #pragma mark - Save and Load the token
@@ -202,7 +216,8 @@ static CKMediator *_mediator;
                 DebugLog(@"logged out %@ :%@", containerID, response);
                 [[NSNotificationCenter defaultCenter] postNotificationName:NSUbiquityIdentityDidChangeNotification object:self userInfo:@{ @"accountStatus" : @(CKAccountStatusNoAccount) }];
             }
-            _queue.suspended = NO;
+            self.queue.suspended = NO;
+			self.innerQueue.suspended = NO;
         }]] invokeMethod:@"catch"
             withArguments:@[^(NSDictionary *err) {
             DebugLog(@"err: %@", err);

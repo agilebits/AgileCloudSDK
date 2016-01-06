@@ -243,6 +243,7 @@ static NSMutableDictionary *containers;
             }else{
                 [[[NSApplication sharedApplication] delegate] application:[NSApplication sharedApplication] didFailToRegisterForRemoteNotificationsWithError:error];
             }
+			opCompletionBlock();
         }];
     }];
     [[[CKMediator sharedMediator] queue] addOperation:blockOp];
