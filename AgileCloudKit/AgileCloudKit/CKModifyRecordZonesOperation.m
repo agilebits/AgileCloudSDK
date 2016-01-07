@@ -97,10 +97,10 @@
             if(self.modifyRecordZonesCompletionBlock){
                 self.modifyRecordZonesCompletionBlock(savedZones, deletedZones, error);
             }
+			
+			[self setExecuting:NO];
+			[self setFinished:YES];
         }];
-
-        [self setExecuting:NO];
-        [self setFinished:YES];
     }
 }
 
