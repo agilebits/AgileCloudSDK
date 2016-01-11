@@ -238,8 +238,8 @@ static CKMediator *_mediator;
         DebugLog(@"CloudKit Log: %@", [str description]);
     };
     [context setExceptionHandler:^(JSContext *c, JSValue *ex) {
-        DebugLog(@"Exception in %@: %@", c, ex);
-        @throw [NSException exceptionWithName:@"AgileCloudKitException" reason:[NSString stringWithFormat:@"JS Exception: %@", ex] userInfo:nil];
+        DebugLog(@"JS Exception in context %@: %@", c, ex);
+//        @throw [NSException exceptionWithName:@"AgileCloudKitException" reason:[NSString stringWithFormat:@"JS Exception: %@", ex] userInfo:nil];
     }];
 
     // These blocks will save or load the user's
