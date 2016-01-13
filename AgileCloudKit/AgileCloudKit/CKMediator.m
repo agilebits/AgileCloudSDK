@@ -106,7 +106,7 @@ static CKMediator *_mediator;
 {
     if (delegate != _delegate) {
         delegate = _delegate;
-        _sessionToken = [delegate loadSessionToken];
+		_sessionToken = [delegate loadSessionTokenForMediator:self];
     }
 }
 
@@ -123,7 +123,7 @@ static CKMediator *_mediator;
 - (NSString *)loadSessionToken
 {
     if (delegate) {
-        return [delegate loadSessionToken];
+		return [delegate loadSessionTokenForMediator:self];
     } else {
         return _sessionToken;
     }
@@ -133,7 +133,7 @@ static CKMediator *_mediator;
 {
     _sessionToken = token;
     if (delegate) {
-        return [delegate saveSessionToken:token];
+		return [delegate mediator:self saveSessionToken:token];
     }
 }
 
@@ -239,7 +239,6 @@ static CKMediator *_mediator;
     };
     [context setExceptionHandler:^(JSContext *c, JSValue *ex) {
         DebugLog(@"JS Exception in context %@: %@", c, ex);
-//        @throw [NSException exceptionWithName:@"AgileCloudKitException" reason:[NSString stringWithFormat:@"JS Exception: %@", ex] userInfo:nil];
     }];
 
     // These blocks will save or load the user's
@@ -275,9 +274,7 @@ static CKMediator *_mediator;
 
 
         if(![_containerProperties count]){
-            DebugLog(@"***********************************************");
             DebugLog(@"AgileCloudKit configuration error. Please check your Info.plist");
-            DebugLog(@"***********************************************");
         }else{
 
             NSString* containerConfigStr = @"";
@@ -327,7 +324,7 @@ static CKMediator *_mediator;
 - (IBAction)logout
 {
     _sessionToken = nil;
-    [self.delegate saveSessionToken:nil];
+	[self.delegate mediator:self saveSessionToken:nil];
     [self setupAuth];
 }
 

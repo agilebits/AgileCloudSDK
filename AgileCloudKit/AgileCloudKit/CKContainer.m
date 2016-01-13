@@ -230,10 +230,10 @@ static NSMutableDictionary *containers;
 
         NSURL *url = [NSURL URLWithString:createRemoteNotificationTokenURL];
 
-        DebugLog(@"url: %@", createRemoteNotificationTokenURL);
-
         [CKContainer sendPOSTRequestTo:url withJSON:postData completionHandler:^(id jsonResponse, NSError *error) {
-            DebugLog(@"json response: %@ %@", jsonResponse, error);
+			if (error != nil) {
+				DebugLog(@"json response: %@ error: %@", jsonResponse, error);
+			}
 
             if(jsonResponse[@"webcourierURL"]){
                 NSData* tokenData = [jsonResponse[@"apnsToken"] dataUsingEncoding:NSUTF8StringEncoding];
@@ -266,12 +266,6 @@ static NSMutableDictionary *containers;
         return;
     }
 
-#ifdef DEBUG
-	// TODO: uncomment below when we implement logging - kevin 2015-12-21
-//    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//    DebugLog(@"sending json: %@", jsonString);
-#endif
-
     [request setHTTPBody:jsonData];
 
     [[[CKContainer downloadSession] dataTaskWithRequest:request completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {
@@ -281,9 +275,6 @@ static NSMutableDictionary *containers;
             id jsonObj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
 
             if(jsonError){
-				// uncomment next line when we implement logging - kevin 2015-12-21
-//                NSString *receivedString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//                DebugLog(@"sending json: %@", receivedString);
                 error = jsonError;
             }else if([jsonObj isKindOfClass:[NSDictionary class]] && jsonObj[@"serverErrorCode"]){
                 error = [[NSError alloc] initWithCKErrorDictionary:jsonObj];
