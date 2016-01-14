@@ -210,17 +210,17 @@ static CKMediator *_mediator;
         NSString *containerID = container[@"CloudKitJSContainerName"];
         [[[_context evaluateScript:[NSString stringWithFormat:@"CloudKit.getContainer('%@').setUpAuth()", containerID]] invokeMethod:@"then" withArguments:@[^(id response) {
             if(response && ![[NSNull null] isEqual:response]){
-                DebugLog(@"logged in %@ :%@", containerID, response);
+                DebugLog(@"logged in %@", containerID);
                 [[NSNotificationCenter defaultCenter] postNotificationName:NSUbiquityIdentityDidChangeNotification object:self userInfo:@{ @"accountStatus" : @(CKAccountStatusAvailable) }];
             }else{
-                DebugLog(@"logged out %@ :%@", containerID, response);
+                DebugLog(@"logged out %@", containerID);
                 [[NSNotificationCenter defaultCenter] postNotificationName:NSUbiquityIdentityDidChangeNotification object:self userInfo:@{ @"accountStatus" : @(CKAccountStatusNoAccount) }];
             }
             self.queue.suspended = NO;
 			self.innerQueue.suspended = NO;
         }]] invokeMethod:@"catch"
             withArguments:@[^(NSDictionary *err) {
-            DebugLog(@"err: %@", err);
+            DebugLog(@"Error: %@", err);
             }]];
     }
 }

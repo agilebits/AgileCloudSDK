@@ -269,21 +269,32 @@ static NSMutableDictionary *containers;
     [request setHTTPBody:jsonData];
 
     [[[CKContainer downloadSession] dataTaskWithRequest:request completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-        if([response isKindOfClass:[NSHTTPURLResponse class]]){
+		if (error != nil) {
+			if(completionHandler){
+				completionHandler(nil, error);
+			}
+		}
+		else if([response isKindOfClass:[NSHTTPURLResponse class]]) {
+            NSError* jsonError = nil;
+			id jsonObj = nil;
+			if (data != nil) {
+				jsonObj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
 
-            NSError* jsonError;
-            id jsonObj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-
-            if(jsonError){
-                error = jsonError;
-            }else if([jsonObj isKindOfClass:[NSDictionary class]] && jsonObj[@"serverErrorCode"]){
-                error = [[NSError alloc] initWithCKErrorDictionary:jsonObj];
-            }
+				if(jsonError){
+					error = jsonError;
+				}else if([jsonObj isKindOfClass:[NSDictionary class]] && jsonObj[@"serverErrorCode"]){
+					error = [[NSError alloc] initWithCKErrorDictionary:jsonObj];
+				}
+			}
+			else {
+				DebugLog(@"If there's no error, there should be data for request: %@ with response: %@", request, response);
+			}
 
             if(completionHandler){
                 completionHandler(jsonObj, error);
             }
-        }else{
+        }
+		else {
             if(completionHandler){
                 completionHandler(nil, error);
             }
@@ -301,16 +312,27 @@ static NSMutableDictionary *containers;
 
 
     [[[CKContainer uploadSession] uploadTaskWithRequest:request fromFile:localFile completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-        if([response isKindOfClass:[NSHTTPURLResponse class]]){
+		if (error != nil) {
+			if(completionHandler){
+				completionHandler(nil, error);
+			}
+		}
+		else if([response isKindOfClass:[NSHTTPURLResponse class]]){
 
             NSError* jsonError;
-            id jsonObj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+			id jsonObj = nil;
+			if (data != nil) {
+				jsonObj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
 
-            if(jsonError){
-                error = jsonError;
-            }else if([jsonObj isKindOfClass:[NSDictionary class]] && jsonObj[@"serverErrorCode"]){
-                error = [[NSError alloc] initWithCKErrorDictionary:jsonObj];
-            }
+				if(jsonError){
+					error = jsonError;
+				}else if([jsonObj isKindOfClass:[NSDictionary class]] && jsonObj[@"serverErrorCode"]){
+					error = [[NSError alloc] initWithCKErrorDictionary:jsonObj];
+				}
+			}
+			else {
+				DebugLog(@"If there's no error, there should be data for request: %@ with response: %@", request, response);
+			}
 
             if(completionHandler){
                 completionHandler(jsonObj, error);
