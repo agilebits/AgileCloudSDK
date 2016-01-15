@@ -43,7 +43,6 @@
     if ([val isKindOfClass:[NSString class]]) {
         return val;
     } else if ([val isKindOfClass:[NSNumber class]]) {
-        DebugLog(@"type: %@", [NSString stringWithCString:[(NSNumber *)val objCType] encoding:NSUTF8StringEncoding]);
         if (strcmp([(NSNumber *)val objCType], @encode(BOOL)) == 0) {
             // make sure booleans encode as integers
             return [NSNumber numberWithInteger:[(NSNumber *)val integerValue]];
