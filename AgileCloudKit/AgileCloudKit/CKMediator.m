@@ -164,7 +164,7 @@ static CKMediator *_mediator;
 
 - (void)webView:(WebView *)sender resource:(id)identifier didFailLoadingWithError:(NSError *)error fromDataSource:(WebDataSource *)dataSource
 {
-    DebugLog(@"failed: %@ with: %@", identifier, error);
+    DebugLog(CKLOG_LEVEL_ERR, @"failed: %@ with: %@", identifier, error);
     dispatch_async(dispatch_get_main_queue(), ^{
         _targetInterval = MAX(1, MIN(60, _targetInterval * 2));
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_targetInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -210,17 +210,17 @@ static CKMediator *_mediator;
         NSString *containerID = container[@"CloudKitJSContainerName"];
         [[[_context evaluateScript:[NSString stringWithFormat:@"CloudKit.getContainer('%@').setUpAuth()", containerID]] invokeMethod:@"then" withArguments:@[^(id response) {
             if(response && ![[NSNull null] isEqual:response]){
-                DebugLog(@"logged in %@", containerID);
+                DebugLog(CKLOG_LEVEL_INFO, @"logged in %@", containerID);
                 [[NSNotificationCenter defaultCenter] postNotificationName:NSUbiquityIdentityDidChangeNotification object:self userInfo:@{ @"accountStatus" : @(CKAccountStatusAvailable) }];
             }else{
-                DebugLog(@"logged out %@", containerID);
+                DebugLog(CKLOG_LEVEL_INFO, @"logged out %@", containerID);
                 [[NSNotificationCenter defaultCenter] postNotificationName:NSUbiquityIdentityDidChangeNotification object:self userInfo:@{ @"accountStatus" : @(CKAccountStatusNoAccount) }];
             }
             self.queue.suspended = NO;
 			self.innerQueue.suspended = NO;
         }]] invokeMethod:@"catch"
             withArguments:@[^(NSDictionary *err) {
-            DebugLog(@"Error: %@", err);
+            DebugLog(CKLOG_LEVEL_ERR, @"Error: %@", err);
             }]];
     }
 }
@@ -235,10 +235,10 @@ static CKMediator *_mediator;
 {
     // track exceptions and logs from the JSContext
     context[@"window"][@"doLog"] = ^(id str) {
-        DebugLog(@"CloudKit Log: %@", [str description]);
+        DebugLog(CKLOG_LEVEL_INFO, @"CloudKit Log: %@", [str description]);
     };
     [context setExceptionHandler:^(JSContext *c, JSValue *ex) {
-        DebugLog(@"JS Exception in context %@: %@", c, ex);
+        DebugLog(CKLOG_LEVEL_CRIT, @"JS Exception in context %@: %@", c, ex);
     }];
 
     // These blocks will save or load the user's
@@ -274,7 +274,7 @@ static CKMediator *_mediator;
 
 
         if(![_containerProperties count]){
-            DebugLog(@"AgileCloudKit configuration error. Please check your Info.plist");
+            DebugLog(CKLOG_LEVEL_EMERG, @"AgileCloudKit configuration error. Please check your Info.plist");
         }else{
 
             NSString* containerConfigStr = @"";
@@ -308,7 +308,7 @@ static CKMediator *_mediator;
     // If CloudKitJS tries to trigger a window.open()
     // to login the user, we should pass that on to Safari
     context[@"window"][@"open"] = ^(id url) {
-        DebugLog(@"CloudKitJS Context requested to open URL: %@", url);
+        DebugLog(CKLOG_LEVEL_DEBUG, @"CloudKitJS Context requested to open URL: %@", url);
     };
 }
 

@@ -232,7 +232,7 @@ static NSMutableDictionary *containers;
 
         [CKContainer sendPOSTRequestTo:url withJSON:postData completionHandler:^(id jsonResponse, NSError *error) {
 			if (error != nil) {
-				DebugLog(@"json response: %@ error: %@", jsonResponse, error);
+				DebugLog(CKLOG_LEVEL_ERR, @"json response: %@ error: %@", jsonResponse, error);
 			}
 
             if(jsonResponse[@"webcourierURL"]){
@@ -287,7 +287,7 @@ static NSMutableDictionary *containers;
 				}
 			}
 			else {
-				DebugLog(@"If there's no error, there should be data for request: %@ with response: %@", request, response);
+				DebugLog(CKLOG_LEVEL_CRIT, @"If there's no error, there should be data for request: %@ with response: %@", request, response);
 			}
 
             if(completionHandler){
@@ -331,7 +331,7 @@ static NSMutableDictionary *containers;
 				}
 			}
 			else {
-				DebugLog(@"If there's no error, there should be data for request: %@ with response: %@", request, response);
+				DebugLog(CKLOG_LEVEL_CRIT, @"If there's no error, there should be data for request: %@ with response: %@", request, response);
 			}
 
             if(completionHandler){
@@ -357,7 +357,7 @@ static NSMutableDictionary *containers;
 {
     urlStr = [urlStr stringByReplacingOccurrencesOfString:@":443" withString:@""];
 
-    DebugLog(@"long polling at: %@", urlStr);
+    DebugLog(CKLOG_LEVEL_DEBUG, @"long polling at: %@", urlStr);
 
     NSURL *longPollURL = [NSURL URLWithString:urlStr];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -384,7 +384,7 @@ static NSMutableDictionary *containers;
             dispatch_async(dispatch_get_main_queue(), ^{
                 // slowly retry every 1, 2, 4, 8 ... seconds up to 1 minute retry intervals
                 targetInterval = MAX(1, MIN(60, targetInterval * 2));
-                DebugLog(@"Long poll failed, retrying in: %.2f", targetInterval);
+                DebugLog(CKLOG_LEVEL_ERR, @"Long poll failed, retrying in: %.2f", targetInterval);
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(targetInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self longPollAtURL:urlStr];
                 });

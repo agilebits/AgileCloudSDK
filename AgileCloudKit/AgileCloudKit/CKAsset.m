@@ -159,14 +159,12 @@ static NSOperationQueue *_downloadQueue;
 
 - (void)uploadSynchronouslyIntoRecord:(CKRecord *)record andField:(NSString *)fieldName inDatabase:(CKDatabase *)database
 {
-#if DEBUG
-    DebugLog(@"uploading into %@ at %@", record.recordID, fieldName);
-#endif
+    DebugLog(CKLOG_LEVEL_DEBUG, @"uploading into %@ at %@", record.recordID, fieldName);
 	
     NSDictionary *requestDictionary = @{};
     [database sendPOSTRequestTo:@"assets/upload" withJSON:requestDictionary completionHandler:^(id jsonResponse, NSError *error) {
 		if (error != nil) {
-			DebugLog(@"Error uploading asset: %@ error: %@", jsonResponse, error);
+			DebugLog(CKLOG_LEVEL_ERR, @"Error uploading asset: %@ error: %@", jsonResponse, error);
 		}
     }];
 }

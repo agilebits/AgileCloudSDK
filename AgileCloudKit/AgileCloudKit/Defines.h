@@ -13,6 +13,6 @@
 #define kInvalidMethodException [NSException exceptionWithName:@"InvalidMethodException" reason:@"This method cannot be called outside the class" userInfo:nil]
 
 //#define DebugLog(__FORMAT__, ...) NSLog(__FORMAT__, ##__VA_ARGS__)
-#define DebugLog(__FORMAT__, ...) [[CKMediator sharedMediator].delegate mediator:[CKMediator sharedMediator] logObject:self at:_cmd format:__FORMAT__, ##__VA_ARGS__]
+#define DebugLog(level, __FORMAT__, ...) [[CKMediator sharedMediator].delegate mediator:[CKMediator sharedMediator] logLevel:level object:self at:_cmd format:__FORMAT__, ##__VA_ARGS__]
 
 #endif /* Defines_h */

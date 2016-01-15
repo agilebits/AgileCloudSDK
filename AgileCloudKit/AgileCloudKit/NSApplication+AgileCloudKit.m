@@ -20,7 +20,7 @@
 
 - (void)_agilecloudkit_swizzle_unregisterForRemoteNotifications
 {
-    DebugLog(@"unregisterForRemoteNotifications");
+    DebugLog(CKLOG_LEVEL_DEBUG, @"unregisterForRemoteNotifications");
 }
 
 
