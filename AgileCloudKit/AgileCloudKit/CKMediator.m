@@ -11,6 +11,8 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "CKContainer_Private.h"
 #import "Defines.h"
+#import "CKDatabaseOperation.h"
+#import "CKDatabaseOperation_Private.h"
 
 #define CloudKitJSURL [NSURL URLWithString:@"https://cdn.apple-cloudkit.com/ck/1/cloudkit.js"]
 
@@ -165,6 +167,16 @@ static CKMediator *_mediator;
 - (void)webView:(WebView *)sender resource:(id)identifier didFailLoadingWithError:(NSError *)error fromDataSource:(WebDataSource *)dataSource
 {
     DebugLog(CKLOG_LEVEL_ERR, @"failed: %@ with: %@", identifier, error);
+	// -1009 is "Internet connection appears to be offline" - kevin 2016-02-03
+	if (error.code == -1009) {
+		for (CKDatabaseOperation *operation in self.queue.operations) {
+			[operation cancel];
+			if ([operation respondsToSelector:@selector(completeWithError:)]) {
+				[operation completeWithError:error];
+			}
+		}
+	}
+	
     dispatch_async(dispatch_get_main_queue(), ^{
         _targetInterval = MAX(1, MIN(60, _targetInterval * 2));
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_targetInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
