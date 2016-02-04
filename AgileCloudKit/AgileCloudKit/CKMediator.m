@@ -357,8 +357,14 @@ static CKMediator *_mediator;
             onComplete(nil, connectionError);
         }
 
-        NSError* error;
-        NSDictionary * parsedData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        NSError *error = nil;
+		NSDictionary *parsedData = nil;
+		if (data != nil) {
+			parsedData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+		}
+		else {
+			DebugLog(CKLOG_LEVEL_ERR, @"nil data returned trying to get login URL. Possible network timeout?");
+		}
 
         if(error){
             onComplete(nil, error);
