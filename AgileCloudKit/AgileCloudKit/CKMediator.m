@@ -168,7 +168,7 @@ static CKMediator *_mediator;
 {
     DebugLog(CKLOG_LEVEL_ERR, @"failed: %@ with: %@", identifier, error);
 	// -1009 is "Internet connection appears to be offline" - kevin 2016-02-03
-	if (error.code == -1009) {
+	if (error.code == -1009 && self.queue.isSuspended) {
 		for (CKDatabaseOperation *operation in self.queue.operations) {
 			[operation cancel];
 			if ([operation respondsToSelector:@selector(completeWithError:)]) {
