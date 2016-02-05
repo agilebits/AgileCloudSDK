@@ -103,5 +103,8 @@
     }
 }
 
+- (void)completeWithError:(NSError *)error {
+	self.fetchRecordZonesCompletionBlock(nil, error);
+}
 
 @end
