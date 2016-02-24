@@ -16,6 +16,8 @@
 
 #define CloudKitJSURL [NSURL URLWithString:@"https://cdn.apple-cloudkit.com/ck/1/cloudkit.js"]
 
+#define MediatorDebugLog(level,__FORMAT__,...) if (delegate) [delegate mediator:[CKMediator sharedMediator] logLevel:level object:self at:_cmd format:__FORMAT__, ##__VA_ARGS__]
+
 NSString *const kAgileCloudKitInitializedNotification = @"kAgileCloudKitInitializedNotification";
 
 @interface CKMediator () <WebResourceLoadDelegate, WebFrameLoadDelegate, WebPolicyDelegate, WebUIDelegate>
@@ -109,6 +111,7 @@ static CKMediator *_mediator;
     if (delegate != _delegate) {
         delegate = _delegate;
 		_sessionToken = [delegate loadSessionTokenForMediator:self];
+		MediatorDebugLog(CKLOG_LEVEL_INFO, @"Setting delegate and reloading %@ session token.", (_sessionToken == nil) ? @"nil" : @"non-nil");
     }
 }
 
@@ -124,18 +127,22 @@ static CKMediator *_mediator;
 
 - (NSString *)loadSessionToken
 {
+	NSString *token = nil;
     if (delegate) {
-		return [delegate loadSessionTokenForMediator:self];
+		token = [delegate loadSessionTokenForMediator:self];
     } else {
-        return _sessionToken;
+        token = _sessionToken;
     }
+	MediatorDebugLog(CKLOG_LEVEL_INFO, @"Loading %@ Session Token.", (token == nil) ? @"nil" : @"non-nil" );
+	return token;
 }
 
 - (void)saveSessionToken:(NSString *)token
 {
-    _sessionToken = token;
+   _sessionToken = token;
     if (delegate) {
-		return [delegate mediator:self saveSessionToken:token];
+		MediatorDebugLog(CKLOG_LEVEL_INFO, @"Saving %@ Session Token", (token == nil) ? @"nil" : @"non-nil");
+		[delegate mediator:self saveSessionToken:token];
     }
 }
 
@@ -143,6 +150,7 @@ static CKMediator *_mediator;
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
 {
+	MediatorDebugLog(CKLOG_LEVEL_INFO, @"Received Callback URL");
 	NSURLComponents *urlComponents = [NSURLComponents componentsWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
 	NSArray *queryItems = urlComponents.queryItems;
 	for (NSURLQueryItem *queryItem in queryItems) {
@@ -166,10 +174,10 @@ static CKMediator *_mediator;
 
 - (void)webView:(WebView *)sender resource:(id)identifier didFailLoadingWithError:(NSError *)error fromDataSource:(WebDataSource *)dataSource
 {
-    DebugLog(CKLOG_LEVEL_ERR, @"failed: %@ with: %@", identifier, error);
-	// -1009 is "Internet connection appears to be offline" - kevin 2016-02-03
-	if (error.code == -1009 && self.queue.isSuspended) {
+    MediatorDebugLog(CKLOG_LEVEL_ERR, @"failed: %@ with: %@", identifier, error);
+	if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == kCFURLErrorNotConnectedToInternet && self.queue.isSuspended) {
 		for (CKDatabaseOperation *operation in self.queue.operations) {
+			MediatorDebugLog(CKLOG_LEVEL_ERR, @"cancelling queue operation: %@", NSStringFromClass([operation class]));
 			[operation cancel];
 			if ([operation respondsToSelector:@selector(completeWithError:)]) {
 				[operation completeWithError:error];
@@ -222,17 +230,17 @@ static CKMediator *_mediator;
         NSString *containerID = container[@"CloudKitJSContainerName"];
         [[[_context evaluateScript:[NSString stringWithFormat:@"CloudKit.getContainer('%@').setUpAuth()", containerID]] invokeMethod:@"then" withArguments:@[^(id response) {
             if(response && ![[NSNull null] isEqual:response]){
-                DebugLog(CKLOG_LEVEL_INFO, @"logged in %@", containerID);
+                MediatorDebugLog(CKLOG_LEVEL_INFO, @"logged in %@", containerID);
                 [[NSNotificationCenter defaultCenter] postNotificationName:NSUbiquityIdentityDidChangeNotification object:self userInfo:@{ @"accountStatus" : @(CKAccountStatusAvailable) }];
             }else{
-                DebugLog(CKLOG_LEVEL_INFO, @"logged out %@", containerID);
+                MediatorDebugLog(CKLOG_LEVEL_INFO, @"logged out %@", containerID);
                 [[NSNotificationCenter defaultCenter] postNotificationName:NSUbiquityIdentityDidChangeNotification object:self userInfo:@{ @"accountStatus" : @(CKAccountStatusNoAccount) }];
             }
             self.queue.suspended = NO;
 			self.innerQueue.suspended = NO;
         }]] invokeMethod:@"catch"
             withArguments:@[^(NSDictionary *err) {
-            DebugLog(CKLOG_LEVEL_ERR, @"Error: %@", err);
+            MediatorDebugLog(CKLOG_LEVEL_ERR, @"Error: %@", err);
             }]];
     }
 }
@@ -247,10 +255,10 @@ static CKMediator *_mediator;
 {
     // track exceptions and logs from the JSContext
     context[@"window"][@"doLog"] = ^(id str) {
-        DebugLog(CKLOG_LEVEL_INFO, @"CloudKit Log: %@", [str description]);
+        MediatorDebugLog(CKLOG_LEVEL_INFO, @"CloudKit Log: %@", [str description]);
     };
     [context setExceptionHandler:^(JSContext *c, JSValue *ex) {
-        DebugLog(CKLOG_LEVEL_CRIT, @"JS Exception in context %@: %@", c, ex);
+        MediatorDebugLog(CKLOG_LEVEL_CRIT, @"JS Exception in context %@: %@", c, ex);
     }];
 
     // These blocks will save or load the user's
@@ -286,7 +294,7 @@ static CKMediator *_mediator;
 
 
         if(![_containerProperties count]){
-            DebugLog(CKLOG_LEVEL_EMERG, @"AgileCloudKit configuration error. Please check your Info.plist");
+            MediatorDebugLog(CKLOG_LEVEL_EMERG, @"AgileCloudKit configuration error. Please check your Info.plist");
         }else{
 
             NSString* containerConfigStr = @"";
@@ -320,7 +328,7 @@ static CKMediator *_mediator;
     // If CloudKitJS tries to trigger a window.open()
     // to login the user, we should pass that on to Safari
     context[@"window"][@"open"] = ^(id url) {
-        DebugLog(CKLOG_LEVEL_DEBUG, @"CloudKitJS Context requested to open URL: %@", url);
+        MediatorDebugLog(CKLOG_LEVEL_DEBUG, @"CloudKitJS Context requested to open URL: %@", url);
     };
 }
 
@@ -363,7 +371,7 @@ static CKMediator *_mediator;
 			parsedData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
 		}
 		else {
-			DebugLog(CKLOG_LEVEL_ERR, @"nil data returned trying to get login URL. Possible network timeout?");
+			MediatorDebugLog(CKLOG_LEVEL_ERR, @"nil data returned trying to get login URL. Possible network timeout?");
 		}
 
         if(error){
