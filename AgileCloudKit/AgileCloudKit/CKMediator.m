@@ -169,6 +169,7 @@ static CKMediator *_mediator;
     _context = context;
 
     // re-experiment with JSContext instead of webview
+	MediatorDebugLog(CKLOG_LEVEL_INFO, @"CloudKit JS context created. Setting up…");
     [self setupContext:_context];
 }
 
@@ -187,6 +188,7 @@ static CKMediator *_mediator;
 	
     dispatch_async(dispatch_get_main_queue(), ^{
         _targetInterval = MAX(1, MIN(60, _targetInterval * 2));
+		MediatorDebugLog(CKLOG_LEVEL_INFO, @"Trying again in %f seconds…", _targetInterval);
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_targetInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self bootstrapCloudKitJS];
         });
@@ -320,6 +322,7 @@ static CKMediator *_mediator;
     // that we're ready to roll
     [[context evaluateScript:@"window"] invokeMethod:@"addEventListener" withArguments:@[@"cloudkitloaded", ^() {
         loadConfig();
+		MediatorDebugLog(CKLOG_LEVEL_INFO, @"AgileCloudKit Loaded. Setting up Auth…");
         [self setupAuth];
         isInitialized = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:kAgileCloudKitInitializedNotification object:self];
@@ -337,12 +340,14 @@ static CKMediator *_mediator;
 - (IBAction)login
 {
     [self getLoginURLWithCompletionBlock:^(NSURL *loginURL, NSError *error) {
+		MediatorDebugLog(CKLOG_LEVEL_INFO, @"Sending user to CloudKit login page.");
         [[NSWorkspace sharedWorkspace] openURL:loginURL];
     }];
 }
 
 - (IBAction)logout
 {
+	MediatorDebugLog(CKLOG_LEVEL_DEBUG, @"Logging out of CloudKitJS");
     _sessionToken = nil;
 	[self.delegate mediator:self saveSessionToken:nil];
     [self setupAuth];
