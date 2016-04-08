@@ -2,8 +2,6 @@
 
 AgileCloudKit is a drop-in replacement for CloudKit framework for use in non-Mac App Store apps. It uses CloudKitJS and CloudKit Web Services for all communications.
 
-AgileCloudKit was written in Objective-C for maximum compatibility with existing OS X applications. AgileCloudKit runs on OS X (10.10 and up) only. It does not run on iOS, tvOS, or watchOS.
-
 ## License
 
 MIT?
@@ -19,10 +17,15 @@ See the file named [Using AgileCloudKit](Using%20AgileCloudKit.md) for informati
 AgileCloudKit is not yet a 100% complete implementation of CloudKit. There are a few classes that are not yet implemented. Of note are:
 	- CKFetchSubscriptionsOperation
 	- CKDiscoverAllContactsOperation
+	- CKDiscoverUserInfosOperation
+	- CKFetchWebAuthTokenOperation
+	- CKLocationSortDescriptor
 	- CKModifyBadgeOperation
-	- CKQuery - this doesn't have a direct equivalent to CloudKit JS. CloudKitJS uses filters: JSON dictionaries with query parameters.  CKQuery uses NSPredicate which works quite differently from JSON query dictionaries. AgileCloudKit contains the CKFilter class to provide query functionality but due to the different nature of the NSPredicates and CKFilters, making a direct implementation of CKOperations that use the CKQuery class would be difficult.
+	- CKQuery - this doesn't have a direct equivalent in CloudKit JS. CloudKitJS uses filters: JSON dictionaries with query parameters.  CKQuery uses NSPredicate which works quite differently from JSON query dictionaries. AgileCloudKit contains the CKFilter class to provide query functionality but due to the different nature of the NSPredicates and CKFilters, making a direct implementation of CKOperations that use the CKQuery class would be difficult.
+	- CKQueryOperation
+	- CKQueryNotification
 	
-Some classes do not contain every method as their native CloudKit counterparts, especially those that have been added in OS X 10.11.
+Some classes do not contain every method as their native CloudKit counterparts, especially those methods that have been added in OS X 10.11.
 
 ### JavaScript vs REST API
 
