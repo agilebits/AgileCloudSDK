@@ -1,36 +1,35 @@
-# Agile CloudKit
-A drop in replacement for CloudKit framework for use in non-Mac App Store apps. Uses CloudKitJS for all communcations.
+# AgileCloudKit
 
-## Building
-```
-$ git clone git@github.com:adamwulf/agile-cloud.git
-$ cd agile-cloud
-$ open AgileCloud.xcworkspace
-```
-### Compile the framework
-Pick the AgileCloudKit to build the framework
+AgileCloudKit is a drop-in replacement for CloudKit framework for use in non-Mac App Store apps. It uses CloudKitJS and CloudKit Web Services for all communications.
 
-### Configuration
-1. Pick an App ID and update the sample apps' Info.plist
-2. Add a CloudKit container for the new App ID
-3. Log in to https://icloud.developer.apple.com/dashboard/
-    - Create a new API Key
-    - Choose the callback URL that uses the app's ID as the scheme
-    - the host of the callback URL should be set to "agilecklogin"
-4. Update the API Key in the CKMediator.m, the #define is at the top
-5. Update the CloudKitContainerName #define in CKMediator to match the CloudKit container for your app ID
-6. Add that same scheme to the sample apps' URL Types in their project settings
+AgileCloudKit was written in Objective-C for maximum compatibility with existing OS X applications. AgileCloudKit runs on OS X (10.10 and up) only. It does not run on iOS, tvOS, or watchOS.
 
-### Sample Apps
+## License
+
+MIT?
+
+## Using AgileCloudKit
+
+See the file named [Using AgileCloudKit](Using%20AgileCloudKit.md) for information on how to set up AgileCloudKit in your application.
+
+## Still to do
+
+### API
+
+AgileCloudKit is not yet a 100% complete implementation of CloudKit. There are a few classes that are not yet implemented. Of note are:
+	- CKFetchSubscriptionsOperation
+	- CKDiscoverAllContactsOperation
+	- CKModifyBadgeOperation
+	- CKQuery - this doesn't have a direct equivalent to CloudKit JS. CloudKitJS uses filters: JSON dictionaries with query parameters.  CKQuery uses NSPredicate which works quite differently from JSON query dictionaries. AgileCloudKit contains the CKFilter class to provide query functionality but due to the different nature of the NSPredicates and CKFilters, making a direct implementation of CKOperations that use the CKQuery class would be difficult.
+	
+Some classes do not contain every method as their native CloudKit counterparts, especially those that have been added in OS X 10.11.
+
+### JavaScript vs REST API
+
+AgileCloudKit communicates with iCloud using a mix of JavaScript calls from a JavaScript context and the REST API. The long term goal is to move toward using the REST API. This has a number of advantages, one of which is eliminating the need for a Javascript context that runs on the main thread.
+
+## Sample Apps
+
 Two apps are bundled with the framework. The CloudZone app uses Apple's CloudKit framework, and the AgileCloudZone uses the AgileCloudKit framework.
 
 The sample app simply shows a login button if using the AgileCloudKit framework. Once the app starts up, it logs its progress to the console. It will use the convenience API and the block API to add, fetch, and delete zones in the user's private database.
-
-## Goals
-
- - [x] Compile and link the AgileCloudKit framework to easily replace CloudKit
- - [x] Handle authentication and appropriate callbacks
- - [x] Handle fetching and modifying Zones
- - [ ] Implement saving, fetching, modifying, and deleting CKRecords
- - [ ] Implement saving CKAssets
- - [ ] Implement the rest of the Operations, order TBD
