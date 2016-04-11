@@ -1,10 +1,10 @@
 # AgileCloudKit
 
-AgileCloudKit is a drop-in replacement for CloudKit framework for use in non-Mac App Store apps. It uses CloudKitJS and CloudKit Web Services for all communications.
+AgileCloudKit is a drop-in replacement for CloudKit framework for use in non-Mac App Store apps. It uses CloudKitJS and CloudKit Web Services to communicate with iCloud.
 
 ## License
 
-MIT?
+See the [license file](License.txt) for AgileCloudKit’s distribution license
 
 ## Using AgileCloudKit
 
@@ -25,7 +25,7 @@ AgileCloudKit is not yet a 100% complete implementation of CloudKit. There are a
 	- CKQueryOperation
 	- CKQueryNotification
 	
-Some classes do not contain every method as their native CloudKit counterparts, especially those methods that have been added in OS X 10.11.
+Some classes do not contain every method as their native CloudKit counterparts, particularly those methods that have been added in OS X 10.11.
 
 ### JavaScript vs REST API
 
