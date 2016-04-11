@@ -1,8 +1,6 @@
 ## Using AgileCloudKit
 
-#### Compile or include the framework
-
-Choose the AgileCloudKit to build the framework, or include the AgileCloudKit project in your project.
+AgileCloudKit is for use with your Mac app that is not distributed through the Mac App Store. However, you must have a CloudKit container that is already set up for the App Store version of your app.
 
 #### Prepare your container on CloudKit Dashboard
 
@@ -12,6 +10,11 @@ Log in to CloudKitDashboard with your Developer AppleID: https://icloud.develope
 1. Create a new API key
 1. Set the sign-in callback URL to launch your app with `cloudkit-containerID` as the scheme and `agilecklogin` as the host. For example, `cloudkit-icloud.com.company.appname://agilecklogin` 
 1. Repeat for your Production container
+
+#### Include the framework
+
+1. Embed the AgileCloudKit project in your project. If you do not wish to do this, build the project separately and add the framework to your project.
+1. Link the AgileCloudKit framework to the appropriate targets.
 
 #### Configure your application’s Info.plist file
 
@@ -35,8 +38,8 @@ Log in to CloudKitDashboard with your Developer AppleID: https://icloud.develope
 		```
 		
 1. Implement the CKMediatorDelegate methods. These are defined in CKMediatorDelegate.h
-	- you must implement the methods to load and save the login token, and it is recommended the token be stored securely. This allows your application to continue to communicate with CloudKit without needing to prompt the user to login each time. It can expire, for example, when the user changes their AppleID password, or for other reasons.
-	- the optional logging method allows your app to receive logging messages from AgileCloudKit with varying levels of severity. Those levels are defined in CKMediatorDelegate.h
+	- you must implement the methods `-loadSessionTokenForMediator:` and `-mediator:saveSessionToken`, and it is recommended the token be stored securely. This allows your application to continue to communicate with CloudKit without needing to prompt the user to login each time. It can expire, for example, when the user changes their AppleID password, or for other reasons.
+	- the optional logging method `mediator:logLevel:object:at:format:` allows your app to receive logging messages from AgileCloudKit with varying levels of severity. Those levels are defined in CKMediatorDelegate.h
 	
 1. Handle the sign-in URL callback.
 
@@ -49,7 +52,7 @@ Log in to CloudKitDashboard with your Developer AppleID: https://icloud.develope
 		[[CKMediator sharedMediator] handleGetURLEvent:event withReplyEvent:replyEvent];
 		```
 
-1. Import the framework with the standard header: `#import <AgileCloudKit/AgileCloutKit.h>`
+1. In the appropriate classes, import the framework with the standard header: `#import <AgileCloudKit/AgileCloutKit.h>`
 
 1. Logging in, logging out, and handling Authorization Errors
 
