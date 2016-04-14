@@ -8,7 +8,7 @@
 #import "AgileCloudKitView.h"
 #import <AgileCloudKit/AgileCloudKit.h>
 
-@interface AgileCloudKitView () <CKMediatorDelegate>
+@interface AgileCloudKitView ()
 
 @end
 
@@ -17,16 +17,10 @@
 - (instancetype)initWithFrame:(NSRect)frameRect
 {
     if (self = [super initWithFrame:frameRect]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [[CKMediator sharedMediator] setDelegate:self];
-        });
-
         _logoutButton = [[NSButton alloc] initWithFrame:NSMakeRect(self.bounds.size.width - 120, 10, 100, 20)];
         [_logoutButton setButtonType:NSMomentaryPushInButton];
         [_logoutButton setTitle:@"Log out"];
         [_logoutButton setAutoresizingMask:NSViewMinXMargin | NSViewMaxYMargin];
-        [_logoutButton setTarget:self];
-        [_logoutButton setAction:@selector(didClickLogoutButton)];
         [_logoutButton setHidden:YES];
         [self addSubview:_logoutButton];
 
@@ -34,72 +28,11 @@
         [_loginButton setButtonType:NSMomentaryPushInButton];
         [_loginButton setTitle:@"Log in"];
         [_loginButton setAutoresizingMask:NSViewMinXMargin | NSViewMaxYMargin];
-        [_loginButton setTarget:self];
-        [_loginButton setAction:@selector(didClickLoginButton)];
         [_loginButton setHidden:YES];
         [self addSubview:_loginButton];
 
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cloudKitIdentityDidChange:) name:NSUbiquityIdentityDidChangeNotification object:nil];
     }
     return self;
-}
-
-- (void)startTests
-{
-    [super startTests];
-}
-
-
-- (void)didClickLogoutButton
-{
-    [[CKMediator sharedMediator] logout];
-}
-
-- (void)didClickLoginButton
-{
-    [[CKMediator sharedMediator] login];
-}
-
-#pragma mark - Notifications
-
-- (void)cloudKitIdentityDidChange:(NSNotification *)note
-{
-    if ([note.userInfo[@"accountStatus"] integerValue] == CKAccountStatusAvailable) {
-        _logoutButton.hidden = NO;
-        _loginButton.hidden = YES;
-    } else {
-        _logoutButton.hidden = YES;
-        _loginButton.hidden = NO;
-    }
-
-    CKContainer *defCont = [CKContainer defaultContainer];
-    NSLog(@"container 1: %@", defCont.containerIdentifier);
-}
-
-#pragma mark - CKMediatorDelegate
-
-- (void)mediator:(CKMediator *)mediator saveSessionToken:(NSString *)token {
-	// this is a sample only. You should store your session token more securely
-    [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"AgileCloudKit_sessionToken"];
-}
-
-- (NSString *)loadSessionTokenForMediator:(CKMediator *)mediator {
-	// this is a sample only. You should store your session token more securely
-    return [[NSUserDefaults standardUserDefaults] stringForKey:@"AgileCloudKit_sessionToken"];
-}
-
-- (void)mediator:(CKMediator *)mediator logLevel:(int)level object:(id)object at:(SEL)method format:(NSString *)format,... NS_FORMAT_FUNCTION(5,6) {
-	if (level > 5) {
-		return;
-	}
-
-	va_list args;
-	
-	va_start(args, format);
-	NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
-	va_end(args);
-	
-	NSLog(@"AgileCloudKitLog %d: %@", level, message);
 }
 
 @end

@@ -14,9 +14,4 @@
 @property (nonatomic, strong) NSButton *addRecordButton;
 @property (nonatomic, strong) NSTextField *recordTextField;
 
-- (void)startTests;
-
-- (void)listenForPushNotifications;
-
-
 @end
