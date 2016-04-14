@@ -59,11 +59,11 @@
             NSMutableDictionary* partialFailures = [NSMutableDictionary dictionary];
             if([jsonResponse isKindOfClass:[NSDictionary class]] && jsonResponse[@"records"]){
                 [jsonResponse[@"records"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    NSError* recordErr = nil;
+                    NSError* recordError = nil;
                     CKRecord* record;
                     CKRecordID* recordID;
                     if(obj[@"serverErrorCode"]){
-                        recordErr = [[NSError alloc] initWithCKErrorDictionary:obj];
+                        recordError = [[NSError alloc] initWithCKErrorDictionary:obj];
                         if(obj[@"recordName"]){
                             recordID = [[CKRecordID alloc] initWithRecordName:obj[@"recordName"]  zoneID:zone];
                         }
@@ -78,7 +78,7 @@
                             }
                         }];
                         if([errs count]){
-                            recordErr = errs[0];
+                            recordError = errs[0];
                         }else{
                             [fetchedRecords setObject:record forKey:recordID];
                             if(self.perRecordProgressBlock){
@@ -88,11 +88,11 @@
                     }
 
                     if(self.perRecordCompletionBlock){
-                        self.perRecordCompletionBlock(record, recordID, recordErr);
+                        self.perRecordCompletionBlock(record, recordID, recordError);
                     }
                     
-                    if(recordErr){
-                        [partialFailures setObject:recordErr forKey:recordID];
+                    if(recordError){
+                        [partialFailures setObject:recordError forKey:recordID];
                     }
                 }];
             }else if(!error){

@@ -315,15 +315,15 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:_recordType forKey:@"recordType"];
-    [aCoder encodeObject:_recordID forKey:@"recordID"];
+    [aCoder encodeObject:self.recordType forKey:@"recordType"];
+    [aCoder encodeObject:self.recordID forKey:@"recordID"];
     [aCoder encodeObject:_userDefinedProperties forKey:@"userDefinedProperties"];
 	
-	[aCoder encodeObject:_creationDate forKey:@"creationDate"];
-	[aCoder encodeObject:_modificationDate forKey:@"modificationDate"];
-	[aCoder encodeObject:_recordChangeTag forKey:@"recordChangeTag"];
-	[aCoder encodeObject:_creatorUserRecordID forKey:@"creatorUserRecordID"];
-	[aCoder encodeObject:_lastModifiedUserRecordID forKey:@"lastModifiedUserRecordID"];
+	[aCoder encodeObject:self.creationDate forKey:@"creationDate"];
+	[aCoder encodeObject:self.modificationDate forKey:@"modificationDate"];
+	[aCoder encodeObject:self.recordChangeTag forKey:@"recordChangeTag"];
+	[aCoder encodeObject:self.creatorUserRecordID forKey:@"creatorUserRecordID"];
+	[aCoder encodeObject:self.lastModifiedUserRecordID forKey:@"lastModifiedUserRecordID"];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
