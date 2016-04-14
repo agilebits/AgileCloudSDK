@@ -9,11 +9,7 @@
 #import "Constants.h"
 #import CloudKitImport
 
-@implementation CloudKitView {
-    NSButton *_subscribeButton;
-    NSButton *_startTestsButton;
-    NSButton *_addRecordButton;
-}
+@implementation CloudKitView
 
 - (BOOL)isFlipped
 {
@@ -46,6 +42,9 @@
         [_addRecordButton setTarget:self];
         [_addRecordButton setAction:@selector(addRecord)];
         [self addSubview:_addRecordButton];
+		
+		_recordTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(20, 40, 200, 22)];
+		[self addSubview:_recordTextField];
     }
 
     return self;
@@ -128,16 +127,16 @@
         noteChangesOp.notificationChangedBlock = ^(CKNotification *notification){
             CKMarkNotificationsReadOperation* markReadOp = [[CKMarkNotificationsReadOperation alloc] initWithNotificationIDsToMarkRead:@[notification.notificationID]];
             markReadOp.markNotificationsReadCompletionBlock =^(NSArray <CKNotificationID *> * __nullable notificationIDsMarkedRead, NSError * __nullable operationError){
-                NSAssert(!operationError, @"The notification was marked as read");
-                NSAssert([notificationIDsMarkedRead count], @"The notification was marked as read");
+                NSAssert(!operationError, @"Error marking notification as marked as read: %@", operationError);
+                NSAssert([notificationIDsMarkedRead count], @"The notification was not marked as read.");
 
                 completionBlock();
             };
             [[CKContainer defaultContainer] addOperation:markReadOp];
         };
         noteChangesOp.fetchNotificationChangesCompletionBlock = ^(CKServerChangeToken *serverChangeToken, NSError *operationError){
-            NSAssert(serverChangeToken, @"We received a server change token");
-            NSAssert(!operationError, @"No error");
+            NSAssert(serverChangeToken, @"No server change token received.");
+            NSAssert(!operationError, @"Error fetching notification changes: %@", operationError);
         };
         [[CKContainer defaultContainer] addOperation:noteChangesOp];
     });
@@ -153,7 +152,7 @@
 
         CKModifySubscriptionsOperation* delSubOp = [[CKModifySubscriptionsOperation alloc] initWithSubscriptionsToSave:@[] subscriptionIDsToDelete:subsToDelete];
         delSubOp.modifySubscriptionsCompletionBlock = ^(NSArray* savedSubs, NSArray* deletedSubs, NSError* err){
-            NSAssert(!err, @"no error");
+            NSAssert(!err, @"Error modifying subscription, %@", err);
 #ifdef AGILECLOUDKIT
             CKSubscription* newSub = [[CKSubscription alloc] initWithRecordType:@"AllFieldType" filters:@[] options:CKSubscriptionOptionsFiresOnRecordCreation];
 #else
@@ -161,8 +160,8 @@
             CKSubscription* newSub = [[CKSubscription alloc] initWithRecordType:@"AllFieldType" predicate:[NSPredicate predicateWithFormat:@"creationDate > %@", date] options:CKSubscriptionOptionsFiresOnRecordDeletion];
 #endif
             [[[CKContainer defaultContainer] privateCloudDatabase] saveSubscription:newSub completionHandler:^(CKSubscription *subscription, NSError *error) {
-                NSAssert(subscription, @"subscription saved ok");
-                NSAssert(!error, @"no error");
+                NSAssert(subscription, @"subscription coult not save.");
+                NSAssert(!error, @"error saving subscription: %@", error);
                 [[NSApplication sharedApplication] registerForRemoteNotificationTypes:NSRemoteNotificationTypeAlert];
             }];
         };
@@ -180,8 +179,8 @@
     CKModifyRecordsOperation *multiAssetOp = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[testRecord] recordIDsToDelete:nil];
     multiAssetOp.atomic = NO;
     multiAssetOp.modifyRecordsCompletionBlock = ^(NSArray *modifiedRecords, NSArray *deletedRecordIDs, NSError *err) {
-        NSAssert([modifiedRecords count], @"a record was created");
-        NSAssert(!err, @"no error");
+        NSAssert([modifiedRecords count], @"No record created.");
+        NSAssert(!err, @"Error creating record: %@", err);
         [NSThread sleepForTimeInterval:4];
         CKRecordID* savedRecordID = [[modifiedRecords firstObject] recordID];
         if(!err){
@@ -197,8 +196,8 @@
 {
     CKModifyRecordsOperation *multiAssetOp = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[] recordIDsToDelete:@[recordIDToDelete]];
     multiAssetOp.modifyRecordsCompletionBlock = ^(NSArray *modifiedRecords, NSArray *deletedRecordIDs, NSError *err) {
-        NSAssert([deletedRecordIDs count], @"a record was deleted");
-        NSAssert(!err, @"no error");
+        NSAssert([deletedRecordIDs count], @"Record not deleted.");
+        NSAssert(!err, @"Error deleting record: %@", err);
         [NSThread sleepForTimeInterval:4];
         [self performSelectorOnMainThread:@selector(testCreateAndDeleteRecordLoop) withObject:nil waitUntilDone:NO];
     };
@@ -210,45 +209,55 @@
 - (void)testImmediateCloudKitAuth:(void (^)())completionBlock
 {
     [[CKContainer defaultContainer] accountStatusWithCompletionHandler:^(CKAccountStatus accountStatus, NSError *error) {
-        NSAssert(!error, @"was able to fetch auth status");
+        NSAssert(!error, @"Error fetching auth status: %@", error);
 
         completionBlock();
     }];
 }
+
 - (void)testCloudKitRecordsWithAllFieldTypes:(void (^)())completionBlock
 {
     CKRecordZone *zone = [[CKRecordZone alloc] initWithZoneName:@"persistentRecordZone"];
     [[[CKContainer defaultContainer] privateCloudDatabase] saveRecordZone:zone completionHandler:^(CKRecordZone *zone, NSError *error) {
-        NSAssert(zone, @"saved a zone");
-        NSAssert(!error, @"no error");
+        NSAssert(zone, @"no zone saved");
+        NSAssert(!error, @"error saving record zone: %@", error);
 
         CKRecordID* recordID = [[CKRecordID alloc] initWithRecordName:@"7A7730D2-8E25-4175-BCCA-A3565DEF025B" zoneID:zone.zoneID];
-
-        [[[CKContainer defaultContainer] privateCloudDatabase] fetchRecordWithID:recordID completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
-            //
-            // note, for this test you need to manually create a record with the above ID.
-            // the tests will never delete it, but will fetch it to test fetching existing records
-            NSAssert(record, @"found a record");
-            NSAssert(!error, @"no error");
-
-            NSImage* img = [[NSImage alloc] initWithData:record[@"BytesField"]];
-            [CloudKitView saveImage:img atPath:@"/Users/adamwulf/Desktop/foo.png"];
-
-            record[@"StringField"] = @"foobar";
-            [[[CKContainer defaultContainer] privateCloudDatabase] saveRecord:record completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
-                NSAssert(record, @"saved record with asset");
-                NSAssert(!error, @"no error");
-
-                completionBlock();
-            }];
-        }];
+		CKRecord *newRecord = [[CKRecord alloc] initWithRecordType:@"AllFieldType" recordID:recordID];
+		newRecord[@"BytesField"] = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:@"kitten.jpg"]];
+		CKModifyRecordsOperation *modifyOperation = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[newRecord] recordIDsToDelete:nil];
+		modifyOperation.savePolicy = CKRecordSaveAllKeys;
+		
+		modifyOperation.modifyRecordsCompletionBlock = ^(NSArray *modifiedRecords, NSArray *deletedRecordIDs, NSError *err) {
+			[[[CKContainer defaultContainer] privateCloudDatabase] fetchRecordWithID:recordID completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+				//
+				// note, for this test you need to manually create a record with the above ID.
+				// the tests will never delete it, but will fetch it to test fetching existing records
+				NSAssert(record, @"record %@ not found", recordID.recordName);
+				NSAssert(!error, @"testCloudKitRecordsWithAllFieldTypes: error fetching record: %@", recordID.recordName);
+				
+				NSImage* image = [[NSImage alloc] initWithData:record[@"BytesField"]];
+				NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, NO );
+				NSString *desktopPath = [[paths objectAtIndex:0] stringByExpandingTildeInPath];
+				[CloudKitView saveImage:image atPath:[desktopPath stringByAppendingPathComponent:@"CloudZoneTestImage-A3565DEF025B.png"]];
+				
+				record[@"StringField"] = @"foobar";
+				[[[CKContainer defaultContainer] privateCloudDatabase] saveRecord:record completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+					NSAssert(record, @"error saving record %@", recordID.recordName);
+					NSAssert(!error, @"error: %@", error);
+					
+					completionBlock();
+				}];
+			}];
+		};
+		[[[CKContainer defaultContainer] privateCloudDatabase] addOperation:modifyOperation];
     }];
 }
 
 - (void)testCloudKitSubscriptions:(void (^)())completionBlock
 {
     [[[CKContainer defaultContainer] privateCloudDatabase] fetchAllSubscriptionsWithCompletionHandler:^(NSArray<CKSubscription *> *_Nullable subscriptions, NSError *_Nullable error) {
-        NSAssert(!error, @"was able to fetch all subscriptions");
+        NSAssert(!error, @"Error fetching all subscriptions: %@", error);
 
         NSArray* subsToDelete = @[];
         for (CKSubscription* sub in subscriptions){
@@ -258,30 +267,30 @@
         // delete all subscriptions
         CKModifySubscriptionsOperation* delSubOp = [[CKModifySubscriptionsOperation alloc] initWithSubscriptionsToSave:@[] subscriptionIDsToDelete:subsToDelete];
         delSubOp.modifySubscriptionsCompletionBlock = ^(NSArray* savedSubs, NSArray* deletedSubs, NSError* err){
-            NSAssert([deletedSubs count] == [subsToDelete count], @"deleted the subscription");
-            NSAssert(!err, @"no error");
+            NSAssert([deletedSubs count] == [subsToDelete count], @"Could not Delete the subscription.");
+            NSAssert(!err, @"error modifying subscriptions %@", err);
 #ifdef AGILECLOUDKIT
             CKSubscription* newSub = [[CKSubscription alloc] initWithRecordType:@"AllFieldType" filters:@[] options:CKSubscriptionOptionsFiresOnRecordUpdate];
 #else
             CKSubscription* newSub = [[CKSubscription alloc] initWithRecordType:@"AllFieldType" predicate:[NSPredicate predicateWithFormat:@"StringField='asdf'"] options:CKSubscriptionOptionsFiresOnRecordUpdate];
 #endif
             [[[CKContainer defaultContainer] privateCloudDatabase] saveSubscription:newSub completionHandler:^(CKSubscription *subscription, NSError *error) {
-                NSAssert(subscription, @"saved ok");
-                NSAssert(!error, @"no error");
+                NSAssert(subscription, @"could not save subscription");
+                NSAssert(!error, @"error saving subscription %@", error);
 
                 [[[CKContainer defaultContainer] privateCloudDatabase] fetchAllSubscriptionsWithCompletionHandler:^(NSArray<CKSubscription *> *_Nullable subscriptions, NSError *_Nullable error) {
-                    NSAssert([subscriptions count], @"can fetch subscriptions");
-                    NSAssert(!error, @"no error");
+                    NSAssert([subscriptions count], @"no subscriptions fetched");
+                    NSAssert(!error, @"error fetching subscriptions: %@", error);
 
                     CKSubscription* currSub = [subscriptions firstObject];
                     if(currSub){
                         [[[CKContainer defaultContainer] privateCloudDatabase] deleteSubscriptionWithID:currSub.subscriptionID completionHandler:^(NSString *subscriptionID, NSError *error) {
-                            NSAssert(subscriptionID, @"deleted ok");
-                            NSAssert(!error, @"no error");
+                            NSAssert(subscriptionID, @"subscription %@ not deleted", subscriptionID);
+                            NSAssert(!error, @"error deleting subscription: %@", error);
 
                             [[[CKContainer defaultContainer] privateCloudDatabase] deleteSubscriptionWithID:newSub.subscriptionID completionHandler:^(NSString *subscriptionID, NSError *error) {
-                                NSAssert(subscriptionID, @"deleted ok");
-                                NSAssert(!error, @"no error");
+								NSAssert(subscriptionID, @"subscription %@ not deleted", subscriptionID);
+								NSAssert(!error, @"error deleting subscription: %@", error);
                                 [self _testCloudKitSubscriptionsAfterDelete:completionBlock];
                             }];
                         }];
@@ -315,12 +324,12 @@
     sub.zoneID = zone.zoneID;
 
     [[[CKContainer defaultContainer] privateCloudDatabase] saveSubscription:sub completionHandler:^(CKSubscription *subscription, NSError *error) {
-        NSAssert(subscription, @"subscription saved");
-        NSAssert(!error, @"no error");
+        NSAssert(subscription, @"subscription not saved, error: %@", error);
+        NSAssert(!error, @"error saving subscription %@", error);
 
         [[[CKContainer defaultContainer] privateCloudDatabase] fetchAllSubscriptionsWithCompletionHandler:^(NSArray<CKSubscription *> * _Nullable subscriptions, NSError * _Nullable error) {
-            NSAssert([subscriptions count], @"subscription saved");
-            NSAssert(!error, @"no error");
+            NSAssert([subscriptions count], @"subscriptions not saved");
+            NSAssert(!error, @"error saving subscriptions: %@", error);
 
             CKSubscription* existingSub = [subscriptions firstObject];
             existingSub.notificationInfo = nil;
@@ -332,13 +341,13 @@
 #endif
             CKModifySubscriptionsOperation* addSubOp = [[CKModifySubscriptionsOperation alloc] initWithSubscriptionsToSave:@[newSub, existingSub] subscriptionIDsToDelete:@[]];
             addSubOp.modifySubscriptionsCompletionBlock = ^(NSArray* savedSubs, NSArray* deletedSubs, NSError* err){
-                NSAssert([savedSubs count] == 2, @"saved both subs");
+                NSAssert([savedSubs count] == 2, @"both subscriptions not saved");
                 NSAssert(!existingSub.notificationInfo.alertBody, @"no notification info for the modified sub");
-                NSAssert(!error, @"no error");
+                NSAssert(!error, @"error modifying subscriptions: %@", error);
 
                 CKModifySubscriptionsOperation* delSubOp = [[CKModifySubscriptionsOperation alloc] initWithSubscriptionsToSave:@[] subscriptionIDsToDelete:@[newSub.subscriptionID]];
                 delSubOp.modifySubscriptionsCompletionBlock = ^(NSArray* savedSubs, NSArray* deletedSubs, NSError* err){
-                    NSAssert([deletedSubs count] == 1, @"deleted the subscription");
+                    NSAssert([deletedSubs count] == 1, @"subscription not deleted");
 
                     completionBlock();
                 };
@@ -354,55 +363,61 @@
     CKRecordZone *zone = [[CKRecordZone alloc] initWithZoneName:@"persistentRecordZone"];
     NSString *recordWithAsset = @"A4A40E35-66D0-4D9E-ACD0-F34D04DF0F69";
     CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:recordWithAsset zoneID:zone.zoneID];
-
-    __block CKRecord *fetchedRecordWithAsset;
-    CKFetchRecordsOperation *fetchOp = [[CKFetchRecordsOperation alloc] initWithRecordIDs:@[recordID]];
-    fetchOp.perRecordProgressBlock = ^(CKRecordID *recordID, double progress) {
-        NSLog(@"fetch record progress: %.2f %@", progress, recordID);
-    };
-    fetchOp.perRecordCompletionBlock = ^(CKRecord *record, CKRecordID *recordID, NSError *error) {
-        NSAssert(!error, @"no error");
-        NSLog(@"per record complete: %@", record.recordID);
-        NSLog(@" - : %@", [record[@"AssetField"] fileURL]);
-    };
-    fetchOp.fetchRecordsCompletionBlock = ^(NSDictionary /* CKRecordID * -> CKRecord */ *recordsByRecordID, NSError *operationError) {
-        NSAssert([[recordsByRecordID allKeys] count], @"can fetch records");
-        NSAssert(!operationError, @"no error");
-
-        fetchedRecordWithAsset = [[recordsByRecordID allValues] firstObject];
-        CKModifyRecordsOperation *recordWithAssetOp = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[fetchedRecordWithAsset] recordIDsToDelete:nil];
-        recordWithAssetOp.modifyRecordsCompletionBlock = ^(NSArray *modifiedRecords, NSArray *deletedRecordIDs, NSError *err) {
-            NSAssert([modifiedRecords count], @"saved a record");
-            NSAssert(!err, @"no error");
-
-            // update the asset
-            NSURL *fileURL = [[NSBundle mainBundle] URLForImageResource:@"kitten.jpg"];
-            fetchedRecordWithAsset[@"AssetField"] = [[CKAsset alloc] initWithFileURL:fileURL];
-            CKModifyRecordsOperation *recordWithAssetOp = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[fetchedRecordWithAsset] recordIDsToDelete:nil];
-            recordWithAssetOp.modifyRecordsCompletionBlock = ^(NSArray *modifiedRecords, NSArray *deletedRecordIDs, NSError *err) {
-                NSAssert([modifiedRecords count], @"saved a record");
-                NSAssert(!err, @"no error");
-
-                CKAsset* asset1 = [[CKAsset alloc] initWithFileURL:[[NSBundle mainBundle] URLForImageResource:@"kitten.jpg"]];
-                CKAsset* asset2 = [[CKAsset alloc] initWithFileURL:[[NSBundle mainBundle] URLForImageResource:@"otherkitten.jpg"]];
-
-                CKRecord* recordWithMultipleAssets = [[CKRecord alloc] initWithRecordType:@"AllFieldType" zoneID:zone.zoneID];
-                recordWithMultipleAssets[@"AssetListField"] = @[asset1, asset2];
-
-                CKModifyRecordsOperation *multiAssetOp = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[recordWithMultipleAssets] recordIDsToDelete:nil];
-                multiAssetOp.modifyRecordsCompletionBlock = ^(NSArray *modifiedRecords, NSArray *deletedRecordIDs, NSError *err) {
-                    NSAssert([modifiedRecords count], @"saved record");
-                    NSAssert(!err, @"no error");
-
-                    completionBlock();
-                };
-                [[[CKContainer defaultContainer] privateCloudDatabase] addOperation:multiAssetOp];
-            };
-            [[[CKContainer defaultContainer] privateCloudDatabase] addOperation:recordWithAssetOp];
-        };
-        [[[CKContainer defaultContainer] privateCloudDatabase] addOperation:recordWithAssetOp];
-    };
-    [[[CKContainer defaultContainer] privateCloudDatabase] addOperation:fetchOp];
+	CKRecord *newRecord = [[CKRecord alloc] initWithRecordType:@"AllFieldType" recordID:recordID];
+	CKModifyRecordsOperation *modifyOperation = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[newRecord] recordIDsToDelete:nil];
+	modifyOperation.savePolicy = CKRecordSaveAllKeys;
+	
+	modifyOperation.modifyRecordsCompletionBlock = ^(NSArray *modifiedRecords, NSArray *deletedRecordIDs, NSError *err) {
+		__block CKRecord *fetchedRecordWithAsset;
+		CKFetchRecordsOperation *fetchOp = [[CKFetchRecordsOperation alloc] initWithRecordIDs:@[recordID]];
+		fetchOp.perRecordProgressBlock = ^(CKRecordID *recordID, double progress) {
+			NSLog(@"fetch record progress: %.2f %@", progress, recordID);
+		};
+		fetchOp.perRecordCompletionBlock = ^(CKRecord *record, CKRecordID *recordID, NSError *error) {
+			NSAssert(!error, @"testCloudKitAssetsWithOperations: error fetching record: %@", error);
+			NSLog(@"per record complete: %@", record.recordID);
+			NSLog(@" - : %@", [record[@"AssetField"] fileURL]);
+		};
+		fetchOp.fetchRecordsCompletionBlock = ^(NSDictionary /* CKRecordID * -> CKRecord */ *recordsByRecordID, NSError *operationError) {
+			NSAssert([[recordsByRecordID allKeys] count], @"could not fetch records");
+			NSAssert(!operationError, @"error fetching records: %@", operationError);
+			
+			fetchedRecordWithAsset = [[recordsByRecordID allValues] firstObject];
+			CKModifyRecordsOperation *recordWithAssetOp = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[fetchedRecordWithAsset] recordIDsToDelete:nil];
+			recordWithAssetOp.modifyRecordsCompletionBlock = ^(NSArray *modifiedRecords, NSArray *deletedRecordIDs, NSError *err) {
+				NSAssert([modifiedRecords count], @"could not save record");
+				NSAssert(!err, @"error saving record: %@", err);
+				
+				// update the asset
+				NSURL *fileURL = [[NSBundle mainBundle] URLForImageResource:@"kitten.jpg"];
+				fetchedRecordWithAsset[@"AssetField"] = [[CKAsset alloc] initWithFileURL:fileURL];
+				CKModifyRecordsOperation *recordWithAssetOp = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[fetchedRecordWithAsset] recordIDsToDelete:nil];
+				recordWithAssetOp.modifyRecordsCompletionBlock = ^(NSArray *modifiedRecords, NSArray *deletedRecordIDs, NSError *err) {
+					NSAssert([modifiedRecords count], @"No records modified.");
+					NSAssert(!err, @"Error modifying record: %@", err);
+					
+					CKAsset* asset1 = [[CKAsset alloc] initWithFileURL:[[NSBundle mainBundle] URLForImageResource:@"kitten.jpg"]];
+					CKAsset* asset2 = [[CKAsset alloc] initWithFileURL:[[NSBundle mainBundle] URLForImageResource:@"otherkitten.jpg"]];
+					
+					CKRecord* recordWithMultipleAssets = [[CKRecord alloc] initWithRecordType:@"AllFieldType" zoneID:zone.zoneID];
+					recordWithMultipleAssets[@"AssetListField"] = @[asset1, asset2];
+					
+					CKModifyRecordsOperation *multiAssetOp = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[recordWithMultipleAssets] recordIDsToDelete:nil];
+					multiAssetOp.modifyRecordsCompletionBlock = ^(NSArray *modifiedRecords, NSArray *deletedRecordIDs, NSError *err) {
+						NSAssert([modifiedRecords count], @"Could not modify multi-asset record: error %@", err);
+						NSAssert(!err, @"Error modifying multi-asset record. %@", err);
+						
+						completionBlock();
+					};
+					[[[CKContainer defaultContainer] privateCloudDatabase] addOperation:multiAssetOp];
+				};
+				[[[CKContainer defaultContainer] privateCloudDatabase] addOperation:recordWithAssetOp];
+			};
+			[[[CKContainer defaultContainer] privateCloudDatabase] addOperation:recordWithAssetOp];
+		};
+		[[[CKContainer defaultContainer] privateCloudDatabase] addOperation:fetchOp];
+	};
+	[[[CKContainer defaultContainer] privateCloudDatabase] addOperation:modifyOperation];
 }
 
 
@@ -420,13 +435,13 @@
         if([recordID isEqual:missingRecordID] && !error){
             NSAssert(error, @"missing record should have error");
         }else if(![recordID isEqual:missingRecordID] && error){
-            NSAssert(!error, @"shouldn't have error for existing record");
+            NSAssert(!error, @"shouldn't have error for existing record: %@", error);
         }
         NSLog(@"per record complete: %@", record.recordID);
     };
     fetchOp.fetchRecordsCompletionBlock = ^(NSDictionary /* CKRecordID * -> CKRecord */ *recordsByRecordID, NSError *operationError) {
-        NSAssert([recordsByRecordID count], @"something was fetched");
-        NSAssert(operationError, @"(expected error) partial error b/c of missing record");
+        NSAssert([recordsByRecordID count], @"nothing fetched");
+        NSAssert(operationError, @"no partial error due to missing record");
 
         CKRecord* record = [[recordsByRecordID allValues] firstObject];
         record[@"StringField"] = @"jumble";
@@ -434,16 +449,16 @@
 
         CKModifyRecordsOperation* modOp = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[record] recordIDsToDelete:nil];
         modOp.modifyRecordsCompletionBlock = ^(NSArray* modifiedRecords, NSArray* deletedRecordIDs, NSError* err){
-            NSAssert([modifiedRecords count], @"saved records");
-            NSAssert(!err, @"no error");
+            NSAssert([modifiedRecords count], @"no saved records");
+            NSAssert(!err, @"error fetching saved records %@", err);
 
             CKRecord* addRecord = [[CKRecord alloc] initWithRecordType:@"AllFieldType" recordID:[[CKRecordID alloc] initWithRecordName:[[NSUUID UUID]UUIDString] zoneID:record.recordID.zoneID]];
             addRecord[@"StringField"] = @"a new record";
 
             CKModifyRecordsOperation* modOp2 = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[addRecord] recordIDsToDelete:nil];
             modOp2.modifyRecordsCompletionBlock = ^(NSArray* modifiedRecords, NSArray* deletedRecordIDs, NSError* err){
-                NSAssert([modifiedRecords count], @"saved record");
-                NSAssert(!err, @"no error");
+                NSAssert([modifiedRecords count], @"no records saved");
+                NSAssert(!err, @"error saving records: %@", err);
 
                 CKFetchRecordChangesOperation* recordChangesOperation = [[CKFetchRecordChangesOperation alloc] initWithRecordZoneID:record.recordID.zoneID previousServerChangeToken:nil];
                 recordChangesOperation.recordChangedBlock = ^(CKRecord* record){
@@ -453,21 +468,21 @@
                     NSLog(@" - was deleted %@", recordID);
                 };
                 recordChangesOperation.fetchRecordChangesCompletionBlock = ^(CKServerChangeToken* token, NSData* notUsed, NSError* opErr){
-                    NSAssert(token, @"token for changed records");
-                    NSAssert(!opErr, @"no error");
+                    NSAssert(token, @"no token received for changed records");
+                    NSAssert(!opErr, @"error fetching record changes: %@", opErr);
 
                     CKRecord* hydratedRecord = [[CKRecord alloc] initWithRecordType:addRecord.recordType recordID:addRecord.recordID];
                     hydratedRecord[@"StringField"] = @"modified record";
                     CKModifyRecordsOperation* modOp3 = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[hydratedRecord] recordIDsToDelete:nil];
                     modOp3.savePolicy = CKRecordSaveAllKeys;
                     modOp3.modifyRecordsCompletionBlock = ^(NSArray* modifiedRecords, NSArray* deletedRecordIDs, NSError* err){
-                        NSAssert([modifiedRecords count], @"record is modified");
-                        NSAssert(!err, @"no error");
+                        NSAssert([modifiedRecords count], @"record not modified");
+                        NSAssert(!err, @"error modifying record: %@", err);
 
                         CKModifyRecordsOperation* modOp4 = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:nil recordIDsToDelete:@[addRecord.recordID]];
                         modOp4.modifyRecordsCompletionBlock = ^(NSArray* modifiedRecords, NSArray* deletedRecordIDs, NSError* err){
-                            NSAssert([deletedRecordIDs count], @"deleted a record");
-                            NSAssert(!err, @"no error");
+                            NSAssert([deletedRecordIDs count], @"record not deleted");
+                            NSAssert(!err, @"error deleting record: %@", err);
 
                             CKModifyRecordsOperation* modOp5 = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[addRecord] recordIDsToDelete:nil];
                             modOp5.perRecordProgressBlock = ^(CKRecord *record, double progress){
@@ -490,8 +505,8 @@
                                     NSLog(@" - was deleted %@", recordID);
                                 };
                                 nextChangesOperation.fetchRecordChangesCompletionBlock = ^(CKServerChangeToken* token, NSData* notUsed, NSError* opErr){
-                                    NSAssert(token, @"record change token");
-                                    NSAssert(!opErr, @"no error");
+                                    NSAssert(token, @"no record change token received");
+                                    NSAssert(!opErr, @"error fetching record changes: %@", opErr);
 
                                     completionBlock();
                                 };
@@ -521,51 +536,58 @@
 
     NSLog(@"Fetching all zones");
 
-    [[[CKContainer containerWithIdentifier:@"iCloud.com.agilebits.CloudZone"] privateCloudDatabase] fetchAllRecordZonesWithCompletionHandler:^(NSArray *zones, NSError *error) {
-        NSAssert([zones count], @"can fetch zones");
-        NSAssert(!error, @"no error");
+#if AGILECLOUDKIT
+	NSArray *containerProperties = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CloudKitJSContainers"];
+	NSString *cloudKitIdentifier = [containerProperties[0] objectForKey:@"CloudKitJSContainerName"];
+#else
+	NSString *cloudKitIdentifier = [[CKContainer defaultContainer] containerIdentifier];
+#endif
+	
+    [[[CKContainer containerWithIdentifier:cloudKitIdentifier] privateCloudDatabase] fetchAllRecordZonesWithCompletionHandler:^(NSArray *zones, NSError *error) {
+        NSAssert([zones count], @"could not fetch zones");
+        NSAssert(!error, @"error fetching zones: %@", error);
     }];
 
     [[[CKContainer defaultContainer] privateCloudDatabase] fetchAllRecordZonesWithCompletionHandler:^(NSArray *zones, NSError *error) {
         CKRecordID* recordID = [[CKRecordID alloc] initWithRecordName:@"missingRecordID"];
 
         [[[CKContainer defaultContainer] privateCloudDatabase] fetchRecordWithID:recordID completionHandler:^(CKRecord *record, NSError *error) {
-            NSAssert(error && error.code == CKErrorUnknownItem, @"operation completed with expected error");
+            NSAssert(error && error.code == CKErrorUnknownItem, @"operation completed without CKErrorUnknownItem error");
             NSLog(@"error (expected): %@", error);
         }];
 
         CKRecordZone* zone = [[CKRecordZone alloc] initWithZoneName:@"testRecordZone"];
         [[[CKContainer defaultContainer] privateCloudDatabase] saveRecordZone:zone completionHandler:^(CKRecordZone *zone, NSError *error) {
-            NSAssert(zone, @"saved a zone");
-            NSAssert(!error, @"operation completed without error");
+            NSAssert(zone, @"zone not saved");
+            NSAssert(!error, @"error saving zone: %@", error);
 
             CKRecordID* recordID = [[CKRecordID alloc] initWithRecordName:[[NSUUID UUID] UUIDString] zoneID:zone.zoneID];
             CKRecord* recordToSave = [[CKRecord alloc] initWithRecordType:@"SampleRecordType" recordID:recordID];
             recordToSave[@"myfield"] = @"foobar";
             recordToSave[@"otherfield"] = @"mumble";
             [[[CKContainer defaultContainer] privateCloudDatabase] saveRecord:recordToSave completionHandler:^(CKRecord *originalRecord, NSError *error) {
-                NSAssert(originalRecord, @"record exists");
-                NSAssert(originalRecord == recordToSave, @"record matches input");
-                NSAssert(!error, @"no error");
+                NSAssert(originalRecord, @"record does not exist");
+                NSAssert(originalRecord == recordToSave, @"record does not match input");
+                NSAssert(!error, @"error saving record: %@", error);
 
                 originalRecord[@"myfield"] = @"foobar2";
 
                 NSAssert([originalRecord.changedKeys count] == 1, @"all changed keys are gone");
                 [[[CKContainer defaultContainer] privateCloudDatabase] saveRecord:originalRecord completionHandler:^(CKRecord *record, NSError *error) {
-                    NSAssert(record, @"record updated");
-                    NSAssert(record == originalRecord, @"record is the same");
-                    NSAssert([record.changedKeys count] == 0, @"all changed keys are gone");
+                    NSAssert(record, @"record not updated");
+                    NSAssert(record == originalRecord, @"record does not match original");
+                    NSAssert([record.changedKeys count] == 0, @"changed keys remain");
 
                     [[[CKContainer defaultContainer] privateCloudDatabase] fetchRecordWithID:record.recordID completionHandler:^(CKRecord *record, NSError *error) {
-                        NSAssert(record, @"found record just fine");
-                        NSAssert(!error, @"no error");
+                        NSAssert(record, @"could not fetch record");
+                        NSAssert(!error, @"error fetching record: %@", error);
                         [[[CKContainer defaultContainer] privateCloudDatabase] deleteRecordWithID:record.recordID completionHandler:^(CKRecordID *recordID, NSError *error) {
-                            NSAssert(recordID, @"deleted record");
-                            NSAssert(!error, @"no error");
+                            NSAssert(recordID, @"could not delete record");
+                            NSAssert(!error, @"error deleting record: %@", error);
 
                             [[[CKContainer defaultContainer] privateCloudDatabase] deleteRecordZoneWithID:zone.zoneID completionHandler:^(CKRecordZoneID *zoneID, NSError *error) {
-                                NSAssert(zoneID, @"zone deleted");
-                                NSAssert(!error, @"no error");
+                                NSAssert(zoneID, @"zone not deleted");
+                                NSAssert(!error, @"error deleting zone: %@", error);
                                 NSLog(@"zone deleted: %@", zoneID);
 
                                 completionBlock();
@@ -586,25 +608,25 @@
 
     NSLog(@"Fetching all zones");
     [[[CKContainer defaultContainer] privateCloudDatabase] fetchAllRecordZonesWithCompletionHandler:^(NSArray *zones, NSError *error) {
-        NSAssert([zones count], @"found zones");
-        NSAssert(!error, @"no error");
+        NSAssert([zones count], @"zones not fetched");
+        NSAssert(!error, @"error fetching zones: %@", error);
 
         CKRecordZone* zone = [[CKRecordZone alloc] initWithZoneName:@"customZoneName"];
         [[[CKContainer defaultContainer] privateCloudDatabase] saveRecordZone:zone completionHandler:^(CKRecordZone *zone, NSError *error) {
-            NSAssert(zone, @"saved a zone");
-            NSAssert(!error, @"no error");
+            NSAssert(zone, @"could not save zone");
+            NSAssert(!error, @"error saving zone: %@", error);
 
             [[[CKContainer defaultContainer] privateCloudDatabase] fetchRecordZoneWithID:zone.zoneID completionHandler:^(CKRecordZone *zone, NSError *error) {
-                NSAssert(zone, @"fetch a zone");
-                NSAssert(!error, @"no error");
+                NSAssert(zone, @"could not fetch zone");
+                NSAssert(!error, @"error fetching zone: %@", error);
 
                 [[[CKContainer defaultContainer] privateCloudDatabase] deleteRecordZoneWithID:zone.zoneID completionHandler:^(CKRecordZoneID *zoneID, NSError *error) {
-                    NSAssert(zoneID, @"deleted a zone");
-                    NSAssert(!error, @"no error");
+                    NSAssert(zoneID, @"zone not deleted");
+                    NSAssert(!error, @"error deleting zone: %@", error);
 
                     [[[CKContainer defaultContainer] privateCloudDatabase] fetchRecordZoneWithID:zone.zoneID completionHandler:^(CKRecordZone *zone, NSError *error) {
-                        NSAssert(!zone, @"couldn't fetch deleted zone");
-                        NSAssert(error, @"operation completed with expected error");
+                        NSAssert(!zone, @"zone still remains");
+                        NSAssert(error, @"operation completed without expected error");
 
                         completionBlock();
                     }];
@@ -624,34 +646,34 @@
     NSLog(@"Fetching all zones");
     CKFetchRecordZonesOperation *op = [CKFetchRecordZonesOperation fetchAllRecordZonesOperation];
     op.fetchRecordZonesCompletionBlock = ^(NSDictionary *recordZonesByZoneID, NSError *operationError) {
-        NSAssert([[recordZonesByZoneID allKeys] count], @"can fetch zones");
-        NSAssert(!operationError, @"operation completed without error");
+        NSAssert([[recordZonesByZoneID allKeys] count], @"can not fetch zones");
+        NSAssert(!operationError, @"zones fectched with error: %@", operationError);
 
         CKRecordZone* zoneToSave = [[CKRecordZone alloc] initWithZoneName:@"customZoneName"];
         CKModifyRecordZonesOperation* modOp = [[CKModifyRecordZonesOperation alloc] initWithRecordZonesToSave:@[zoneToSave]
                                                                                         recordZoneIDsToDelete:@[]];
         modOp.modifyRecordZonesCompletionBlock = ^(NSArray *savedRecordZones, NSArray *deletedRecordZoneIDs, NSError *operationError){
-            NSAssert([savedRecordZones count], @"modified record zones");
-            NSAssert(!operationError, @"operation completed without error");
+            NSAssert([savedRecordZones count], @"record zones not saved");
+            NSAssert(!operationError, @"zones saved with error: %@", operationError);
             NSLog(@"saved zones ok");
 
             CKFetchRecordZonesOperation* fetchOp = [[CKFetchRecordZonesOperation alloc] initWithRecordZoneIDs:@[zoneToSave.zoneID]];
             fetchOp.fetchRecordZonesCompletionBlock = ^(NSDictionary * recordZonesByZoneID, NSError * operationError){
-                NSAssert([[recordZonesByZoneID allKeys] count], @"can fetch zones");
-                NSAssert(!operationError, @"operation completed without error");
+                NSAssert([[recordZonesByZoneID allKeys] count], @"coud not fetch zones");
+                NSAssert(!operationError, @"error fetching zones: %@", operationError);
                 NSLog(@"fetch zones ok");
 
                 CKModifyRecordZonesOperation* delOp = [[CKModifyRecordZonesOperation alloc] initWithRecordZonesToSave:@[]
                                                                                                 recordZoneIDsToDelete:@[zoneToSave.zoneID]];
                 delOp.modifyRecordZonesCompletionBlock = ^(NSArray *savedRecordZones, NSArray *deletedRecordZoneIDs, NSError *operationError){
-                    NSAssert([deletedRecordZoneIDs count], @"zone is deleted");
-                    NSAssert(!operationError, @"operation completed without error");
+                    NSAssert([deletedRecordZoneIDs count], @"zones not deleted");
+                    NSAssert(!operationError, @"error deleting zones: %@", operationError);
                     NSLog(@"modify zones ok");
 
                     CKFetchRecordZonesOperation* errOp = [[CKFetchRecordZonesOperation alloc] initWithRecordZoneIDs:@[zoneToSave.zoneID]];
                     errOp.fetchRecordZonesCompletionBlock = ^(NSDictionary * recordZonesByZoneID, NSError * operationError){
-                        NSAssert(![[recordZonesByZoneID allKeys] count], @"didn't return any zones");
-                        NSAssert(operationError, @"operation completed with expected error");
+                        NSAssert(![[recordZonesByZoneID allKeys] count], @"zones remain after deletion attempt");
+                        NSAssert(operationError, @"operation completed without expected error");
                         NSLog(@"fetch zones ok");
 
                         completionBlock();

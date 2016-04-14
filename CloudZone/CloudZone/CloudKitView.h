@@ -9,6 +9,11 @@
 
 @interface CloudKitView : NSView
 
+@property (nonatomic, strong) NSButton *subscribeButton;
+@property (nonatomic, strong) NSButton *startTestsButton;
+@property (nonatomic, strong) NSButton *addRecordButton;
+@property (nonatomic, strong) NSTextField *recordTextField;
+
 - (void)startTests;
 
 - (void)listenForPushNotifications;

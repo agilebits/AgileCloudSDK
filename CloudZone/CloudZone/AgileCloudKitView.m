@@ -12,10 +12,7 @@
 
 @end
 
-@implementation AgileCloudKitView {
-    NSButton *_logoutButton;
-    NSButton *_loginButton;
-}
+@implementation AgileCloudKitView
 
 - (instancetype)initWithFrame:(NSRect)frameRect
 {
@@ -81,14 +78,28 @@
 
 #pragma mark - CKMediatorDelegate
 
-- (void)saveSessionToken:(NSString *)token
-{
+- (void)mediator:(CKMediator *)mediator saveSessionToken:(NSString *)token {
+	// this is a sample only. You should store your session token more securely
     [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"AgileCloudKit_sessionToken"];
 }
 
-- (NSString *)loadSessionToken
-{
+- (NSString *)loadSessionTokenForMediator:(CKMediator *)mediator {
+	// this is a sample only. You should store your session token more securely
     return [[NSUserDefaults standardUserDefaults] stringForKey:@"AgileCloudKit_sessionToken"];
+}
+
+- (void)mediator:(CKMediator *)mediator logLevel:(int)level object:(id)object at:(SEL)method format:(NSString *)format,... NS_FORMAT_FUNCTION(5,6) {
+	if (level > 5) {
+		return;
+	}
+
+	va_list args;
+	
+	va_start(args, format);
+	NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
+	va_end(args);
+	
+	NSLog(@"AgileCloudKitLog %d: %@", level, message);
 }
 
 @end

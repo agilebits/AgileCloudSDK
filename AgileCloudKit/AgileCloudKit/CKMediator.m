@@ -16,7 +16,7 @@
 
 #define CloudKitJSURL [NSURL URLWithString:@"https://cdn.apple-cloudkit.com/ck/1/cloudkit.js"]
 
-#define MediatorDebugLog(level,__FORMAT__,...) if (delegate) [delegate mediator:[CKMediator sharedMediator] logLevel:level object:self at:_cmd format:__FORMAT__, ##__VA_ARGS__]
+#define MediatorDebugLog(level,__FORMAT__,...) if ([delegate respondsToSelector:@selector(mediator:logLevel:object:at:format:)]) [delegate mediator:[CKMediator sharedMediator] logLevel:level object:self at:_cmd format:__FORMAT__, ##__VA_ARGS__]
 
 NSString *const kAgileCloudKitInitializedNotification = @"kAgileCloudKitInitializedNotification";
 
@@ -110,8 +110,8 @@ static CKMediator *_mediator;
 {
     if (delegate != _delegate) {
         delegate = _delegate;
-		_sessionToken = [delegate loadSessionTokenForMediator:self];
-		MediatorDebugLog(CKLOG_LEVEL_INFO, @"Setting delegate and reloading %@ session token.", (_sessionToken == nil) ? @"nil" : @"non-nil");
+		_sessionToken = [delegate respondsToSelector:@selector(loadSessionTokenForMediator:)] ? [delegate loadSessionTokenForMediator:self] : nil;
+		MediatorDebugLog(CKLOG_LEVEL_NOTICE, @"Setting delegate and reloading %@ session token.", (_sessionToken == nil) ? @"nil" : @"non-nil");
     }
 }
 
@@ -128,7 +128,7 @@ static CKMediator *_mediator;
 - (NSString *)loadSessionToken
 {
 	NSString *token = nil;
-    if (delegate) {
+	if ([delegate respondsToSelector:@selector(loadSessionTokenForMediator:)]) {
 		token = [delegate loadSessionTokenForMediator:self];
     } else {
         token = _sessionToken;
@@ -140,7 +140,7 @@ static CKMediator *_mediator;
 - (void)saveSessionToken:(NSString *)token
 {
    _sessionToken = token;
-    if (delegate) {
+	if ([delegate respondsToSelector:@selector(mediator:saveSessionToken:)]) {
 		MediatorDebugLog(CKLOG_LEVEL_INFO, @"Saving %@ Session Token", (token == nil) ? @"nil" : @"non-nil");
 		[delegate mediator:self saveSessionToken:token];
     }
