@@ -100,8 +100,8 @@
             }
 
             if(!error && [[partialFailures allKeys] count]){
-                NSDictionary* userInfo = @{ @"ContainerID" : self.database.container.containerIdentifier,
-                                            @"CKPartialErrors" : partialFailures };
+                NSDictionary* userInfo = @{ CKErrorUserInfoContainerIDKey : self.database.container.containerIdentifier,
+                                            CKErrorUserInfoPartialErrorsKey : partialFailures };
                 error = [[NSError alloc] initWithDomain:CKErrorDomain code:CKErrorPartialFailure userInfo:userInfo];
             }
 

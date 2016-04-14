@@ -75,7 +75,7 @@
     CKFetchRecordsOperation *fetchOperation = [[CKFetchRecordsOperation alloc] initWithRecordIDs:@[recordID]];
     fetchOperation.fetchRecordsCompletionBlock = ^(NSDictionary *dict, NSError *error) {
         if(error){
-            NSError* recordError = error.userInfo[@"CKPartialErrors"][recordID];
+            NSError* recordError = error.userInfo[CKErrorUserInfoPartialErrorsKey][recordID];
             completionHandler(nil, recordError);
         }else{
             completionHandler([dict allValues][0], nil);
