@@ -32,8 +32,15 @@ Some classes do not contain every method as their native CloudKit counterparts, 
 
 AgileCloudKit communicates with iCloud using a mix of JavaScript calls from a JavaScript context and the REST API. The long term goal is to move toward using the REST API. This has a number of advantages, one of which is eliminating the need for a Javascript context that runs on the main thread.
 
-## Sample Apps
+## CloudZone Sample Apps
 
-Two apps are bundled with the framework. The CloudZone app uses Apple's CloudKit framework, and the AgileCloudZone uses the AgileCloudKit framework.
+Two apps are bundled with the framework. The CloudZone app uses Apple's CloudKit framework, and the AgileCloudZone uses the AgileCloudKit framework. The sample apps may not contain all functionality of the framework. They are there to act as a playground to test different aspects of the framework as needed.
 
-The sample apps may not contain all functionality of the framework. They are there to act as a playground to test different aspects of the framework as needed.
+To use the CloudZone apps you will need to set up a test container in CloudKit Dashboard, and set the appropriate App IDs and credentials in the two apps. The CloudZone app requires the CloudKit Credentials turned on and must have code signing set in order to use native CloudKit. The AgileCloudZone app does not need to be signed as it uses CloudKitJS, but does need the appropriate CloudKitJS credentials in its Info.plist.
+
+The CloudZone apps are minimal and have a few rough edges, but have a few features:
+
+1. Login/Logout - This button appears only in AgileCloudKit. It's used for well, logging in and out.
+2. Start Tests - Runs a suite of eight tests to test the various aspects of the AgileCloudKit framework.
+3. Subscribe - Activates the subscription, so it will receive notifications when data is changed on another device (or from the CloudZone to AgileCloudZone, and vice versa).
+4. Save Record - Saves what ever text is in the text field to iCloud. When you first run one of the apps, it loads that record and populates the text field. Likewise, when a change notification comes in, that text field should update to the new value.

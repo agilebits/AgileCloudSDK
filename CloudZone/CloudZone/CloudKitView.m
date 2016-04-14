@@ -31,7 +31,7 @@
         [_subscribeButton setAutoresizingMask:NSViewMinXMargin | NSViewMaxYMargin];
         [self addSubview:_subscribeButton];
 
-        _saveRecordButton = [[NSButton alloc] initWithFrame:NSMakeRect(20, 100, 100, 20)];
+        _saveRecordButton = [[NSButton alloc] initWithFrame:NSMakeRect(20, 70, 100, 20)];
         [_saveRecordButton setButtonType:NSMomentaryPushInButton];
         [_saveRecordButton setTitle:@"Save Record"];
         [_saveRecordButton setAutoresizingMask:NSViewMinXMargin | NSViewMaxYMargin];
