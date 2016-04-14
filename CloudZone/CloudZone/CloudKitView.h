@@ -11,7 +11,7 @@
 
 @property (nonatomic, strong) NSButton *subscribeButton;
 @property (nonatomic, strong) NSButton *startTestsButton;
-@property (nonatomic, strong) NSButton *addRecordButton;
+@property (nonatomic, strong) NSButton *saveRecordButton;
 @property (nonatomic, strong) NSTextField *recordTextField;
 
 @end

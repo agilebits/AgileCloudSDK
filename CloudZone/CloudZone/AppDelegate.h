@@ -7,7 +7,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class ViewController;
+
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+@property (nonatomic, strong) ViewController *viewController;
 
 @end

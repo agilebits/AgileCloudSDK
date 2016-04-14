@@ -31,11 +31,11 @@
         [_subscribeButton setAutoresizingMask:NSViewMinXMargin | NSViewMaxYMargin];
         [self addSubview:_subscribeButton];
 
-        _addRecordButton = [[NSButton alloc] initWithFrame:NSMakeRect(self.bounds.size.width - 120, 100, 100, 20)];
-        [_addRecordButton setButtonType:NSMomentaryPushInButton];
-        [_addRecordButton setTitle:@"Add Record"];
-        [_addRecordButton setAutoresizingMask:NSViewMinXMargin | NSViewMaxYMargin];
-        [self addSubview:_addRecordButton];
+        _saveRecordButton = [[NSButton alloc] initWithFrame:NSMakeRect(20, 100, 100, 20)];
+        [_saveRecordButton setButtonType:NSMomentaryPushInButton];
+        [_saveRecordButton setTitle:@"Save Record"];
+        [_saveRecordButton setAutoresizingMask:NSViewMinXMargin | NSViewMaxYMargin];
+        [self addSubview:_saveRecordButton];
 		
 		_recordTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(20, 40, 200, 22)];
 		[self addSubview:_recordTextField];
