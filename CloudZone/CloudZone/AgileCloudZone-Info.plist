@@ -23,19 +23,13 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLName</key>
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>cloudkit-icloud.com.agilebits.cloudzone</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>cloudkit-icloud.com.agilebits.cloudzone-copy</string>
+				<string>cloudkit-icloud.com.companyname.cloudzone</string>
 			</array>
 		</dict>
 	</array>
@@ -45,9 +39,9 @@
 	<array>
 		<dict>
 			<key>CloudKitJSAPIToken</key>
-			<string>fb177822d7cd240c79af18af04f14d3661eeb3ce58002d3afcdddd6b191220a8</string>
+			<string>apitokenfromcloudkitdashboard</string>
 			<key>CloudKitJSContainerName</key>
-			<string>iCloud.com.agilebits.CloudZone</string>
+			<string>iCloud.com.companyname.CloudZone</string>
 			<key>CloudKitJSEnvironment</key>
 			<string>development</string>
 		</dict>
