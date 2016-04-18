@@ -189,7 +189,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "Adam Wulf";
+				ORGANIZATIONNAME = AgileBits;
 				TargetAttributes = {
 					C5A573371B890E7700264AC9 = {
 						SystemCapabilities = {
