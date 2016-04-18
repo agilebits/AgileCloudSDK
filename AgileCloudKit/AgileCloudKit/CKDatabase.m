@@ -53,13 +53,15 @@
 	void (^block)() = ^{
 		if (self.isPublic) {
 			value = [[[self container] asJSValue] valueForProperty:@"publicCloudDatabase"];
-		} else {
+		}
+		else {
 			value = [[[self container] asJSValue] valueForProperty:@"privateCloudDatabase"];
 		}
 	};
 	if (![NSThread isMainThread]) {
 		dispatch_sync(dispatch_get_main_queue(), block);
-	} else {
+	}
+	else {
 		block();
 	}
 	return value;

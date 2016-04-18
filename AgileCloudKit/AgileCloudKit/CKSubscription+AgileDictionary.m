@@ -42,13 +42,15 @@
 	}
 	if (self.subscriptionOptions & CKSubscriptionOptionsFiresOnce) {
 		[dictionary setObject:@(YES) forKey:@"firesOnce"];
-	} else {
+	}
+	else {
 		[dictionary setObject:@(NO) forKey:@"firesOnce"];
 	}
 	if (self.notificationInfo) {
 		[dictionary setObject:[self.notificationInfo asAgileDictionary]
 					   forKey:@"notificationInfo"];
-	} else {
+	}
+	else {
 		[dictionary setObject:@{}
 					   forKey:@"notificationInfo"];
 	}

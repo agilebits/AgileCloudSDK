@@ -128,7 +128,8 @@ static CKMediator *_mediator;
 	NSString *token = nil;
 	if ([delegate respondsToSelector:@selector(loadSessionTokenForMediator:)]) {
 		token = [delegate loadSessionTokenForMediator:self];
-	} else {
+	}
+	else {
 		token = _sessionToken;
 	}
 	MediatorDebugLog(CKLOG_LEVEL_INFO, @"Loading %@ Session Token.", (token == nil) ? @"nil" : @"non-nil" );

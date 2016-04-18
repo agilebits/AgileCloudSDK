@@ -51,44 +51,54 @@
 		[type isEqualToString:@"DOUBLE"] ||
 		[type isEqualToString:@"DOUBLE_LIST"]) {
 		return val;
-	} else if ([type isEqualToString:@"INT64"]) {
+	}
+	else if ([type isEqualToString:@"INT64"]) {
 		return [NSNumber numberWithInteger:[(NSNumber *)val integerValue]];
-	} else if ([type isEqualToString:@"INT64_LIST"]) {
+	}
+	else if ([type isEqualToString:@"INT64_LIST"]) {
 		NSMutableArray *nums = [NSMutableArray array];
 		[(NSArray *)val enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 			[nums addObject:[NSNumber numberWithInteger:[(NSNumber*)obj integerValue]]];
 		}];
 		return nums;
-	} else if ([type isEqualToString:@"BYTES"]) {
+	}
+	else if ([type isEqualToString:@"BYTES"]) {
 		return [[NSData alloc] initWithBase64EncodedString:(NSString *)val options:0];
-	} else if ([type isEqualToString:@"BYTES_LIST"]) {
+	}
+	else if ([type isEqualToString:@"BYTES_LIST"]) {
 		NSMutableArray *bytelist = [NSMutableArray array];
 		[(NSArray *)val enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 			[bytelist addObject:[[NSData alloc] initWithBase64EncodedString:(NSString*)obj options:0]];
 		}];
 		return bytelist;
-	} else if ([type isEqualToString:@"ASSETID"]) {
+	}
+	else if ([type isEqualToString:@"ASSETID"]) {
 		return [[CKAsset alloc] initWithDictionary:(NSDictionary *)val];
-	} else if ([type isEqualToString:@"ASSETID_LIST"]) {
+	}
+	else if ([type isEqualToString:@"ASSETID_LIST"]) {
 		NSMutableArray *assets = [NSMutableArray array];
 		[(NSArray *)val enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 			[assets addObject:[[CKAsset alloc] initWithDictionary:(NSDictionary *)obj]];
 		}];
 		return assets;
-	} else if ([type isEqualToString:@"TIMESTAMP"]) {
+	}
+	else if ([type isEqualToString:@"TIMESTAMP"]) {
 		return [[NSDate alloc] initWithTimeIntervalSince1970:[(NSNumber *)val doubleValue] / 1000];
-	} else if ([type isEqualToString:@"TIMESTAMP_LIST"]) {
+	}
+	else if ([type isEqualToString:@"TIMESTAMP_LIST"]) {
 		NSMutableArray *dates = [NSMutableArray array];
 		[(NSArray *)val enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 			NSDate* dt = [[NSDate alloc] initWithTimeIntervalSince1970:[(NSNumber*)obj doubleValue] / 1000];
 			[dates addObject:dt];
 		}];
 		return dates;
-	} else if ([type isEqualToString:@"LOCATION"]) {
+	}
+	else if ([type isEqualToString:@"LOCATION"]) {
 		CLLocationDegrees lat = [((NSDictionary *)val)[@"latitude"] doubleValue];
 		CLLocationDegrees lon = [((NSDictionary *)val)[@"longitude"] doubleValue];
 		return [[CLLocation alloc] initWithLatitude:lat longitude:lon];
-	} else if ([type isEqualToString:@"LOCATION_LIST"]) {
+	}
+	else if ([type isEqualToString:@"LOCATION_LIST"]) {
 		NSMutableArray *locs = [NSMutableArray array];
 		[(NSArray *)val enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 			CLLocationDegrees lat = [((NSDictionary*)obj)[@"latitude"] doubleValue];
@@ -96,15 +106,18 @@
 			[locs addObject:[[CLLocation alloc] initWithLatitude:lat longitude:lon]];
 		}];
 		return locs;
-	} else if ([type isEqualToString:@"REFERENCE"]) {
+	}
+	else if ([type isEqualToString:@"REFERENCE"]) {
 		return [[CKReference alloc] initWithDictionary:(NSDictionary *)val inZone:zoneID];
-	} else if ([type isEqualToString:@"REFERENCE_LIST"]) {
+	}
+	else if ([type isEqualToString:@"REFERENCE_LIST"]) {
 		NSMutableArray *refs = [NSMutableArray array];
 		[(NSArray *)val enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 			[refs addObject:[[CKReference alloc] initWithDictionary:obj inZone:zoneID]];
 		}];
 		return refs;
-	} else {
+	}
+	else {
 		@throw [NSException exceptionWithName:CKErrorDomain reason:[NSString stringWithFormat:@"Unknown field type: %@", type] userInfo:dictionary];
 	}
 }
@@ -184,7 +197,8 @@
 												   @"recordType": self.recordType,
 												   @"fieldName": key }];
 			}
-		} else if ([val isKindOfClass:[NSArray class]] && [[(NSArray *)val firstObject] isKindOfClass:[CKAsset class]]) {
+		}
+		else if ([val isKindOfClass:[NSArray class]] && [[(NSArray *)val firstObject] isKindOfClass:[CKAsset class]]) {
 			for (CKAsset *asset in(NSArray *)val) {
 				if (!asset.wrappingKey) {
 					[assetsToUpload addObject:asset];

@@ -111,7 +111,8 @@
 			[self setExecuting:NO];
 			[self setFinished:YES];
 		}];
-	} else {
+	}
+	else {
 		[self setExecuting:NO];
 		[self setFinished:YES];
 	}

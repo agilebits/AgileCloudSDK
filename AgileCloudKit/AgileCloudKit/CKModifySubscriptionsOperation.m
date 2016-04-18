@@ -95,7 +95,8 @@
 			[self setExecuting:NO];
 			[self setFinished:YES];
 		}];
-	} else {
+	}
+	else {
 		if (self.modifySubscriptionsCompletionBlock) {
 			self.modifySubscriptionsCompletionBlock(@[], @[], nil);
 		}

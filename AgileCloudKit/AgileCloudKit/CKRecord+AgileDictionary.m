@@ -39,29 +39,37 @@
 - (id)encodedObject:(NSObject<CKRecordValue> *)val {
 	if ([val isKindOfClass:[NSString class]]) {
 		return val;
-	} else if ([val isKindOfClass:[NSNumber class]]) {
+	}
+	else if ([val isKindOfClass:[NSNumber class]]) {
 		if (strcmp([(NSNumber *)val objCType], @encode(BOOL)) == 0) {
 			// make sure booleans encode as integers
 			return [NSNumber numberWithInteger:[(NSNumber *)val integerValue]];
-		} else {
+		}
+		else {
 			return val;
 		}
-	} else if ([val isKindOfClass:[NSDate class]]) {
+	}
+	else if ([val isKindOfClass:[NSDate class]]) {
 		return @((NSInteger)([(NSDate *)val timeIntervalSince1970] * 1000));
-	} else if ([val isKindOfClass:[NSData class]]) {
+	}
+	else if ([val isKindOfClass:[NSData class]]) {
 		return [(NSData *)val base64EncodedStringWithOptions:0];
-	} else if ([val isKindOfClass:[CKReference class]]) {
+	}
+	else if ([val isKindOfClass:[CKReference class]]) {
 		CKReference *ref = (CKReference *)val;
 		return [ref asAgileDictionary];
-	} else if ([val isKindOfClass:[CLLocation class]]) {
+	}
+	else if ([val isKindOfClass:[CLLocation class]]) {
 		return [(CLLocation *)val asAgileDictionary];
-	} else if ([val isKindOfClass:[NSArray class]]) {
+	}
+	else if ([val isKindOfClass:[NSArray class]]) {
 		NSMutableArray *vals = [NSMutableArray array];
 		[(NSArray *)val enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 			[vals addObject:[self encodedObject:obj]];
 		}];
 		return vals;
-	} else if ([val isKindOfClass:[CKAsset class]]) {
+	}
+	else if ([val isKindOfClass:[CKAsset class]]) {
 		return [(CKAsset *)val asAgileDictionary];
 	}
 	NSMutableDictionary *output = [NSMutableDictionary dictionary];

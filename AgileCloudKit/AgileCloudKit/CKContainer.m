@@ -131,7 +131,8 @@ static NSMutableDictionary *containers;
 	};
 	if (![NSThread isMainThread]) {
 		dispatch_sync(dispatch_get_main_queue(), block);
-	} else {
+	}
+	else {
 		block();
 	}
 	return value;

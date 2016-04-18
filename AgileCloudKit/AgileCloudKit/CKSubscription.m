@@ -82,13 +82,15 @@
 	_subscriptionOptions = [dictionary[@"firesOn"] containsObject:@"create"] ? CKSubscriptionOptionsFiresOnRecordCreation : 0;
 	_subscriptionOptions |= [dictionary[@"firesOn"] containsObject:@"update"] ? CKSubscriptionOptionsFiresOnRecordUpdate : 0;
 	_subscriptionOptions |= [dictionary[@"firesOn"] containsObject:@"delete"] ? CKSubscriptionOptionsFiresOnRecordDeletion : 0;
+	
 	if (_subscriptionType == CKSubscriptionTypeQuery) {
 		_recordType = dictionary[@"query"][@"recordType"];
 		_zoneID = [[CKRecordZoneID alloc] initWithDictionary:[dictionary objectForKey:@"zoneID"]];
 		_filters = [dictionary[@"query"][@"filterBy"] agile_mapUsingBlock:^id(id obj, NSUInteger idx) {
 			return [[CKFilter alloc] initWithDictionary:obj inZone:_zoneID];
 		}];
-	} else {
+	}
+	else {
 		_zoneID = [[CKRecordZoneID alloc] initWithDictionary:[dictionary objectForKey:@"zoneID"]];
 	}
 }
@@ -103,10 +105,12 @@
 	[aCoder encodeObject:@(_subscriptionType) forKey:@"subscriptionType"];
 	[aCoder encodeObject:_subscriptionID forKey:@"subscriptionID"];
 	[aCoder encodeObject:@(_subscriptionOptions) forKey:@"subscriptionOptions"];
+	
 	if (self.subscriptionType == CKSubscriptionTypeQuery) {
 		[aCoder encodeObject:_recordType forKey:@"recordType"];
 		[aCoder encodeObject:_filters forKey:@"filters"];
-	} else {
+	}
+	else {
 		[aCoder encodeObject:_zoneID forKey:@"zoneID"];
 	}
 	[aCoder encodeObject:_notificationInfo forKey:@"notificationInfo"];
@@ -121,7 +125,8 @@
 		if (_subscriptionType == CKSubscriptionTypeQuery) {
 			_recordType = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"recordType"];
 			_filters = [aDecoder decodeObjectOfClass:[NSArray class] forKey:@"filters"];
-		} else {
+		}
+		else {
 			_zoneID = [aDecoder decodeObjectOfClass:[CKRecordZoneID class] forKey:@"zoneID"];
 		}
 	}
