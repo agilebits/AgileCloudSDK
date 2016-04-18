@@ -9,8 +9,7 @@
 
 @implementation CKRecordID (AgileDictionary)
 
-- (NSDictionary *)asAgileDictionary
-{
+- (NSDictionary *)asAgileDictionary {
     return @{ @"recordName": self.recordName,
               @"zoneID": self.zoneID.zoneName };
 }

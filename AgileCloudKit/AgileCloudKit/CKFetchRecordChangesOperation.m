@@ -24,8 +24,7 @@
  since that anchor will be fetched.
  If this is your first fetch or if you wish to re-fetch all records, pass nil for the change anchor.
  Change anchors are opaque tokens and clients should not infer any behavior based on their content. */
-- (instancetype)initWithRecordZoneID:(CKRecordZoneID *)recordZoneID previousServerChangeToken:(CKServerChangeToken *)previousServerChangeToken
-{
+- (instancetype)initWithRecordZoneID:(CKRecordZoneID *)recordZoneID previousServerChangeToken:(CKServerChangeToken *)previousServerChangeToken {
     if (self = [super init]) {
         _recordZoneID = recordZoneID;
         _previousServerChangeToken = previousServerChangeToken;
@@ -34,8 +33,7 @@
 }
 
 
-- (void)start
-{
+- (void)start {
     [self setExecuting:YES];
 
     NSMutableDictionary *requestDictionary = [NSMutableDictionary dictionaryWithDictionary:@{
@@ -58,48 +56,52 @@
         _moreComing = [jsonResponse[@"moreComing"] boolValue];
         CKServerChangeToken *serverChangeToken = [[CKServerChangeToken alloc] initWithString:jsonResponse[@"syncToken"]];
 
-        if([jsonResponse isKindOfClass:[NSDictionary class]] && jsonResponse[@"records"]){
+        if ([jsonResponse isKindOfClass:[NSDictionary class]] && jsonResponse[@"records"]) {
             [jsonResponse[@"records"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 NSError* recordError = nil;
 
-                if([obj[@"deleted"] boolValue]){
+                if ([obj[@"deleted"] boolValue]) {
                     CKRecordID* deletedRecordID = [[CKRecordID alloc] initWithRecordName:obj[@"recordName"] zoneID:_recordZoneID];
-                    if(self.recordWithIDWasDeletedBlock){
+                    if (self.recordWithIDWasDeletedBlock) {
                         self.recordWithIDWasDeletedBlock(deletedRecordID);
                     }
-                }else{
+                }
+else {
                     CKRecord* record = [[CKRecord alloc] initWithDictionary:obj inZone:_recordZoneID];
                     CKRecordID* recordID = record.recordID;
-                    if(!record){
+                    if (!record) {
                         recordError = [[NSError alloc] initWithCKErrorDictionary:obj];
-                        if(obj[@"recordName"]){
+                        if (obj[@"recordName"]) {
                             recordID = [[CKRecordID alloc] initWithRecordName:obj[@"recordName"]  zoneID:_recordZoneID];
                         }
-                    }else{
+                    }
+else {
                         NSArray* errs = [record synchronouslyDownloadAllAssetsWithProgressBlock:nil];
-                        if([errs count]){
+                        if ([errs count]) {
                             recordError = errs[0];
                             record = nil;
                         }
                     }
 
-                    if(record){
-                        if(self.recordChangedBlock){
+                    if (record) {
+                        if (self.recordChangedBlock) {
                             self.recordChangedBlock(record);
                         }
-                    }else if(!localOperationError){
+                    }
+else if (!localOperationError) {
                         localOperationError = recordError;
                     }
                 }
             }];
-        }else if(!operationError){
+        }
+else if (!operationError) {
             operationError = [[NSError alloc] initWithCKErrorDictionary:jsonResponse];
         }
-        if(localOperationError){
+        if (localOperationError) {
             operationError = localOperationError;
         }
 
-        if(self.fetchRecordChangesCompletionBlock){
+        if (self.fetchRecordChangesCompletionBlock) {
             self.fetchRecordChangesCompletionBlock(serverChangeToken, nil, operationError);
         }
 

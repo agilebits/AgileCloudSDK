@@ -15,8 +15,7 @@
 
 @implementation CKRecord (AgileDictionary)
 
-- (NSDictionary *)asAgileDictionary
-{
+- (NSDictionary *)asAgileDictionary {
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{ @"recordName": self.recordID.recordName,
                                                                                  @"zoneID": self.recordID.zoneID.zoneName,
                                                                                  @"recordType": self.recordType,
@@ -27,8 +26,7 @@
     return dict;
 }
 
-- (NSDictionary *)agileFieldsDictionary
-{
+- (NSDictionary *)agileFieldsDictionary {
     NSMutableDictionary *output = [NSMutableDictionary dictionary];
 
     for (NSString *key in [self allKeys]) {
@@ -38,8 +36,7 @@
     return output;
 }
 
-- (id)encodedObject:(NSObject<CKRecordValue> *)val
-{
+- (id)encodedObject:(NSObject<CKRecordValue> *)val {
     if ([val isKindOfClass:[NSString class]]) {
         return val;
     } else if ([val isKindOfClass:[NSNumber class]]) {

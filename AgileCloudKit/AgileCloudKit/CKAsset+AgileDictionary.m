@@ -10,8 +10,7 @@
 
 @implementation CKAsset (AgileDictionary)
 
-- (NSDictionary *)asAgileDictionary
-{
+- (NSDictionary *)asAgileDictionary {
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{ @"fileChecksum": self.fileChecksum,
                                                                                  @"referenceChecksum": self.referenceChecksum,
                                                                                  @"size": @(self.fileSize),

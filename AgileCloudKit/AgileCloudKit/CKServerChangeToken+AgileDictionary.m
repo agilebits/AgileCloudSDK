@@ -10,8 +10,8 @@
 
 @implementation CKServerChangeToken (AgileDictionary)
 
-- (NSString *)asString
-{
+- (NSString *)asString {
     return self.token;
 }
+
 @end

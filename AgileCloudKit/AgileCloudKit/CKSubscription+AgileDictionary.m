@@ -14,8 +14,7 @@
 
 @implementation CKSubscription (AgileDictionary)
 
-- (NSDictionary *)asAgileDictionary
-{
+- (NSDictionary *)asAgileDictionary {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     [dictionary setObject:self.subscriptionID forKey:@"subscriptionID"];
     [dictionary setObject:self.subscriptionType == CKSubscriptionTypeQuery ? @"query" : @"zone" forKey:@"subscriptionType"];

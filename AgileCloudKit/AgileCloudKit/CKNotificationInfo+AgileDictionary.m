@@ -9,8 +9,7 @@
 
 @implementation CKNotificationInfo (AgileDictionary)
 
-- (NSDictionary *)asAgileDictionary
-{
+- (NSDictionary *)asAgileDictionary {
     NSMutableDictionary *infoDictionary = [NSMutableDictionary dictionary];
     if (self.alertBody) {
         [infoDictionary setObject:self.alertBody forKey:@"alertBody"];

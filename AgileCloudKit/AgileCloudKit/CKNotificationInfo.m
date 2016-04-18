@@ -11,15 +11,13 @@
 
 @implementation CKNotificationInfo
 
-- (instancetype)init
-{
+- (instancetype)init {
     if (self = [super init]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
         self.alertBody = [dictionary objectForKey:@"alertBody"];
         self.alertLocalizationKey = [dictionary objectForKey:@"alertLocalizationKey"];
@@ -36,13 +34,11 @@
 
 #pragma mark - NSCoding
 
-+ (BOOL)supportsSecureCoding
-{
++ (BOOL)supportsSecureCoding {
     return YES;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
+- (void)encodeWithCoder:(NSCoder *)aCoder {
     if (self.alertBody) {
         [aCoder encodeObject:self.alertBody forKey:@"alertBody"];
     }
@@ -65,8 +61,7 @@
     [aCoder encodeBool:self.shouldSendContentAvailable forKey:@"shouldSendContentAvailable"];
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super init]) {
         self.alertBody = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"alertBody"];
         self.alertLocalizationKey = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"alertLocalizationKey"];
@@ -82,8 +77,7 @@
 
 #pragma mark - NSCopying
 
-- (instancetype)copyWithZone:(NSZone *)zone
-{
+- (instancetype)copyWithZone:(NSZone *)zone {
     return [[CKNotificationInfo allocWithZone:zone] initWithDictionary:[self asAgileDictionary]];
 }
 

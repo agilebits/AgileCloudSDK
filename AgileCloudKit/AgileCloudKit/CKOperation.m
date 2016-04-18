@@ -12,8 +12,7 @@
 
 
 /* If no container is set, [CKContainer defaultContainer] is used */
-- (CKContainer *)container
-{
+- (CKContainer *)container {
     if (!_container) {
         return [CKContainer defaultContainer];
     }
@@ -21,8 +20,7 @@
 }
 
 
-- (instancetype)init
-{
+- (instancetype)init {
     if (self = [super init]) {
     }
     return self;

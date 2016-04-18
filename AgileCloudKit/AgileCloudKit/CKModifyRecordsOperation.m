@@ -17,16 +17,14 @@
 
 @implementation CKModifyRecordsOperation
 
-- (instancetype)init
-{
+- (instancetype)init {
     if (self = [super init]) {
     }
     return self;
 }
 
 
-- (instancetype)initWithRecordsToSave:(NSArray *)records recordIDsToDelete:(NSArray *)recordIDs
-{
+- (instancetype)initWithRecordsToSave:(NSArray *)records recordIDsToDelete:(NSArray *)recordIDs {
     if (self = [self init]) {
         _savePolicy = CKRecordSaveIfServerRecordUnchanged;
         _recordsToSave = records;
@@ -37,8 +35,7 @@
 }
 
 
-- (void)start
-{
+- (void)start {
     [self setExecuting:YES];
 
     if ([_recordIDsToDelete count] || [_recordsToSave count]) {
@@ -63,8 +60,8 @@
 
             NSArray* uploadErrors = [obj synchronouslyUploadAssetsIntoDatabase:self.database];
 
-            if([uploadErrors count]){
-                if(self.perRecordCompletionBlock){
+            if ([uploadErrors count]) {
+                if (self.perRecordCompletionBlock) {
                     self.perRecordCompletionBlock(obj, [uploadErrors firstObject]);
                 }
                 return nil;
@@ -72,7 +69,7 @@
 
             NSDictionary* recordDic = [obj asAgileDictionary];
             NSString* opType = recordDic[@"recordChangeTag"] ? @"update" : @"create";
-            if(self.savePolicy == CKRecordSaveAllKeys || self.savePolicy == CKRecordSaveChangedKeys) {
+            if (self.savePolicy == CKRecordSaveAllKeys || self.savePolicy == CKRecordSaveChangedKeys) {
                 opType = @"forceUpdate";
             }
             return @{ @"operationType" : opType,
@@ -88,47 +85,50 @@
             NSMutableArray* deletedRecords = [NSMutableArray array];
             NSMutableDictionary* partialFailures = [NSMutableDictionary dictionary];
 
-            if([jsonResponse isKindOfClass:[NSDictionary class]] && jsonResponse[@"records"]){
+            if ([jsonResponse isKindOfClass:[NSDictionary class]] && jsonResponse[@"records"]) {
                 [jsonResponse[@"records"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 
                     CKRecordID* savedRecordID = [[CKRecordID alloc] initWithRecordName:obj[@"recordName"] zoneID:zoneID];
                     CKRecord* originalRecord = savedRecordIDToRecord[savedRecordID];
 
-                    if(originalRecord){
+                    if (originalRecord) {
                         NSError* recordError = nil;
-                        if(obj[@"serverErrorCode"]){
+                        if (obj[@"serverErrorCode"]) {
                             recordError = [[NSError alloc] initWithCKErrorDictionary:obj];
                             [partialFailures setObject:recordError forKey:originalRecord.recordID];
-                        }else{
+                        }
+else {
                             [originalRecord updateWithDictionary:obj];
                             [savedRecords addObject:originalRecord];
 
-                            if(self.perRecordProgressBlock){
+                            if (self.perRecordProgressBlock) {
                                 self.perRecordProgressBlock(originalRecord, 1.0);
                             }
                         }
 
-                        if(self.perRecordCompletionBlock){
+                        if (self.perRecordCompletionBlock) {
                             self.perRecordCompletionBlock(originalRecord, recordError);
                         }
-                    }else if(obj[@"deleted"]){
+                    }
+else if (obj[@"deleted"]) {
                         // was it deleted?
                         [deletedRecords addObject:savedRecordID];
                     }
                 }];
-            }else if(!error){
+            }
+else if (!error) {
                 error = [[NSError alloc] initWithCKErrorDictionary:jsonResponse];
             }
 
 
 
-            if(!error && [[partialFailures allKeys] count]){
+            if (!error && [[partialFailures allKeys] count]) {
                 NSDictionary* userInfo = @{ CKErrorUserInfoContainerIDKey : self.database.container.containerIdentifier,
                                             CKErrorUserInfoPartialErrorsKey : partialFailures };
                 error = [[NSError alloc] initWithDomain:CKErrorDomain code:CKErrorPartialFailure userInfo:userInfo];
             }
             
-            if(self.modifyRecordsCompletionBlock){
+            if (self.modifyRecordsCompletionBlock) {
                 self.modifyRecordsCompletionBlock(savedRecords, deletedRecords, error);
             }
 

@@ -19,13 +19,11 @@
 
 @implementation CKSubscription
 
-- (instancetype)initWithRecordType:(NSString *)recordType filters:(NSArray *)filters options:(CKSubscriptionOptions)subscriptionOptions
-{
+- (instancetype)initWithRecordType:(NSString *)recordType filters:(NSArray *)filters options:(CKSubscriptionOptions)subscriptionOptions {
     return [self initWithRecordType:recordType filters:filters subscriptionID:[[NSUUID UUID] UUIDString] options:subscriptionOptions];
 }
 
-- (instancetype)initWithRecordType:(NSString *)recordType filters:(NSArray *)filters subscriptionID:(NSString *)subscriptionID options:(CKSubscriptionOptions)subscriptionOptions
-{
+- (instancetype)initWithRecordType:(NSString *)recordType filters:(NSArray *)filters subscriptionID:(NSString *)subscriptionID options:(CKSubscriptionOptions)subscriptionOptions {
     if (self = [super init]) {
         _subscriptionID = subscriptionID;
         _subscriptionType = CKSubscriptionTypeQuery;
@@ -37,13 +35,11 @@
 }
 
 
-- (instancetype)initWithRecordType:(NSString *)recordType predicate:(NSPredicate *)predicate options:(CKSubscriptionOptions)subscriptionOptions
-{
+- (instancetype)initWithRecordType:(NSString *)recordType predicate:(NSPredicate *)predicate options:(CKSubscriptionOptions)subscriptionOptions {
     return [self initWithRecordType:recordType predicate:predicate subscriptionID:[[NSUUID UUID] UUIDString] options:subscriptionOptions];
 }
 
-- (instancetype)initWithRecordType:(NSString *)recordType predicate:(NSPredicate *)predicate subscriptionID:(NSString *)subscriptionID options:(CKSubscriptionOptions)subscriptionOptions
-{
+- (instancetype)initWithRecordType:(NSString *)recordType predicate:(NSPredicate *)predicate subscriptionID:(NSString *)subscriptionID options:(CKSubscriptionOptions)subscriptionOptions {
     if (self = [super init]) {
         _subscriptionID = subscriptionID;
         _subscriptionType = CKSubscriptionTypeQuery;
@@ -57,13 +53,11 @@
 
 /* This subscription fires whenever any change happens in the indicated RecordZone.
  The RecordZone must have the capability CKRecordZoneCapabilityFetchChanges */
-- (instancetype)initWithZoneID:(CKRecordZoneID *)zoneID options:(CKSubscriptionOptions)subscriptionOptions
-{
+- (instancetype)initWithZoneID:(CKRecordZoneID *)zoneID options:(CKSubscriptionOptions)subscriptionOptions {
     return [self initWithZoneID:zoneID subscriptionID:[[NSUUID UUID] UUIDString] options:subscriptionOptions];
 }
 
-- (instancetype)initWithZoneID:(CKRecordZoneID *)zoneID subscriptionID:(NSString *)subscriptionID options:(CKSubscriptionOptions)subscriptionOptions
-{
+- (instancetype)initWithZoneID:(CKRecordZoneID *)zoneID subscriptionID:(NSString *)subscriptionID options:(CKSubscriptionOptions)subscriptionOptions {
     if (self = [super init]) {
         _zoneID = zoneID;
         _subscriptionID = subscriptionID;
@@ -74,16 +68,14 @@
 }
 
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
         [self updateWithDictionary:dictionary];
     }
     return self;
 }
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
+- (void)updateWithDictionary:(NSDictionary *)dictionary {
     _subscriptionType = [dictionary[@"subscriptionType"] isEqualToString:@"query"] ? CKSubscriptionTypeQuery : CKSubscriptionTypeRecordZone;
     _notificationInfo = [[CKNotificationInfo alloc] initWithDictionary:dictionary[@"notificationInfo"]];
     _subscriptionID = dictionary[@"subscriptionID"];
@@ -103,13 +95,11 @@
 
 #pragma mark - NSCoding
 
-+ (BOOL)supportsSecureCoding
-{
++ (BOOL)supportsSecureCoding {
     return YES;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
+- (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:@(_subscriptionType) forKey:@"subscriptionType"];
     [aCoder encodeObject:_subscriptionID forKey:@"subscriptionID"];
     [aCoder encodeObject:@(_subscriptionOptions) forKey:@"subscriptionOptions"];
@@ -122,8 +112,7 @@
     [aCoder encodeObject:_notificationInfo forKey:@"notificationInfo"];
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super init]) {
         _subscriptionType = [aDecoder decodeIntegerForKey:@"subscriptionType"];
         _notificationInfo = [aDecoder decodeObjectOfClass:[CKNotificationInfo class] forKey:@"notificationInfo"];
@@ -141,15 +130,13 @@
 
 #pragma mark - NSCopying
 
-- (instancetype)copyWithZone:(NSZone *)zone
-{
+- (instancetype)copyWithZone:(NSZone *)zone {
     return [[[self class] allocWithZone:zone] initWithDictionary:[self asAgileDictionary]];
 }
 
 #pragma mark - Description
 
-- (NSString *)description
-{
+- (NSString *)description {
     return [NSString stringWithFormat:@"[CKSubscription: %@]", self.subscriptionID];
 }
 

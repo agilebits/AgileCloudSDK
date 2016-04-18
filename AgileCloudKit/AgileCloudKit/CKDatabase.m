@@ -25,8 +25,7 @@
     CKContainer *_container;
 }
 
-- (instancetype)initWithContainer:(CKContainer *)container isPublic:(BOOL) public
-{
+- (instancetype)initWithContainer:(CKContainer *)container isPublic:(BOOL) public {
     if (self = [super init]) {
         _public = public;
         _container = container;
@@ -34,23 +33,19 @@
     return self;
 }
 
-- (CKContainer *)container
-{
+- (CKContainer *)container {
     return _container;
 }
 
-- (BOOL)isPublic
-{
+- (BOOL)isPublic {
     return _public;
 }
 
-- (void)addOperation:(CKOperation *)operation
-{
+- (void)addOperation:(CKOperation *)operation {
     [[[CKMediator sharedMediator] queue] addOperation:operation];
 }
 
-- (JSValue *)asJSValue
-{
+- (JSValue *)asJSValue {
     if (![[CKMediator sharedMediator] isInitialized]) {
         @throw [NSException exceptionWithName:@"CannotUseContainerUntilInitialized" reason:@"Before using this container, CKMediator must be initialized" userInfo:nil];
     }
@@ -70,40 +65,40 @@
     return value;
 }
 
-- (void)fetchRecordWithID:(CKRecordID *)recordID completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler
-{
+- (void)fetchRecordWithID:(CKRecordID *)recordID completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler {
     CKFetchRecordsOperation *fetchOperation = [[CKFetchRecordsOperation alloc] initWithRecordIDs:@[recordID]];
     fetchOperation.fetchRecordsCompletionBlock = ^(NSDictionary *dict, NSError *error) {
-        if(error){
+        if (error) {
             NSError* recordError = error.userInfo[CKErrorUserInfoPartialErrorsKey][recordID];
             completionHandler(nil, recordError);
-        }else{
+        }
+else {
             completionHandler([dict allValues][0], nil);
         }
     };
     [self addOperation:fetchOperation];
 }
 
-- (void)saveRecord:(CKRecord *)record completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler
-{
+- (void)saveRecord:(CKRecord *)record completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler {
     CKModifyRecordsOperation *modOp = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[record] recordIDsToDelete:nil];
     modOp.modifyRecordsCompletionBlock = ^(NSArray /* CKRecord */ *savedRecords, NSArray /* CKRecordID */ *deletedRecordIDs, NSError *operationError) {
-        if(operationError){
+        if (operationError) {
             completionHandler(nil, operationError);
-        }else{
+        }
+else {
             completionHandler(savedRecords[0], nil);
         }
     };
     [self addOperation:modOp];
 }
 
-- (void)deleteRecordWithID:(CKRecordID *)recordID completionHandler:(void (^)(CKRecordID *recordID, NSError *error))completionHandler
-{
+- (void)deleteRecordWithID:(CKRecordID *)recordID completionHandler:(void (^)(CKRecordID *recordID, NSError *error))completionHandler {
     CKModifyRecordsOperation *modOp = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:nil recordIDsToDelete:@[recordID]];
     modOp.modifyRecordsCompletionBlock = ^(NSArray /* CKRecord */ *savedRecords, NSArray /* CKRecordID */ *deletedRecordIDs, NSError *operationError) {
-        if(operationError){
+        if (operationError) {
             completionHandler(nil, operationError);
-        }else{
+        }
+else {
             completionHandler(deletedRecordIDs[0], nil);
         }
     };
@@ -111,8 +106,7 @@
 }
 
 
-- (void)performQuery:(CKQuery *)query inZoneWithID:(CKRecordZoneID *)zoneID completionHandler:(void (^)(NSArray /* CKRecord */ *results, NSError *error))completionHandler
-{
+- (void)performQuery:(CKQuery *)query inZoneWithID:(CKRecordZoneID *)zoneID completionHandler:(void (^)(NSArray /* CKRecord */ *results, NSError *error))completionHandler {
     @throw kAbstractMethodException;
 }
 
@@ -123,10 +117,11 @@
 - (void)fetchAllRecordZonesFromSender:(id)sender withCompletionHandler:(void (^)(NSArray /* CKRecordZone */ *zones, NSError *error))completionHandler {
     CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
         [[[[self asJSValue] agile_invokeMethod:@"fetchAllRecordZones"] invokeMethod:@"then" withArguments:@[^(id response) {
-            if([response[@"_errors"] count]){
+            if ([response[@"_errors"] count]) {
                 NSError* error = [[NSError alloc] initWithCKErrorDictionary:response[@"_errors"][0]];
                 completionHandler(nil, error);
-            }else{
+            }
+else {
                 NSMutableArray* zones = [NSMutableArray array];
                 for (NSDictionary* dict in (response[@"_zones"] ?: response[@"_results"])) {
                     [zones addObject:[[CKRecordZone alloc] initWithZoneName:dict[@"zoneID"][@"zoneName"]]];
@@ -157,10 +152,11 @@
 - (void)fetchRecordZoneWithID:(CKRecordZoneID *)zoneID fromSender:(id)sender completionHandler:(void (^)(CKRecordZone *zone, NSError *error))completionHandler {
     CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
         [[[[self asJSValue] invokeMethod:@"fetchRecordZone" withArguments:@[@{ @"zoneName": zoneID.zoneName }]] invokeMethod:@"then" withArguments:@[^(id response) {
-            if([response[@"_errors"] count]){
+            if ([response[@"_errors"] count]) {
                 NSError* error = [[NSError alloc] initWithCKErrorDictionary:response[@"_errors"][0]];
                 completionHandler(nil, error);
-            }else{
+            }
+else {
                 NSMutableArray* zones = [NSMutableArray array];
                 for (NSDictionary* dict in (response[@"_zones"] ?: response[@"_results"])) {
                     [zones addObject:[[CKRecordZone alloc] initWithZoneName:dict[@"zoneID"][@"zoneName"]]];
@@ -184,14 +180,14 @@
 	}
 }
 
-- (void)saveRecordZone:(CKRecordZone *)zone completionHandler:(void (^)(CKRecordZone *zone, NSError *error))completionHandler
-{
+- (void)saveRecordZone:(CKRecordZone *)zone completionHandler:(void (^)(CKRecordZone *zone, NSError *error))completionHandler {
     CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
         [[[[self asJSValue] invokeMethod:@"saveRecordZone" withArguments:@[@{ @"zoneName": zone.zoneID.zoneName }]] invokeMethod:@"then" withArguments:@[^(id response) {
-            if([response[@"_errors"] count]){
+            if ([response[@"_errors"] count]) {
                 NSError* error = [[NSError alloc] initWithCKErrorDictionary:response[@"_errors"][0]];
                 completionHandler(nil, error);
-            }else{
+            }
+else {
                 NSMutableArray* zones = [NSMutableArray array];
                 for (NSDictionary* dict in (response[@"_zones"] ?: response[@"_results"])) {
                     [zones addObject:[[CKRecordZone alloc] initWithZoneName:dict[@"zoneID"][@"zoneName"]]];
@@ -209,13 +205,13 @@
     [[[CKMediator sharedMediator] queue] addOperation:blockOp];
 }
 
-- (void)deleteRecordZoneWithID:(CKRecordZoneID *)zoneID completionHandler:(void (^)(CKRecordZoneID *zoneID, NSError *error))completionHandler
-{
+- (void)deleteRecordZoneWithID:(CKRecordZoneID *)zoneID completionHandler:(void (^)(CKRecordZoneID *zoneID, NSError *error))completionHandler {
     CKModifyRecordZonesOperation *delOp = [[CKModifyRecordZonesOperation alloc] initWithRecordZonesToSave:nil recordZoneIDsToDelete:@[zoneID]];
     delOp.modifyRecordZonesCompletionBlock = ^(NSArray *savedRecordZones, NSArray *deletedRecordZoneIDs, NSError *operationError) {
-        if(operationError){
+        if (operationError) {
             completionHandler(nil, operationError);
-        }else{
+        }
+else {
             completionHandler(zoneID, nil);
         }
     };
@@ -223,19 +219,18 @@
 }
 
 
-- (void)fetchSubscriptionWithID:(NSString *)subscriptionID completionHandler:(void (^)(CKSubscription *subscription, NSError *error))completionHandler
-{
+- (void)fetchSubscriptionWithID:(NSString *)subscriptionID completionHandler:(void (^)(CKSubscription *subscription, NSError *error))completionHandler {
     @throw kAbstractMethodException;
 }
 
-- (void)fetchAllSubscriptionsWithCompletionHandler:(void (^)(NSArray /* CKSubscription */ *subscriptions, NSError *error))completionHandler
-{
+- (void)fetchAllSubscriptionsWithCompletionHandler:(void (^)(NSArray /* CKSubscription */ *subscriptions, NSError *error))completionHandler {
     CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
         [[[[self asJSValue] agile_invokeMethod:@"fetchAllSubscriptions"] invokeMethod:@"then" withArguments:@[^(id response) {
-            if([response[@"_errors"] count]){
+            if ([response[@"_errors"] count]) {
                 NSError* error = [[NSError alloc] initWithCKErrorDictionary:response[@"_errors"][0]];
                 completionHandler(nil, error);
-            }else{
+            }
+else {
                 NSMutableArray* subs = [NSMutableArray array];
                 for (NSDictionary* dict in (response[@"_subscriptions"] ?: response[@"_results"])) {
                     [subs addObject:[[CKSubscription alloc] initWithDictionary:dict]];
@@ -253,27 +248,27 @@
     [[[CKMediator sharedMediator] queue] addOperation:blockOp];
 }
 
-- (void)saveSubscription:(CKSubscription *)subscription completionHandler:(void (^)(CKSubscription *subscription, NSError *error))completionHandler
-{
+- (void)saveSubscription:(CKSubscription *)subscription completionHandler:(void (^)(CKSubscription *subscription, NSError *error))completionHandler {
     CKModifySubscriptionsOperation *modOp = [[CKModifySubscriptionsOperation alloc] initWithSubscriptionsToSave:@[subscription] subscriptionIDsToDelete:nil];
     modOp.modifySubscriptionsCompletionBlock = ^(NSArray *savedSubscriptions, NSArray *deletedSubscriptionIDs, NSError *operationError) {
-        if(operationError){
+        if (operationError) {
             completionHandler(nil, operationError);
-        }else{
+        }
+else {
             completionHandler(savedSubscriptions[0], nil);
         }
     };
     [self addOperation:modOp];
 }
 
-- (void)deleteSubscriptionWithID:(NSString *)subscriptionID completionHandler:(void (^)(NSString *subscriptionID, NSError *error))completionHandler
-{
+- (void)deleteSubscriptionWithID:(NSString *)subscriptionID completionHandler:(void (^)(NSString *subscriptionID, NSError *error))completionHandler {
     CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
         [[[[self asJSValue] invokeMethod:@"deleteSubscription" withArguments:@[@{ @"subscriptionID": subscriptionID }]] invokeMethod:@"then" withArguments:@[^(id response) {
-            if([response[@"_errors"] count]){
+            if ([response[@"_errors"] count]) {
                 NSError* error = [[NSError alloc] initWithCKErrorDictionary:response[@"_errors"][0]];
                 completionHandler(nil, error);
-            }else{
+            }
+else {
                 completionHandler(subscriptionID, nil);
             }
             opCompletionBlock();
@@ -291,8 +286,7 @@
 #pragma mark - Web Services
 
 
-- (void)sendPOSTRequestTo:(NSString *)fragment withJSON:(id)postData completionHandler:(void (^)(id jsonResponse, NSError *error))completionHandler
-{
+- (void)sendPOSTRequestTo:(NSString *)fragment withJSON:(id)postData completionHandler:(void (^)(id jsonResponse, NSError *error))completionHandler {
     NSString *fetchURLString = [NSString stringWithFormat:@"https://api.apple-cloudkit.com/database/1/%@/%@/%@/%@?ckAPIToken=%@&ckSession=%@",
                                                           self.container.cloudKitContainerName,
                                                           self.container.cloudKitEnvironment,

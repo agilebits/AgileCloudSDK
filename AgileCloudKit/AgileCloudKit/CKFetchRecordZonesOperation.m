@@ -12,30 +12,26 @@
 
 @implementation CKFetchRecordZonesOperation
 
-- (instancetype)init
-{
+- (instancetype)init {
     if (self = [super init]) {
         _recordZoneIDs = nil;
     }
     return self;
 }
 
-- (instancetype)initWithRecordZoneIDs:(NSArray *)zoneIDs
-{
+- (instancetype)initWithRecordZoneIDs:(NSArray *)zoneIDs {
     if (self = [self init]) {
         _recordZoneIDs = zoneIDs;
     }
     return self;
 }
 
-+ fetchAllRecordZonesOperation
-{
++ fetchAllRecordZonesOperation {
     return [[CKFetchRecordZonesOperation alloc] init];
 }
 
 
-- (void)start
-{
+- (void)start {
     if ([self isCancelled]) {
         [self setFinished:YES];
         return;
@@ -48,17 +44,18 @@
             [self setExecuting:NO];
             [self setFinished:YES];
             
-            if(!error){
+            if (!error) {
                 NSMutableDictionary* results = [NSMutableDictionary dictionary];
                 
                 for (CKRecordZone* zone in zones) {
-                    if(!self.recordZoneIDs || [self.recordZoneIDs containsObject:zone.zoneID]){
+                    if (!self.recordZoneIDs || [self.recordZoneIDs containsObject:zone.zoneID]) {
                         results[zone.zoneID] = zone;
                     }
                 }
                 
                 self.fetchRecordZonesCompletionBlock(results, nil);
-            }else{
+            }
+else {
                 self.fetchRecordZonesCompletionBlock(nil, error);
             }
         }];
@@ -77,7 +74,7 @@
             [self setFinished:YES];
             
             NSError* error;
-            if([errors count]){
+            if ([errors count]) {
                 NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
                 userInfo[CKPartialErrorsByItemIDKey] = errors;
                 error = [[NSError alloc] initWithDomain:CKErrorDomain code:CKErrorPartialFailure userInfo:userInfo];
@@ -89,13 +86,14 @@
         // now save and delete everything
         for (CKRecordZoneID *zoneID in self.recordZoneIDs) {
 			[[self database] fetchRecordZoneWithID:zoneID fromSender:self completionHandler:^(CKRecordZone *zone, NSError *error) {
-                if(error){
+                if (error) {
                     errors[zoneID] = error;
-                }else{
+                }
+else {
                     fetchedZones[zoneID] = zone;
                 }
                 requestCount -= 1;
-                if(!requestCount){
+                if (!requestCount) {
                     completionBlock();
                 }
             }];

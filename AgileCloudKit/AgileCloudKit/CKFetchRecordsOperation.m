@@ -16,28 +16,24 @@
 
 @implementation CKFetchRecordsOperation
 
-+ (instancetype)fetchCurrentUserRecordOperation
-{
++ (instancetype)fetchCurrentUserRecordOperation {
     @throw kAbstractMethodException;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     if (self = [super init]) {
     }
     return self;
 }
 
-- (instancetype)initWithRecordIDs:(NSArray *)recordIDs
-{
+- (instancetype)initWithRecordIDs:(NSArray *)recordIDs {
     if (self = [self init]) {
         _recordIDs = [recordIDs copy];
     }
     return self;
 }
 
-- (void)start
-{
+- (void)start {
     [self setExecuting:YES];
 
     if ([_recordIDs count]) {
@@ -57,55 +53,58 @@
         [self.database sendPOSTRequestTo:@"records/lookup" withJSON:requestDictionary completionHandler:^(id jsonResponse, NSError *error) {
             NSMutableDictionary* fetchedRecords = [NSMutableDictionary dictionary];
             NSMutableDictionary* partialFailures = [NSMutableDictionary dictionary];
-            if([jsonResponse isKindOfClass:[NSDictionary class]] && jsonResponse[@"records"]){
+            if ([jsonResponse isKindOfClass:[NSDictionary class]] && jsonResponse[@"records"]) {
                 [jsonResponse[@"records"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     NSError* recordError = nil;
                     CKRecord* record;
                     CKRecordID* recordID;
-                    if(obj[@"serverErrorCode"]){
+                    if (obj[@"serverErrorCode"]) {
                         recordError = [[NSError alloc] initWithCKErrorDictionary:obj];
-                        if(obj[@"recordName"]){
+                        if (obj[@"recordName"]) {
                             recordID = [[CKRecordID alloc] initWithRecordName:obj[@"recordName"]  zoneID:zone];
                         }
-                    }else{
+                    }
+else {
                         record = [[CKRecord alloc] initWithDictionary:obj inZone:zone];
                         recordID = record.recordID;
                     }
-                    if(record){
+                    if (record) {
                         NSArray* errs = [record synchronouslyDownloadAllAssetsWithProgressBlock:^(double progress) {
-                            if(self.perRecordProgressBlock && progress != 1.0){
+                            if (self.perRecordProgressBlock && progress != 1.0) {
                                 self.perRecordProgressBlock(recordID, progress);
                             }
                         }];
-                        if([errs count]){
+                        if ([errs count]) {
                             recordError = errs[0];
-                        }else{
+                        }
+else {
                             [fetchedRecords setObject:record forKey:recordID];
-                            if(self.perRecordProgressBlock){
+                            if (self.perRecordProgressBlock) {
                                 self.perRecordProgressBlock(recordID, 1.0);
                             }
                         }
                     }
 
-                    if(self.perRecordCompletionBlock){
+                    if (self.perRecordCompletionBlock) {
                         self.perRecordCompletionBlock(record, recordID, recordError);
                     }
                     
-                    if(recordError){
+                    if (recordError) {
                         [partialFailures setObject:recordError forKey:recordID];
                     }
                 }];
-            }else if(!error){
+            }
+else if (!error) {
                 error = [[NSError alloc] initWithCKErrorDictionary:jsonResponse];
             }
 
-            if(!error && [[partialFailures allKeys] count]){
+            if (!error && [[partialFailures allKeys] count]) {
                 NSDictionary* userInfo = @{ CKErrorUserInfoContainerIDKey : self.database.container.containerIdentifier,
                                             CKErrorUserInfoPartialErrorsKey : partialFailures };
                 error = [[NSError alloc] initWithDomain:CKErrorDomain code:CKErrorPartialFailure userInfo:userInfo];
             }
 
-            if(self.fetchRecordsCompletionBlock){
+            if (self.fetchRecordsCompletionBlock) {
                 self.fetchRecordsCompletionBlock(fetchedRecords, error);
             }
 

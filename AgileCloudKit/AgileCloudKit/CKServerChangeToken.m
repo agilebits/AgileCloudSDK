@@ -14,33 +14,28 @@
     NSString *_token;
 }
 
-- (instancetype)initWithString:(NSString *)token
-{
+- (instancetype)initWithString:(NSString *)token {
     if (self = [super init]) {
         _token = token;
     }
     return self;
 }
 
-- (NSString *)token
-{
+- (NSString *)token {
     return _token;
 }
 
 #pragma mark - NSCoding
 
-+ (BOOL)supportsSecureCoding
-{
++ (BOOL)supportsSecureCoding {
     return YES;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
+- (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.token forKey:@"token"];
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     NSString *token = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"token"];
     if (self = [self initWithString:token]) {
         // noop
@@ -50,15 +45,13 @@
 
 #pragma mark - NSCopying
 
-- (id)copyWithZone:(NSZone *)zone
-{
+- (id)copyWithZone:(NSZone *)zone {
     return [[[self class] allocWithZone:zone] initWithString:[_token copyWithZone:zone]];
 }
 
 #pragma mark - Description
 
-- (NSString *)description
-{
+- (NSString *)description {
     return [NSString stringWithFormat:@"[CKServerChangeToken: %@]", self.token];
 }
 

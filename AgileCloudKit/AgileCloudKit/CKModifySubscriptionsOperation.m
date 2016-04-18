@@ -15,13 +15,11 @@
 
 @implementation CKModifySubscriptionsOperation
 
-- (instancetype)init
-{
+- (instancetype)init {
     return [self initWithSubscriptionsToSave:@[] subscriptionIDsToDelete:@[]];
 }
 
-- (instancetype)initWithSubscriptionsToSave:(NSArray /* CKSubscription */ *)subscriptionsToSave subscriptionIDsToDelete:(NSArray /* NSString */ *)subscriptionIDsToDelete
-{
+- (instancetype)initWithSubscriptionsToSave:(NSArray /* CKSubscription */ *)subscriptionsToSave subscriptionIDsToDelete:(NSArray /* NSString */ *)subscriptionIDsToDelete {
     if (self = [super init]) {
         self.subscriptionsToSave = subscriptionsToSave;
         self.subscriptionIDsToDelete = subscriptionIDsToDelete;
@@ -29,8 +27,7 @@
     return self;
 }
 
-- (void)start
-{
+- (void)start {
     [self setExecuting:YES];
 
     if ([_subscriptionIDsToDelete count] || [_subscriptionsToSave count]) {
@@ -58,37 +55,40 @@
             NSMutableArray* deletedSubs = [NSMutableArray array];
             NSMutableDictionary* partialFailures = [NSMutableDictionary dictionary];
 
-            if([jsonResponse isKindOfClass:[NSDictionary class]] && jsonResponse[@"subscriptions"]){
+            if ([jsonResponse isKindOfClass:[NSDictionary class]] && jsonResponse[@"subscriptions"]) {
                 [jsonResponse[@"subscriptions"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 
                     NSString* savedSubID = obj[@"subscriptionID"];
                     CKSubscription* originalSub = savedSubscriptionIDToSubscription[savedSubID];
 
-                    if(originalSub){
+                    if (originalSub) {
                         NSError* recordError = nil;
-                        if(obj[@"serverErrorCode"]){
+                        if (obj[@"serverErrorCode"]) {
                             recordError = [[NSError alloc] initWithCKErrorDictionary:obj];
                             [partialFailures setObject:recordError forKey:originalSub.subscriptionID];
-                        }else{
+                        }
+else {
                             [originalSub updateWithDictionary:obj];
                             [savedSubs addObject:originalSub];
                         }
-                    }else if(obj[@"deleted"]){
+                    }
+else if (obj[@"deleted"]) {
                         // was it deleted?
                         [deletedSubs addObject:savedSubID];
                     }
                 }];
-            }else if(!error){
+            }
+else if (!error) {
                 error = [[NSError alloc] initWithCKErrorDictionary:jsonResponse];
             }
 
-            if(!error && [[partialFailures allKeys] count]){
+            if (!error && [[partialFailures allKeys] count]) {
                 NSDictionary* userInfo = @{ CKErrorUserInfoContainerIDKey : self.database.container.containerIdentifier,
                                             CKErrorUserInfoPartialErrorsKey : partialFailures };
                 error = [[NSError alloc] initWithDomain:CKErrorDomain code:CKErrorPartialFailure userInfo:userInfo];
             }
 
-            if(self.modifySubscriptionsCompletionBlock){
+            if (self.modifySubscriptionsCompletionBlock) {
                 self.modifySubscriptionsCompletionBlock(savedSubs, deletedSubs, error);
             }
 			

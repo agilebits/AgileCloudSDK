@@ -33,8 +33,7 @@ static NSArray *allowedComparators;
 
 @implementation CKFilter
 
-- (instancetype)initWithComparator:(NSString *)comparator fieldName:(NSString *)fieldName fieldType:(NSString *)fieldType fieldValue:(NSObject<CKFilterType, NSCoding> *)fieldValue
-{
+- (instancetype)initWithComparator:(NSString *)comparator fieldName:(NSString *)fieldName fieldType:(NSString *)fieldType fieldValue:(NSObject<CKFilterType, NSCoding> *)fieldValue {
     if (self = [super init]) {
         self.comparator = comparator;
         _fieldName = fieldName;
@@ -44,8 +43,7 @@ static NSArray *allowedComparators;
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary inZone:(CKRecordZoneID *)zoneID
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary inZone:(CKRecordZoneID *)zoneID {
     if (self = [super init]) {
         self.comparator = dictionary[@"comparator"];
         _fieldName = dictionary[@"fieldName"];
@@ -55,16 +53,14 @@ static NSArray *allowedComparators;
     return self;
 }
 
-- (void)setComparator:(NSString *)comparator
-{
+- (void)setComparator:(NSString *)comparator {
     if (![allowedComparators containsObject:comparator]) {
         @throw [NSException exceptionWithName:@"CKException" reason:[NSString stringWithFormat:@"%@ is not a valid comparator. Allowed values are %@", comparator, allowedComparators] userInfo:nil];
     }
     _comparator = comparator;
 }
 
-- (NSDictionary *)asAgileDictionary
-{
+- (NSDictionary *)asAgileDictionary {
     return @{ @"comparator": self.comparator,
               @"fieldName": self.fieldName,
               @"fieldValue": @{@"type": self.fieldType,
@@ -73,13 +69,11 @@ static NSArray *allowedComparators;
 
 #pragma mark - NSSecureCoding
 
-+ (BOOL)supportsSecureCoding
-{
++ (BOOL)supportsSecureCoding {
     return YES;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
+- (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.comparator forKey:@"comparator"];
     [aCoder encodeObject:self.fieldName forKey:@"fieldName"];
     [aCoder encodeObject:self.fieldType forKey:@"fieldType"];
@@ -87,8 +81,7 @@ static NSArray *allowedComparators;
     [aCoder encodeObject:self.fieldValue forKey:@"fieldValue"];
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super init]) {
         self.comparator = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"comparator"];
         _fieldName = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"fieldName"];
@@ -101,15 +94,13 @@ static NSArray *allowedComparators;
 
 #pragma mark - NSCopying
 
-- (instancetype)copyWithZone:(NSZone *)zone
-{
+- (instancetype)copyWithZone:(NSZone *)zone {
     return [[[self class] allocWithZone:zone] initWithDictionary:[self asAgileDictionary]];
 }
 
 #pragma mark - Loading
 
-+ (void)load
-{
++ (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         allowedComparators = @[CK_EQUALS,

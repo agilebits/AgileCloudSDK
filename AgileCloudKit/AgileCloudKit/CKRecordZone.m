@@ -12,23 +12,19 @@
 
 @implementation CKRecordZone
 
-+ (CKRecordZone *)defaultRecordZone
-{
++ (CKRecordZone *)defaultRecordZone {
     return [[CKRecordZone alloc] initWithZoneName:@"_defaultZone"];
 }
 
-- (CKRecordZoneCapabilities)capabilities
-{
+- (CKRecordZoneCapabilities)capabilities {
     return CKRecordZoneCapabilityAtomic | CKRecordZoneCapabilityFetchChanges;
 }
 
-- (instancetype)initWithZoneName:(NSString *)zoneName
-{
+- (instancetype)initWithZoneName:(NSString *)zoneName {
     return [self initWithZoneID:[[CKRecordZoneID alloc] initWithZoneName:zoneName]];
 }
 
-- (instancetype)initWithZoneID:(CKRecordZoneID *)zoneID
-{
+- (instancetype)initWithZoneID:(CKRecordZoneID *)zoneID {
     if (self = [super init]) {
         _zoneID = zoneID;
     }
@@ -37,26 +33,22 @@
 
 #pragma mark - NSCoding
 
-+ (BOOL)supportsSecureCoding
-{
++ (BOOL)supportsSecureCoding {
     return YES;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
+- (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:_zoneID forKey:@"zoneID"];
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     CKRecordZoneID *zoneID = [aDecoder decodeObjectOfClass:[CKRecordZoneID class] forKey:@"zoneID"];
     return [self initWithZoneID:zoneID];
 }
 
 #pragma mark - NSCopying
 
-- (id)copyWithZone:(NSZone *)zone
-{
+- (id)copyWithZone:(NSZone *)zone {
     return [[[self class] allocWithZone:zone] initWithZoneID:[self.zoneID copyWithZone:zone]];
 }
 

@@ -31,8 +31,7 @@
 static NSOperationQueue *_downloadQueue;
 
 
-+ (NSOperationQueue *)downloadQueue
-{
++ (NSOperationQueue *)downloadQueue {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _downloadQueue = [[NSOperationQueue alloc] init];
@@ -41,22 +40,19 @@ static NSOperationQueue *_downloadQueue;
     return _downloadQueue;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     if (self = [super init]) {
         _downloadSema = dispatch_semaphore_create(0);
     }
     return self;
 }
 
-- (NSError *)downloadError
-{
+- (NSError *)downloadError {
     return _downloadError;
 }
 
 /* Initialize an asset to be saved with the content at the given file URL */
-- (instancetype)initWithFileURL:(NSURL *)fileURL
-{
+- (instancetype)initWithFileURL:(NSURL *)fileURL {
     if (self = [super init]) {
         _fileURL = fileURL;
         _downloadSema = dispatch_semaphore_create(0);
@@ -64,8 +60,7 @@ static NSOperationQueue *_downloadQueue;
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
         _fileURL = nil;
         _downloadURL = dictionary[@"downloadURL"];
@@ -75,8 +70,7 @@ static NSOperationQueue *_downloadQueue;
     return self;
 }
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
+- (void)updateWithDictionary:(NSDictionary *)dictionary {
     _fileChecksum = dictionary[@"fileChecksum"];
     _referenceChecksum = dictionary[@"referenceChecksum"];
     _fileSize = [dictionary[@"size"] unsignedIntegerValue];
@@ -84,35 +78,29 @@ static NSOperationQueue *_downloadQueue;
     _receipt = dictionary[@"receipt"];
 }
 
-- (NSString *)fileChecksum
-{
+- (NSString *)fileChecksum {
     return _fileChecksum;
 }
 
-- (NSString *)referenceChecksum
-{
+- (NSString *)referenceChecksum {
     return _referenceChecksum;
 }
 
-- (NSUInteger)fileSize
-{
+- (NSUInteger)fileSize {
     return _fileSize;
 }
 
-- (NSString *)wrappingKey
-{
+- (NSString *)wrappingKey {
     return _wrappingKey;
 }
 
-- (NSString *)receipt
-{
+- (NSString *)receipt {
     return _receipt;
 }
 
 #pragma mark - Downloading
 
-- (void)downloadSynchronouslyWithProgressBlock:(void (^)(double progress))progressBlock
-{
+- (void)downloadSynchronouslyWithProgressBlock:(void (^)(double progress))progressBlock {
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:[CKAsset downloadQueue]];
     NSString *esc = [_downloadURL stringByReplacingOccurrencesOfString:@"{" withString:@"%7B"];
@@ -126,8 +114,7 @@ static NSOperationQueue *_downloadQueue;
     }
 }
 
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
-{
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     // Calculate Progress
     double progress = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
     if (_progressBlock)
@@ -136,16 +123,14 @@ static NSOperationQueue *_downloadQueue;
 
 - (void)URLSession:(NSURLSession *)session
                  downloadTask:(NSURLSessionDownloadTask *)downloadTask
-    didFinishDownloadingToURL:(NSURL *)location
-{
+    didFinishDownloadingToURL:(NSURL *)location {
     _progressBlock = nil;
     _fileURL = location;
     _downloadError = nil;
     dispatch_semaphore_signal(_downloadSema);
 }
 
-- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
-{
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
     if (error) {
         _progressBlock = nil;
         _downloadError = error;
@@ -157,8 +142,7 @@ static NSOperationQueue *_downloadQueue;
 #pragma mark - Uploading
 
 
-- (void)uploadSynchronouslyIntoRecord:(CKRecord *)record andField:(NSString *)fieldName inDatabase:(CKDatabase *)database
-{
+- (void)uploadSynchronouslyIntoRecord:(CKRecord *)record andField:(NSString *)fieldName inDatabase:(CKDatabase *)database {
     DebugLog(CKLOG_LEVEL_DEBUG, @"uploading into %@ at %@", record.recordID, fieldName);
 	
     NSDictionary *requestDictionary = @{};
@@ -171,8 +155,7 @@ static NSOperationQueue *_downloadQueue;
 
 #pragma mark - Description
 
-- (NSString *)description
-{
+- (NSString *)description {
     return [NSString stringWithFormat:@"[CKAsset: %@]", self.fileURL];
 }
 

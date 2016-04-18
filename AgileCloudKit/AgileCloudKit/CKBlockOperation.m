@@ -13,45 +13,38 @@
     void (^_block)(void (^)());
 }
 
-- (instancetype)initWithBlock:(void (^)(void (^onComplete)()))block
-{
+- (instancetype)initWithBlock:(void (^)(void (^onComplete)()))block {
     if (self = [super init]) {
         _block = block;
     }
     return self;
 }
 
-- (void)setExecuting:(BOOL)executing
-{
+- (void)setExecuting:(BOOL)executing {
     [self willChangeValueForKey:@"isExecuting"];
     _executing = executing;
     [self didChangeValueForKey:@"isExecuting"];
 }
 
-- (BOOL)isExecuting
-{
+- (BOOL)isExecuting {
     return _executing;
 }
 
-- (void)setFinished:(BOOL)finished
-{
+- (void)setFinished:(BOOL)finished {
     [self willChangeValueForKey:@"isFinished"];
     _finished = finished;
     [self didChangeValueForKey:@"isFinished"];
 }
 
-- (BOOL)isFinished
-{
+- (BOOL)isFinished {
     return _finished;
 }
 
-- (BOOL)asynchronous
-{
+- (BOOL)asynchronous {
     return YES;
 }
 
-- (void)start
-{
+- (void)start {
     [self setExecuting:YES];
     dispatch_async(dispatch_get_main_queue(), ^{
         _block(^{

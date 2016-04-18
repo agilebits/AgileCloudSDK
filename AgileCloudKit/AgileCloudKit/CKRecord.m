@@ -22,18 +22,15 @@
     NSMutableArray *_changedKeys;
 }
 
-- (instancetype)initWithRecordType:(NSString *)recordType
-{
+- (instancetype)initWithRecordType:(NSString *)recordType {
     return [self initWithRecordType:recordType recordID:[[CKRecordID alloc] initWithRecordName:[[NSUUID UUID] UUIDString]]];
 }
 
-- (instancetype)initWithRecordType:(NSString *)recordType zoneID:(CKRecordZoneID *)zoneID
-{
+- (instancetype)initWithRecordType:(NSString *)recordType zoneID:(CKRecordZoneID *)zoneID {
     return [self initWithRecordType:recordType recordID:[[CKRecordID alloc] initWithRecordName:[[NSUUID UUID] UUIDString] zoneID:zoneID]];
 }
 
-- (instancetype)initWithRecordType:(NSString *)recordType recordID:(CKRecordID *)recordID
-{
+- (instancetype)initWithRecordType:(NSString *)recordType recordID:(CKRecordID *)recordID {
     if (!recordType || !recordID) {
         return nil;
     }
@@ -46,8 +43,7 @@
     return self;
 }
 
-+ (NSObject<CKRecordValue> *)recordValueFromDictionary:(NSDictionary *)dictionary inZone:(CKRecordZoneID *)zoneID
-{
++ (NSObject<CKRecordValue> *)recordValueFromDictionary:(NSDictionary *)dictionary inZone:(CKRecordZoneID *)zoneID {
     NSString *type = dictionary[@"type"];
     NSObject<CKRecordValue> *val = dictionary[@"value"];
     if ([type isEqualToString:@"STRING"] ||
@@ -113,8 +109,7 @@
     }
 }
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary inZone:(CKRecordZoneID *)zoneID
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary inZone:(CKRecordZoneID *)zoneID {
     NSString *recordType = dictionary[@"recordType"];
     NSString *recordName = dictionary[@"recordName"];
     if (self = [self initWithRecordType:recordType recordID:[[CKRecordID alloc] initWithRecordName:recordName zoneID:zoneID]]) {
@@ -135,8 +130,7 @@
     return self;
 }
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
+- (void)updateWithDictionary:(NSDictionary *)dictionary {
     _recordChangeTag = dictionary[@"recordChangeTag"];
     [_changedKeys removeAllObjects];
 
@@ -153,8 +147,7 @@
 
 #pragma mark - CKAssets
 
-- (NSArray *)synchronouslyDownloadAllAssetsWithProgressBlock:(void (^)(double progress))progressBlock
-{
+- (NSArray *)synchronouslyDownloadAllAssetsWithProgressBlock:(void (^)(double progress))progressBlock {
     NSMutableArray *errors = [NSMutableArray array];
     NSMutableArray *assets = [NSMutableArray array];
     for (NSString *key in [self allKeys]) {
@@ -167,7 +160,7 @@
     for (NSInteger i = 0; i < [assets count]; i++) {
         CKAsset *asset = assets[i];
         [asset downloadSynchronouslyWithProgressBlock:^(double progress) {
-            if(progressBlock) progressBlock((i + progress) / (double)[assets count]);
+            if (progressBlock) progressBlock((i + progress) / (double)[assets count]);
         }];
         if ([asset downloadError]) {
             [errors addObject:[asset downloadError]];
@@ -177,8 +170,7 @@
     return errors;
 }
 
-- (NSArray *)synchronouslyUploadAssetsIntoDatabase:(CKDatabase *)database
-{
+- (NSArray *)synchronouslyUploadAssetsIntoDatabase:(CKDatabase *)database {
     NSMutableArray *assetsToUpload = [NSMutableArray array];
     NSMutableArray *fieldsForAssetUpload = [NSMutableArray array];
     NSMutableArray *errors = [NSMutableArray array];
@@ -210,13 +202,14 @@
 
         dispatch_semaphore_t downloadSema = dispatch_semaphore_create(0);
         [database sendPOSTRequestTo:@"assets/upload" withJSON:requestDictionary completionHandler:^(id jsonResponse, NSError *error) {
-            if(error){
+            if (error) {
                 [errors addObject:error];
-            }else{
-                for(NSDictionary* uploadInfo in jsonResponse[@"tokens"]){
-                    for(int i=0;i<[fieldsForAssetUpload count];i++){
+            }
+else {
+                for(NSDictionary* uploadInfo in jsonResponse[@"tokens"]) {
+                    for(int i=0;i<[fieldsForAssetUpload count];i++) {
                         NSDictionary* assetInfo = fieldsForAssetUpload[i];
-                        if([assetInfo[@"fieldName"] isEqualToString:uploadInfo[@"fieldName"]]){
+                        if ([assetInfo[@"fieldName"] isEqualToString:uploadInfo[@"fieldName"]]) {
                             CKAsset* assetToUpload = assetsToUpload[i];
 
                             NSString* uploadURL = uploadInfo[@"url"];
@@ -224,9 +217,10 @@
                             NSURL* urlForUpload = [NSURL URLWithString:uploadURL];
                             dispatch_semaphore_t uploadSema = dispatch_semaphore_create(0);
                             [CKContainer sendPOSTRequestTo:urlForUpload withFile:assetToUpload.fileURL completionHandler:^(id jsonResponse, NSError *error) {
-                                if(!error){
+                                if (!error) {
                                     [assetToUpload updateWithDictionary:jsonResponse[@"singleFile"]];
-                                }else{
+                                }
+else {
                                     [errors addObject:error];
                                 }
                                 dispatch_semaphore_signal(uploadSema);
@@ -251,43 +245,37 @@
 
 #pragma mark - CKRecord
 
-- (id)objectForKey:(NSString *)key
-{
+- (id)objectForKey:(NSString *)key {
     return [_userDefinedProperties objectForKey:key];
 }
-- (void)setObject:(id<CKRecordValue>)object forKey:(NSString *)key
-{
+
+- (void)setObject:(id<CKRecordValue>)object forKey:(NSString *)key {
     [_changedKeys addObject:key];
     [_userDefinedProperties setObject:object forKey:key];
 }
 
 
-- (NSArray /* NSString */ *)allKeys
-{
+- (NSArray /* NSString */ *)allKeys {
     return [_userDefinedProperties allKeys];
 }
 
 /* A special property that returns an array of token generated from all the string field values in the record.
  These tokens have been normalized for the current locale, so they are suitable for performing full-text searches. */
-- (NSArray /* NSString */ *)allTokens
-{
+- (NSArray /* NSString */ *)allTokens {
     @throw kAbstractMethodException;
 }
 
-- (id)objectForKeyedSubscript:(NSString *)key
-{
+- (id)objectForKeyedSubscript:(NSString *)key {
     return [_userDefinedProperties objectForKeyedSubscript:key];
 }
 
-- (void)setObject:(id<CKRecordValue>)object forKeyedSubscript:(NSString *)key
-{
+- (void)setObject:(id<CKRecordValue>)object forKeyedSubscript:(NSString *)key {
     [_changedKeys addObject:key];
     [_userDefinedProperties setObject:object forKeyedSubscript:key];
 }
 
 /* A list of keys that have been modified on the local CKRecord instance */
-- (NSArray /* NSString */ *)changedKeys
-{
+- (NSArray /* NSString */ *)changedKeys {
     return [_changedKeys copy];
 }
 
@@ -301,20 +289,17 @@
  - any record values you had set on the original instance, but had not saved, will be lost
  - the reconstituted CKRecord's changedKeys will be empty
  */
-- (void)encodeSystemFieldsWithCoder:(NSCoder *)coder
-{
+- (void)encodeSystemFieldsWithCoder:(NSCoder *)coder {
     @throw kAbstractMethodException;
 }
 
 #pragma mark - NSCoding
 
-+ (BOOL)supportsSecureCoding
-{
++ (BOOL)supportsSecureCoding {
     return YES;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
+- (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.recordType forKey:@"recordType"];
     [aCoder encodeObject:self.recordID forKey:@"recordID"];
     [aCoder encodeObject:_userDefinedProperties forKey:@"userDefinedProperties"];
@@ -326,8 +311,7 @@
 	[aCoder encodeObject:self.lastModifiedUserRecordID forKey:@"lastModifiedUserRecordID"];
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     NSString *recordType = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"recordType"];
     CKRecordID *recordID = [aDecoder decodeObjectOfClass:[CKRecordID class] forKey:@"recordID"];
     if (self = [self initWithRecordType:recordType recordID:recordID]) {
@@ -344,15 +328,13 @@
 
 #pragma mark - NSCopying
 
-- (id)copyWithZone:(NSZone *)zone
-{
+- (id)copyWithZone:(NSZone *)zone {
     return [[[self class] allocWithZone:zone] initWithRecordType:[self.recordType copyWithZone:zone] recordID:[self.recordID copyWithZone:zone]];
 }
 
 #pragma mark - Description
 
-- (NSString *)description
-{
+- (NSString *)description {
     return [NSString stringWithFormat:@"[CKRecord: %@]", self.recordID];
 }
 

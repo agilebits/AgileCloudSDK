@@ -34,8 +34,7 @@ NSString *const CKOwnerDefaultName = @"__defaultOwner__";
 
 static CGFloat targetInterval;
 static NSOperationQueue *_urlQueue;
-+ (NSOperationQueue *)urlQueue
-{
++ (NSOperationQueue *)urlQueue {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _urlQueue = [[NSOperationQueue alloc] init];
@@ -45,8 +44,7 @@ static NSOperationQueue *_urlQueue;
 }
 
 static NSURLSession *_downloadSession;
-+ (NSURLSession *)downloadSession
-{
++ (NSURLSession *)downloadSession {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _downloadSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:_urlQueue];
@@ -55,8 +53,7 @@ static NSURLSession *_downloadSession;
 }
 
 static NSURLSession *_uploadSession;
-+ (NSURLSession *)uploadSession
-{
++ (NSURLSession *)uploadSession {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _uploadSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:_urlQueue];
@@ -66,8 +63,7 @@ static NSURLSession *_uploadSession;
 
 static CKContainer *_defaultContainer;
 
-+ (CKContainer *)defaultContainer
-{
++ (CKContainer *)defaultContainer {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _defaultContainer = [CKContainer containerWithIdentifier:[[[CKMediator sharedMediator] containerProperties] firstObject][CloudKitJSContainerNameKey]];
@@ -77,8 +73,7 @@ static CKContainer *_defaultContainer;
 
 static NSMutableDictionary *containers;
 
-+ (CKContainer *)containerWithIdentifier:(NSString *)containerIdentifier
-{
++ (CKContainer *)containerWithIdentifier:(NSString *)containerIdentifier {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         containers = [NSMutableDictionary dictionary];
@@ -93,8 +88,7 @@ static NSMutableDictionary *containers;
 
 #pragma mark - Initializer and Private Properties
 
-- (instancetype)initWithProperties:(NSDictionary *)properties
-{
+- (instancetype)initWithProperties:(NSDictionary *)properties {
     if (self = [super init]) {
         if (!properties) {
             @throw [NSException exceptionWithName:@"CKContainerException" reason:@"No properties found for container" userInfo:nil];
@@ -110,27 +104,24 @@ static NSMutableDictionary *containers;
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (NSString *)containerIdentifier
-{
+- (NSString *)containerIdentifier {
     return _containerProperties[CloudKitJSContainerNameKey];
 }
 
 // each container contains keys for: CloudKitJSContainerName, CloudKitJSAPIToken, CloudKitJSEnvironment
-- (NSString *)cloudKitContainerName
-{
+- (NSString *)cloudKitContainerName {
     return [[CKMediator sharedMediator] infoForContainerID:self.containerIdentifier][CloudKitJSContainerNameKey];
 }
-- (NSString *)cloudKitAPIToken
-{
+
+- (NSString *)cloudKitAPIToken {
     return [[CKMediator sharedMediator] infoForContainerID:self.containerIdentifier][CloudKitJSAPITokenKey];
 }
-- (NSString *)cloudKitEnvironment
-{
+
+- (NSString *)cloudKitEnvironment {
     return [[CKMediator sharedMediator] infoForContainerID:self.containerIdentifier][CloudKitJSEnvironmentKey];
 }
 
-- (JSValue *)asJSValue
-{
+- (JSValue *)asJSValue {
     if (![[CKMediator sharedMediator] isInitialized]) {
         @throw [NSException exceptionWithName:@"CannotUseContainerUntilInitialized" reason:@"Before using this container, CKMediator must be initialized" userInfo:nil];
     }
@@ -148,8 +139,7 @@ static NSMutableDictionary *containers;
 
 #pragma mark - Properties
 
-- (CKDatabase *)publicCloudDatabase
-{
+- (CKDatabase *)publicCloudDatabase {
     if (!_publicCloudDatabase) {
         _publicCloudDatabase = [[[CKDatabase class] alloc] initWithContainer:self isPublic:YES];
     }
@@ -157,8 +147,7 @@ static NSMutableDictionary *containers;
     return _publicCloudDatabase;
 }
 
-- (CKDatabase *)privateCloudDatabase
-{
+- (CKDatabase *)privateCloudDatabase {
     if (!_privateCloudDatabase) {
         _privateCloudDatabase = [[[CKDatabase class] alloc] initWithContainer:self isPublic:NO];
     }
@@ -168,13 +157,11 @@ static NSMutableDictionary *containers;
 
 #pragma mark - Methods
 
-- (void)addOperation:(CKOperation *)operation
-{
+- (void)addOperation:(CKOperation *)operation {
     [[[CKMediator sharedMediator] queue] addOperation:operation];
 }
 
-- (void)accountStatusWithCompletionHandler:(void (^)(CKAccountStatus, NSError *))completionHandler
-{
+- (void)accountStatusWithCompletionHandler:(void (^)(CKAccountStatus, NSError *))completionHandler {
     CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
         [[[[self asJSValue] agile_invokeMethod:@"fetchUserInfo"] invokeMethod:@"then" withArguments:@[^(id userinfo) {
             completionHandler(userinfo ? CKAccountStatusAvailable : CKAccountStatusNoAccount, nil);
@@ -195,13 +182,13 @@ static NSMutableDictionary *containers;
     [[[CKMediator sharedMediator] queue] addOperation:blockOp];
 }
 
-- (void)statusForApplicationPermission:(CKApplicationPermissions)applicationPermission completionHandler:(CKApplicationPermissionBlock)completionHandler
-{
+- (void)statusForApplicationPermission:(CKApplicationPermissions)applicationPermission completionHandler:(CKApplicationPermissionBlock)completionHandler {
     CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
         [[[[self asJSValue] agile_invokeMethod:@"fetchUserInfo"] invokeMethod:@"then" withArguments:@[^(id userinfo) {
-            if([[userinfo objectForKey:@"isDiscoverable"] boolValue]){
+            if ([[userinfo objectForKey:@"isDiscoverable"] boolValue]) {
                 completionHandler(CKApplicationPermissionStatusGranted, nil);
-            }else{
+            }
+else {
                 completionHandler(CKApplicationPermissionStatusInitialState, nil);
             }
             opCompletionBlock();
@@ -217,8 +204,7 @@ static NSMutableDictionary *containers;
 
 #pragma mark - Push Notifications
 
-- (void)registerForRemoteNotifications
-{
+- (void)registerForRemoteNotifications {
     CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
         NSString *createRemoteNotificationTokenURL = [NSString stringWithFormat:@"https://api.apple-cloudkit.com/device/1/%@/%@/tokens/create?ckAPIToken=%@&ckSession=%@",
                                                       self.cloudKitContainerName,
@@ -235,12 +221,13 @@ static NSMutableDictionary *containers;
 				DebugLog(CKLOG_LEVEL_ERR, @"json response: %@ error: %@", jsonResponse, error);
 			}
 
-            if(jsonResponse[@"webcourierURL"]){
+            if (jsonResponse[@"webcourierURL"]) {
                 NSData* tokenData = [jsonResponse[@"apnsToken"] dataUsingEncoding:NSUTF8StringEncoding];
                 [[[NSApplication sharedApplication] delegate] application:[NSApplication sharedApplication] didRegisterForRemoteNotificationsWithDeviceToken:tokenData];
 
                 [self longPollAtURL:jsonResponse[@"webcourierURL"]];
-            }else{
+            }
+else {
                 [[[NSApplication sharedApplication] delegate] application:[NSApplication sharedApplication] didFailToRegisterForRemoteNotificationsWithError:error];
             }
 			opCompletionBlock();
@@ -252,8 +239,7 @@ static NSMutableDictionary *containers;
 
 #pragma mark - Web Services
 
-+ (void)sendPOSTRequestTo:(NSURL *)fetchURL withJSON:(id)postData completionHandler:(void (^)(id jsonResponse, NSError *error))completionHandler
-{
++ (void)sendPOSTRequestTo:(NSURL *)fetchURL withJSON:(id)postData completionHandler:(void (^)(id jsonResponse, NSError *error))completionHandler {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request addValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"POST"];
@@ -270,19 +256,20 @@ static NSMutableDictionary *containers;
 
     [[[CKContainer downloadSession] dataTaskWithRequest:request completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {
 		if (error != nil) {
-			if(completionHandler){
+			if (completionHandler) {
 				completionHandler(nil, error);
 			}
 		}
-		else if([response isKindOfClass:[NSHTTPURLResponse class]]) {
+		else if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
             NSError* jsonError = nil;
 			id jsonObj = nil;
 			if (data != nil) {
 				jsonObj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
 
-				if(jsonError){
+				if (jsonError) {
 					error = jsonError;
-				}else if([jsonObj isKindOfClass:[NSDictionary class]] && jsonObj[@"serverErrorCode"]){
+				}
+else if ([jsonObj isKindOfClass:[NSDictionary class]] && jsonObj[@"serverErrorCode"]) {
 					error = [[NSError alloc] initWithCKErrorDictionary:jsonObj];
 				}
 			}
@@ -290,12 +277,12 @@ static NSMutableDictionary *containers;
 				DebugLog(CKLOG_LEVEL_CRIT, @"If there's no error, there should be data for request: %@ with response: %@", request, response);
 			}
 
-            if(completionHandler){
+            if (completionHandler) {
                 completionHandler(jsonObj, error);
             }
         }
 		else {
-            if(completionHandler){
+            if (completionHandler) {
                 completionHandler(nil, error);
             }
         }
@@ -303,8 +290,7 @@ static NSMutableDictionary *containers;
 }
 
 
-+ (void)sendPOSTRequestTo:(NSURL *)uploadDestination withFile:(NSURL *)localFile completionHandler:(void (^)(id jsonResponse, NSError *error))completionHandler
-{
++ (void)sendPOSTRequestTo:(NSURL *)uploadDestination withFile:(NSURL *)localFile completionHandler:(void (^)(id jsonResponse, NSError *error))completionHandler {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request addValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"POST"];
@@ -313,20 +299,21 @@ static NSMutableDictionary *containers;
 
     [[[CKContainer uploadSession] uploadTaskWithRequest:request fromFile:localFile completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {
 		if (error != nil) {
-			if(completionHandler){
+			if (completionHandler) {
 				completionHandler(nil, error);
 			}
 		}
-		else if([response isKindOfClass:[NSHTTPURLResponse class]]){
+		else if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
 
             NSError* jsonError;
 			id jsonObj = nil;
 			if (data != nil) {
 				jsonObj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
 
-				if(jsonError){
+				if (jsonError) {
 					error = jsonError;
-				}else if([jsonObj isKindOfClass:[NSDictionary class]] && jsonObj[@"serverErrorCode"]){
+				}
+else if ([jsonObj isKindOfClass:[NSDictionary class]] && jsonObj[@"serverErrorCode"]) {
 					error = [[NSError alloc] initWithCKErrorDictionary:jsonObj];
 				}
 			}
@@ -334,11 +321,12 @@ static NSMutableDictionary *containers;
 				DebugLog(CKLOG_LEVEL_CRIT, @"If there's no error, there should be data for request: %@ with response: %@", request, response);
 			}
 
-            if(completionHandler){
+            if (completionHandler) {
                 completionHandler(jsonObj, error);
             }
-        }else{
-            if(completionHandler){
+        }
+else {
+            if (completionHandler) {
                 completionHandler(nil, error);
             }
         }
@@ -346,15 +334,13 @@ static NSMutableDictionary *containers;
 }
 
 
-+ (NSString *)percentEscape:(NSString *)string
-{
++ (NSString *)percentEscape:(NSString *)string {
     return [[[[string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"] stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"] stringByReplacingOccurrencesOfString:@"=" withString:@"%3D"];
 }
 
 #pragma mark - Long Poll for Push Notifications
 
-- (void)longPollAtURL:(NSString *)urlString
-{
+- (void)longPollAtURL:(NSString *)urlString {
     urlString = [urlString stringByReplacingOccurrencesOfString:@":443" withString:@""];
 
     DebugLog(CKLOG_LEVEL_DEBUG, @"long polling at: %@", urlString);
@@ -369,18 +355,19 @@ static NSMutableDictionary *containers;
 
         NSError* jsonError;
         id jsonObj;
-        if(data){
+        if (data) {
             jsonObj= [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
         }
 
-        if(jsonObj){
+        if (jsonObj) {
             targetInterval = 0;
             [[[NSApplication sharedApplication] delegate] application:[NSApplication sharedApplication] didReceiveRemoteNotification:jsonObj];
         }
 
-        if(!connectionError && !jsonError){
+        if (!connectionError && !jsonError) {
             [self longPollAtURL:urlString];
-        }else{
+        }
+else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 // slowly retry every 1, 2, 4, 8 ... seconds up to 1 minute retry intervals
                 targetInterval = MAX(1, MIN(60, targetInterval * 2));
@@ -401,4 +388,5 @@ static NSMutableDictionary *containers;
 		self.accountStatusCompletionHandler = nil;
 	}
 }
+
 @end

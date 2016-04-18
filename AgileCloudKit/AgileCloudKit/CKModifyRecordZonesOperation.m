@@ -17,16 +17,14 @@
 
 @implementation CKModifyRecordZonesOperation
 
-- (instancetype)init
-{
+- (instancetype)init {
     if (self = [super init]) {
     }
     return self;
 }
 
 
-- (instancetype)initWithRecordZonesToSave:(NSArray *)recordZonesToSave recordZoneIDsToDelete:(NSArray *)recordZoneIDsToDelete
-{
+- (instancetype)initWithRecordZonesToSave:(NSArray *)recordZonesToSave recordZoneIDsToDelete:(NSArray *)recordZoneIDsToDelete {
     if (self = [self init]) {
         _recordZonesToSave = recordZonesToSave;
         _recordZoneIDsToDelete = recordZoneIDsToDelete;
@@ -34,8 +32,7 @@
     return self;
 }
 
-- (void)start
-{
+- (void)start {
     [self setExecuting:YES];
 
     if ([_recordZoneIDsToDelete count] || [_recordZonesToSave count]) {
@@ -64,37 +61,40 @@
             NSMutableArray* deletedZones = [NSMutableArray array];
             NSMutableDictionary* partialFailures = [NSMutableDictionary dictionary];
 
-            if([jsonResponse isKindOfClass:[NSDictionary class]] && jsonResponse[@"zones"]){
+            if ([jsonResponse isKindOfClass:[NSDictionary class]] && jsonResponse[@"zones"]) {
                 [jsonResponse[@"zones"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 
 					NSString *zoneName = obj[@"zoneID"][@"zoneName"];
                     CKRecordZoneID* savedZoneID = [[CKRecordZoneID alloc] initWithZoneName:zoneName ownerName:savedZoneIDOwnerNames[zoneName]];
                     CKRecordZone* originalZone = savedZoneIDToZone[savedZoneID];
 
-                    if(originalZone){
+                    if (originalZone) {
                         NSError* recordError = nil;
-                        if(obj[@"serverErrorCode"]){
+                        if (obj[@"serverErrorCode"]) {
                             recordError = [[NSError alloc] initWithCKErrorDictionary:obj];
                             [partialFailures setObject:recordError forKey:originalZone.zoneID];
-                        }else{
+                        }
+else {
                             [savedZones addObject:originalZone];
                         }
-                    }else if(obj[@"deleted"]){
+                    }
+else if (obj[@"deleted"]) {
                         // was it deleted?
                         [deletedZones addObject:savedZoneID];
                     }
                 }];
-            }else if(!error){
+            }
+else if (!error) {
                 error = [[NSError alloc] initWithCKErrorDictionary:jsonResponse];
             }
 
-            if(!error && [[partialFailures allKeys] count]){
+            if (!error && [[partialFailures allKeys] count]) {
                 NSDictionary* userInfo = @{ CKErrorUserInfoPartialErrorsKey : self.database.container.containerIdentifier,
                                             CKErrorUserInfoPartialErrorsKey : partialFailures };
                 error = [[NSError alloc] initWithDomain:CKErrorDomain code:CKErrorPartialFailure userInfo:userInfo];
             }
             
-            if(self.modifyRecordZonesCompletionBlock){
+            if (self.modifyRecordZonesCompletionBlock) {
                 self.modifyRecordZonesCompletionBlock(savedZones, deletedZones, error);
             }
 			
