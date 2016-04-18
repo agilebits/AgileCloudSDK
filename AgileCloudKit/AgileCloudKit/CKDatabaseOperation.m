@@ -11,39 +11,39 @@
 #import "Defines.h"
 
 @implementation CKDatabaseOperation {
-    BOOL _executing;
-    BOOL _finished;
+	BOOL _executing;
+	BOOL _finished;
 }
 
 - (void)setExecuting:(BOOL)executing {
-    [self willChangeValueForKey:@"isExecuting"];
-    _executing = executing;
-    [self didChangeValueForKey:@"isExecuting"];
+	[self willChangeValueForKey:@"isExecuting"];
+	_executing = executing;
+	[self didChangeValueForKey:@"isExecuting"];
 }
 
 - (BOOL)isExecuting {
-    return _executing;
+	return _executing;
 }
 
 - (void)setFinished:(BOOL)finished {
-    [self willChangeValueForKey:@"isFinished"];
-    _finished = finished;
-    [self didChangeValueForKey:@"isFinished"];
+	[self willChangeValueForKey:@"isFinished"];
+	_finished = finished;
+	[self didChangeValueForKey:@"isFinished"];
 }
 
 - (BOOL)isFinished {
-    return _finished;
+	return _finished;
 }
 
 - (BOOL)asynchronous {
-    return YES;
+	return YES;
 }
 
 - (CKDatabase *)database {
-    if (!_database) {
-        _database = [[CKContainer defaultContainer] privateCloudDatabase];
-    }
-    return _database;
+	if (!_database) {
+		_database = [[CKContainer defaultContainer] privateCloudDatabase];
+	}
+	return _database;
 }
 
 @end

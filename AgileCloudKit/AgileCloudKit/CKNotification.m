@@ -11,7 +11,7 @@
 @implementation CKNotificationID
 
 + (BOOL)supportsSecureCoding {
-    return NO;
+	return NO;
 }
 
 @end

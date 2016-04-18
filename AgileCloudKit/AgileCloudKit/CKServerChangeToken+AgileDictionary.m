@@ -11,7 +11,7 @@
 @implementation CKServerChangeToken (AgileDictionary)
 
 - (NSString *)asString {
-    return self.token;
+	return self.token;
 }
 
 @end
