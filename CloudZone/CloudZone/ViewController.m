@@ -153,8 +153,8 @@ NSString *const savedRecordName = @"SavedRecordID";
 
 #pragma mark - Notifications
 
-- (void)cloudKitIdentityDidChange:(NSNotification *)note {
-	if ([note.userInfo[@"accountStatus"] integerValue] == CKAccountStatusAvailable) {
+- (void)cloudKitIdentityDidChange:(NSNotification *)notification {
+	if ([notification.userInfo[@"accountStatus"] integerValue] == CKAccountStatusAvailable) {
 		self.cloudKitView.logoutButton.hidden = NO;
 		self.cloudKitView.loginButton.hidden = YES;
 	} else {
