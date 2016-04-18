@@ -271,7 +271,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 		
 		CKRecordID* recordID = [[CKRecordID alloc] initWithRecordName:@"7A7730D2-8E25-4175-BCCA-A3565DEF025B" zoneID:zone.zoneID];
 		CKRecord *newRecord = [[CKRecord alloc] initWithRecordType:@"AllFieldType" recordID:recordID];
-		newRecord[@"BytesField"] = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:@"kitten.jpg"]];
+		newRecord[@"BytesField"] = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:@"palmtree.jpg"]];
 		CKModifyRecordsOperation *modifyOperation = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[newRecord] recordIDsToDelete:nil];
 		modifyOperation.savePolicy = CKRecordSaveAllKeys;
 		
@@ -433,15 +433,15 @@ NSString *const savedRecordName = @"SavedRecordID";
 				NSAssert(!err, @"error saving record: %@", err);
 				
 				// update the asset
-				NSURL *fileURL = [[NSBundle mainBundle] URLForImageResource:@"kitten.jpg"];
+				NSURL *fileURL = [[NSBundle mainBundle] URLForImageResource:@"palmtree.jpg"];
 				fetchedRecordWithAsset[@"AssetField"] = [[CKAsset alloc] initWithFileURL:fileURL];
 				CKModifyRecordsOperation *recordWithAssetOp = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[fetchedRecordWithAsset] recordIDsToDelete:nil];
 				recordWithAssetOp.modifyRecordsCompletionBlock = ^(NSArray *modifiedRecords, NSArray *deletedRecordIDs, NSError *err) {
 					NSAssert([modifiedRecords count], @"No records modified.");
 					NSAssert(!err, @"Error modifying record: %@", err);
 					
-					CKAsset* asset1 = [[CKAsset alloc] initWithFileURL:[[NSBundle mainBundle] URLForImageResource:@"kitten.jpg"]];
-					CKAsset* asset2 = [[CKAsset alloc] initWithFileURL:[[NSBundle mainBundle] URLForImageResource:@"otherkitten.jpg"]];
+					CKAsset* asset1 = [[CKAsset alloc] initWithFileURL:[[NSBundle mainBundle] URLForImageResource:@"palmtree.jpg"]];
+					CKAsset* asset2 = [[CKAsset alloc] initWithFileURL:[[NSBundle mainBundle] URLForImageResource:@"sunset"]];
 					
 					CKRecord* recordWithMultipleAssets = [[CKRecord alloc] initWithRecordType:@"AllFieldType" zoneID:zone.zoneID];
 					recordWithMultipleAssets[@"AssetListField"] = @[asset1, asset2];
