@@ -46,8 +46,8 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:_zoneName forKey:@"zoneName"];
-    [aCoder encodeObject:_ownerName forKey:@"ownerName"];
+    [aCoder encodeObject:self.zoneName forKey:@"zoneName"];
+    [aCoder encodeObject:self.ownerName forKey:@"ownerName"];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder

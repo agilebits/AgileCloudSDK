@@ -76,14 +76,14 @@
             [self setExecuting:NO];
             [self setFinished:YES];
             
-            NSError* err;
+            NSError* error;
             if([errors count]){
                 NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
                 userInfo[CKPartialErrorsByItemIDKey] = errors;
-                err = [[NSError alloc] initWithDomain:CKErrorDomain code:CKErrorPartialFailure userInfo:userInfo];
+                error = [[NSError alloc] initWithDomain:CKErrorDomain code:CKErrorPartialFailure userInfo:userInfo];
             }
             
-            self.fetchRecordZonesCompletionBlock(fetchedZones, err);
+            self.fetchRecordZonesCompletionBlock(fetchedZones, error);
         };
 
         // now save and delete everything

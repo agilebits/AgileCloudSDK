@@ -56,3 +56,7 @@ typedef NS_ENUM(NSInteger, CKErrorCode) {
     CKErrorLimitExceeded = 27, /* The request to the server was too large. Retry this request as a smaller batch. */
     CKErrorUserDeletedZone = 28, /* The user deleted this zone through the settings UI. Your client should either remove its local data or prompt the user before attempting to re-upload any data to this zone. */
 } NS_ENUM_AVAILABLE(10_10, 8_0);
+
+/* Userinfo keys for CKErrors */
+CK_EXTERN NSString *const CKErrorUserInfoPartialErrorsKey NS_AVAILABLE(10_10, 8_0);
+CK_EXTERN NSString *const CKErrorUserInfoContainerIDKey NS_AVAILABLE(10_10, 8_0);

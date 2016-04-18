@@ -19,6 +19,11 @@
 #define MediatorDebugLog(level,__FORMAT__,...) if ([delegate respondsToSelector:@selector(mediator:logLevel:object:at:format:)]) [delegate mediator:[CKMediator sharedMediator] logLevel:level object:self at:_cmd format:__FORMAT__, ##__VA_ARGS__]
 
 NSString *const kAgileCloudKitInitializedNotification = @"kAgileCloudKitInitializedNotification";
+NSString *const CloudKitJSContainerNameKey = @"CloudKitJSContainerName";
+NSString *const CloudKitJSAPITokenKey = @"CloudKitJSAPIToken";
+NSString *const CloudKitJSEnvironmentKey = @"CloudKitJSEnvironment";
+
+NSString *const CKAccountStatusNotificationUserInfoKey = @"accountStatus";
 
 @interface CKMediator () <WebResourceLoadDelegate, WebFrameLoadDelegate, WebPolicyDelegate, WebUIDelegate>
 
@@ -49,7 +54,7 @@ static CKMediator *_mediator;
 {
     if (self = [super init]) {
         _containerProperties = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CloudKitJSContainers"];
-        // each container contains keys for: CloudKitJSContainerName, CloudKitJSAPIToken, CloudKitJSAPIToken
+        // each container contains keys for: CloudKitJSContainerName, CloudKitJSAPIToken, Environment
 
         // shared operation queue for all cloudkit operations
         _queue = [[NSOperationQueue alloc] init];
@@ -99,7 +104,7 @@ static CKMediator *_mediator;
 - (NSDictionary *)infoForContainerID:(NSString *)containerID
 {
     for (NSDictionary *container in _containerProperties) {
-        if ([container[@"CloudKitJSContainerName"] isEqualToString:containerID]) {
+        if ([container[CloudKitJSContainerNameKey] isEqualToString:containerID]) {
             return container;
         }
     }
@@ -229,20 +234,20 @@ static CKMediator *_mediator;
 	}
 
 	for (NSDictionary *container in _containerProperties) {
-        NSString *containerID = container[@"CloudKitJSContainerName"];
+        NSString *containerID = container[CloudKitJSContainerNameKey];
         [[[_context evaluateScript:[NSString stringWithFormat:@"CloudKit.getContainer('%@').setUpAuth()", containerID]] invokeMethod:@"then" withArguments:@[^(id response) {
             if(response && ![[NSNull null] isEqual:response]){
                 MediatorDebugLog(CKLOG_LEVEL_INFO, @"logged in %@", containerID);
-                [[NSNotificationCenter defaultCenter] postNotificationName:NSUbiquityIdentityDidChangeNotification object:self userInfo:@{ @"accountStatus" : @(CKAccountStatusAvailable) }];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NSUbiquityIdentityDidChangeNotification object:self userInfo:@{ CKAccountStatusNotificationUserInfoKey : @(CKAccountStatusAvailable) }];
             }else{
                 MediatorDebugLog(CKLOG_LEVEL_INFO, @"logged out %@", containerID);
-                [[NSNotificationCenter defaultCenter] postNotificationName:NSUbiquityIdentityDidChangeNotification object:self userInfo:@{ @"accountStatus" : @(CKAccountStatusNoAccount) }];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NSUbiquityIdentityDidChangeNotification object:self userInfo:@{ CKAccountStatusNotificationUserInfoKey : @(CKAccountStatusNoAccount) }];
             }
             self.queue.suspended = NO;
 			self.innerQueue.suspended = NO;
         }]] invokeMethod:@"catch"
-            withArguments:@[^(NSDictionary *err) {
-            MediatorDebugLog(CKLOG_LEVEL_ERR, @"Error: %@", err);
+            withArguments:@[^(NSDictionary *errorDictionary) {
+            MediatorDebugLog(CKLOG_LEVEL_ERR, @"Error: %@", errorDictionary);
             }]];
     }
 }
@@ -256,8 +261,8 @@ static CKMediator *_mediator;
 - (void)setupContext:(JSContext *)context
 {
     // track exceptions and logs from the JSContext
-    context[@"window"][@"doLog"] = ^(id str) {
-        MediatorDebugLog(CKLOG_LEVEL_INFO, @"CloudKit Log: %@", [str description]);
+    context[@"window"][@"doLog"] = ^(id string) {
+        MediatorDebugLog(CKLOG_LEVEL_INFO, @"CloudKit Log: %@", [string description]);
     };
     [context setExceptionHandler:^(JSContext *c, JSValue *ex) {
         MediatorDebugLog(CKLOG_LEVEL_CRIT, @"JS Exception in context %@: %@", c, ex);
@@ -282,16 +287,16 @@ static CKMediator *_mediator;
     // configure CloudKitJS with our container ID
     // and authentication steps, etc
     void (^loadConfig)() = ^{
-        NSError* err1;
-        NSError* err2;
+        NSError* configFormatError;
+        NSError* containerConfigFormatError;
         NSURL* configURL = [[NSBundle bundleForClass:[self class]] URLForResource:@"config-format" withExtension:@"js"];
-        NSString* configFormat = [NSString stringWithContentsOfURL:configURL encoding:NSUTF8StringEncoding error:&err1];
+        NSString* configFormat = [NSString stringWithContentsOfURL:configURL encoding:NSUTF8StringEncoding error:&configFormatError];
 
         NSURL* containerConfigURL = [[NSBundle bundleForClass:[self class]] URLForResource:@"container-config-format" withExtension:@"json"];
-        NSString* containerConfigFormat = [NSString stringWithContentsOfURL:containerConfigURL encoding:NSUTF8StringEncoding error:&err2];
+        NSString* containerConfigFormat = [NSString stringWithContentsOfURL:containerConfigURL encoding:NSUTF8StringEncoding error:&containerConfigFormatError];
 
-        if(err1 || err2){
-            @throw [NSException exceptionWithName:@"AgileCloudKitConfigException" reason:@"Could not load config for AgileCloudKit" userInfo:@{ @"error1" : err1, @"error2" : err2  }];
+        if(configFormatError || containerConfigFormatError){
+            @throw [NSException exceptionWithName:@"AgileCloudKitConfigException" reason:@"Could not load config for AgileCloudKit" userInfo:@{ @"error1" : configFormatError, @"error2" : containerConfigFormatError  }];
         }
 
 
@@ -299,18 +304,18 @@ static CKMediator *_mediator;
             MediatorDebugLog(CKLOG_LEVEL_EMERG, @"AgileCloudKit configuration error. Please check your Info.plist");
         }else{
 
-            NSString* containerConfigStr = @"";
+            NSString* containerConfigString = @"";
             for (NSDictionary* containerConfig in _containerProperties){
                 // each container contains keys for: CloudKitJSContainerName, CloudKitJSAPIToken, CloudKitJSEnvironment
-                NSString* configuration = [NSString stringWithFormat:containerConfigFormat, containerConfig[@"CloudKitJSContainerName"], containerConfig[@"CloudKitJSAPIToken"], containerConfig[@"CloudKitJSEnvironment"], _sessionToken];
-                if([containerConfigStr length]){
-                    containerConfigStr = [NSString stringWithFormat:@"%@,%@", containerConfigStr, configuration];
+                NSString* configuration = [NSString stringWithFormat:containerConfigFormat, containerConfig[CloudKitJSContainerNameKey], containerConfig[CloudKitJSAPITokenKey], containerConfig[CloudKitJSEnvironmentKey], _sessionToken];
+                if([containerConfigString length]){
+                    containerConfigString = [NSString stringWithFormat:@"%@,%@", containerConfigString, configuration];
                 }else{
-                    containerConfigStr = configuration;
+                    containerConfigString = configuration;
                 }
             }
 
-            NSString* configuration = [NSString stringWithFormat:configFormat, containerConfigStr];
+            NSString* configuration = [NSString stringWithFormat:configFormat, containerConfigString];
             [context evaluateScript:configuration];
         }
     };
@@ -401,7 +406,7 @@ static CKMediator *_mediator;
 
 - (void)registerForRemoteNotifications {
     for (NSDictionary *containerProps in _containerProperties) {
-        [[CKContainer containerWithIdentifier:containerProps[@"CloudKitJSContainerName"]] registerForRemoteNotifications];
+        [[CKContainer containerWithIdentifier:containerProps[CloudKitJSContainerNameKey]] registerForRemoteNotifications];
     }
 }
 

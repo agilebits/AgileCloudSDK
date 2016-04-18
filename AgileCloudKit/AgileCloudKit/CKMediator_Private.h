@@ -7,6 +7,12 @@
 
 #import <AgileCloudKit/AgileCloudKit.h>
 
+extern NSString *const CloudKitJSContainerNameKey;
+extern NSString *const CloudKitJSAPITokenKey;
+extern NSString *const CloudKitJSEnvironmentKey;
+
+extern NSString *const CKAccountStatusNotificationUserInfoKey;
+
 @interface CKMediator ()
 
 @property(nonatomic, readonly) NSOperationQueue *queue;
