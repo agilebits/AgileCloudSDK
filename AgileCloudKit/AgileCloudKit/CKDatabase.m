@@ -72,16 +72,16 @@
 
 - (void)fetchRecordWithID:(CKRecordID *)recordID completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler
 {
-    CKFetchRecordsOperation *recOp = [[CKFetchRecordsOperation alloc] initWithRecordIDs:@[recordID]];
-    recOp.fetchRecordsCompletionBlock = ^(NSDictionary *dict, NSError *err) {
-        if(err){
-            NSError* recErr = err.userInfo[@"CKPartialErrors"][recordID];
-            completionHandler(nil, recErr);
+    CKFetchRecordsOperation *fetchOperation = [[CKFetchRecordsOperation alloc] initWithRecordIDs:@[recordID]];
+    fetchOperation.fetchRecordsCompletionBlock = ^(NSDictionary *dict, NSError *error) {
+        if(error){
+            NSError* recordError = error.userInfo[CKErrorUserInfoPartialErrorsKey][recordID];
+            completionHandler(nil, recordError);
         }else{
             completionHandler([dict allValues][0], nil);
         }
     };
-    [self addOperation:recOp];
+    [self addOperation:fetchOperation];
 }
 
 - (void)saveRecord:(CKRecord *)record completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler
@@ -135,8 +135,8 @@
             }
             opCompletionBlock();
         }]] invokeMethod:@"catch"
-         withArguments:@[^(NSDictionary *err) {
-            NSError* error = [[NSError alloc] initWithCKErrorDictionary:err];
+         withArguments:@[^(NSDictionary *errorDictionary) {
+            NSError* error = [[NSError alloc] initWithCKErrorDictionary:errorDictionary];
             completionHandler(nil, error);
             opCompletionBlock();
         }]];
@@ -169,8 +169,8 @@
             }
             opCompletionBlock();
         }]] invokeMethod:@"catch"
-         withArguments:@[^(NSDictionary *err) {
-            NSError* error = [[NSError alloc] initWithCKErrorDictionary:err];
+         withArguments:@[^(NSDictionary *errorDictionary) {
+            NSError* error = [[NSError alloc] initWithCKErrorDictionary:errorDictionary];
             completionHandler(nil, error);
             opCompletionBlock();
         }]];
@@ -200,8 +200,8 @@
             }
             opCompletionBlock();
         }]] invokeMethod:@"catch"
-         withArguments:@[^(NSDictionary *err) {
-            NSError* error = [[NSError alloc] initWithCKErrorDictionary:err];
+         withArguments:@[^(NSDictionary *errorDictionary) {
+            NSError* error = [[NSError alloc] initWithCKErrorDictionary:errorDictionary];
             completionHandler(nil, error);
             opCompletionBlock();
         }]];
@@ -244,8 +244,8 @@
             }
             opCompletionBlock();
         }]] invokeMethod:@"catch"
-         withArguments:@[^(NSDictionary *err) {
-            NSError* error = [[NSError alloc] initWithCKErrorDictionary:err];
+         withArguments:@[^(NSDictionary *errorDictionary) {
+            NSError* error = [[NSError alloc] initWithCKErrorDictionary:errorDictionary];
             completionHandler(nil, error);
             opCompletionBlock();
         }]];
@@ -278,8 +278,8 @@
             }
             opCompletionBlock();
         }]] invokeMethod:@"catch"
-         withArguments:@[^(id err) {
-            NSError* error = [[NSError alloc] initWithCKErrorDictionary:err];
+         withArguments:@[^(id errorDictionary) {
+            NSError* error = [[NSError alloc] initWithCKErrorDictionary:errorDictionary];
             completionHandler(nil, error);
             opCompletionBlock();
         }]];

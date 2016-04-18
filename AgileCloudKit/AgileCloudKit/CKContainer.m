@@ -70,7 +70,7 @@ static CKContainer *_defaultContainer;
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _defaultContainer = [CKContainer containerWithIdentifier:[[[CKMediator sharedMediator] containerProperties] firstObject][@"CloudKitJSContainerName"]];
+        _defaultContainer = [CKContainer containerWithIdentifier:[[[CKMediator sharedMediator] containerProperties] firstObject][CloudKitJSContainerNameKey]];
     });
     return _defaultContainer;
 }
@@ -112,21 +112,21 @@ static NSMutableDictionary *containers;
 
 - (NSString *)containerIdentifier
 {
-    return _containerProperties[@"CloudKitJSContainerName"];
+    return _containerProperties[CloudKitJSContainerNameKey];
 }
 
 // each container contains keys for: CloudKitJSContainerName, CloudKitJSAPIToken, CloudKitJSEnvironment
 - (NSString *)cloudKitContainerName
 {
-    return [[CKMediator sharedMediator] infoForContainerID:self.containerIdentifier][@"CloudKitJSContainerName"];
+    return [[CKMediator sharedMediator] infoForContainerID:self.containerIdentifier][CloudKitJSContainerNameKey];
 }
 - (NSString *)cloudKitAPIToken
 {
-    return [[CKMediator sharedMediator] infoForContainerID:self.containerIdentifier][@"CloudKitJSAPIToken"];
+    return [[CKMediator sharedMediator] infoForContainerID:self.containerIdentifier][CloudKitJSAPITokenKey];
 }
 - (NSString *)cloudKitEnvironment
 {
-    return [[CKMediator sharedMediator] infoForContainerID:self.containerIdentifier][@"CloudKitJSEnvironment"];
+    return [[CKMediator sharedMediator] infoForContainerID:self.containerIdentifier][CloudKitJSEnvironmentKey];
 }
 
 - (JSValue *)asJSValue
@@ -346,20 +346,20 @@ static NSMutableDictionary *containers;
 }
 
 
-+ (NSString *)percentEscape:(NSString *)str
++ (NSString *)percentEscape:(NSString *)string
 {
-    return [[[[str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"] stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"] stringByReplacingOccurrencesOfString:@"=" withString:@"%3D"];
+    return [[[[string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"] stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"] stringByReplacingOccurrencesOfString:@"=" withString:@"%3D"];
 }
 
 #pragma mark - Long Poll for Push Notifications
 
-- (void)longPollAtURL:(NSString *)urlStr
+- (void)longPollAtURL:(NSString *)urlString
 {
-    urlStr = [urlStr stringByReplacingOccurrencesOfString:@":443" withString:@""];
+    urlString = [urlString stringByReplacingOccurrencesOfString:@":443" withString:@""];
 
-    DebugLog(CKLOG_LEVEL_DEBUG, @"long polling at: %@", urlStr);
+    DebugLog(CKLOG_LEVEL_DEBUG, @"long polling at: %@", urlString);
 
-    NSURL *longPollURL = [NSURL URLWithString:urlStr];
+    NSURL *longPollURL = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
     [request setURL:longPollURL];
@@ -379,14 +379,14 @@ static NSMutableDictionary *containers;
         }
 
         if(!connectionError && !jsonError){
-            [self longPollAtURL:urlStr];
+            [self longPollAtURL:urlString];
         }else{
             dispatch_async(dispatch_get_main_queue(), ^{
                 // slowly retry every 1, 2, 4, 8 ... seconds up to 1 minute retry intervals
                 targetInterval = MAX(1, MIN(60, targetInterval * 2));
                 DebugLog(CKLOG_LEVEL_ERR, @"Long poll failed, retrying in: %.2f", targetInterval);
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(targetInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self longPollAtURL:urlStr];
+                    [self longPollAtURL:urlString];
                 });
             });
         }
@@ -397,7 +397,7 @@ static NSMutableDictionary *containers;
 
 - (void)cloudKitIdentityDidChange:(NSNotification *)note {
 	if (self.accountStatusCompletionHandler != nil) {
-		self.accountStatusCompletionHandler([note.userInfo[@"accountStatus"] integerValue], nil);
+		self.accountStatusCompletionHandler([note.userInfo[CKAccountStatusNotificationUserInfoKey] integerValue], nil);
 		self.accountStatusCompletionHandler = nil;
 	}
 }

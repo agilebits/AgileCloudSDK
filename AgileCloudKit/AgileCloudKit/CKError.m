@@ -25,3 +25,7 @@ NSString *const CKRecordChangedErrorClientRecordKey = @"CKRecordChangedErrorClie
  which the client may retry the request.
  */
 NSString *const CKErrorRetryAfterKey = @"CKErrorRetryAfterKey";
+
+/* Userinfo keys for CKErrors */
+NSString *const CKErrorUserInfoPartialErrorsKey = @"CKPartialErrors";
+NSString *const CKErrorUserInfoContainerIDKey = @"ContainerID";

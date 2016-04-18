@@ -65,10 +65,10 @@ static NSArray *allowedComparators;
 
 - (NSDictionary *)asAgileDictionary
 {
-    return @{ @"comparator": _comparator,
-              @"fieldName": _fieldName,
-              @"fieldValue": @{@"type": _fieldType,
-                               @"value": [_fieldValue respondsToSelector:@selector(asAgileDictionary)] ? [_fieldValue asAgileDictionary] : _fieldValue} };
+    return @{ @"comparator": self.comparator,
+              @"fieldName": self.fieldName,
+              @"fieldValue": @{@"type": self.fieldType,
+                               @"value": [self.fieldValue respondsToSelector:@selector(asAgileDictionary)] ? [self.fieldValue asAgileDictionary] : self.fieldValue} };
 }
 
 #pragma mark - NSSecureCoding
@@ -80,11 +80,11 @@ static NSArray *allowedComparators;
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:_comparator forKey:@"comparator"];
-    [aCoder encodeObject:_fieldName forKey:@"fieldName"];
-    [aCoder encodeObject:_fieldType forKey:@"fieldType"];
-    [aCoder encodeObject:NSStringFromClass([_fieldValue class]) forKey:@"valueClass"];
-    [aCoder encodeObject:_fieldValue forKey:@"fieldValue"];
+    [aCoder encodeObject:self.comparator forKey:@"comparator"];
+    [aCoder encodeObject:self.fieldName forKey:@"fieldName"];
+    [aCoder encodeObject:self.fieldType forKey:@"fieldType"];
+    [aCoder encodeObject:NSStringFromClass([self.fieldValue class]) forKey:@"valueClass"];
+    [aCoder encodeObject:self.fieldValue forKey:@"fieldValue"];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder

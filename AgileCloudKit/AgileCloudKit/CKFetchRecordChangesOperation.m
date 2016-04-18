@@ -53,14 +53,14 @@
 
     [self.database sendPOSTRequestTo:@"records/changes" withJSON:requestDictionary completionHandler:^(id jsonResponse, NSError *operationError) {
 
-        __block NSError* opErr;
+        __block NSError* localOperationError;
 
         _moreComing = [jsonResponse[@"moreComing"] boolValue];
         CKServerChangeToken *serverChangeToken = [[CKServerChangeToken alloc] initWithString:jsonResponse[@"syncToken"]];
 
         if([jsonResponse isKindOfClass:[NSDictionary class]] && jsonResponse[@"records"]){
             [jsonResponse[@"records"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSError* recordErr = nil;
+                NSError* recordError = nil;
 
                 if([obj[@"deleted"] boolValue]){
                     CKRecordID* deletedRecordID = [[CKRecordID alloc] initWithRecordName:obj[@"recordName"] zoneID:_recordZoneID];
@@ -71,14 +71,14 @@
                     CKRecord* record = [[CKRecord alloc] initWithDictionary:obj inZone:_recordZoneID];
                     CKRecordID* recordID = record.recordID;
                     if(!record){
-                        recordErr = [[NSError alloc] initWithCKErrorDictionary:obj];
+                        recordError = [[NSError alloc] initWithCKErrorDictionary:obj];
                         if(obj[@"recordName"]){
                             recordID = [[CKRecordID alloc] initWithRecordName:obj[@"recordName"]  zoneID:_recordZoneID];
                         }
                     }else{
                         NSArray* errs = [record synchronouslyDownloadAllAssetsWithProgressBlock:nil];
                         if([errs count]){
-                            recordErr = errs[0];
+                            recordError = errs[0];
                             record = nil;
                         }
                     }
@@ -87,16 +87,16 @@
                         if(self.recordChangedBlock){
                             self.recordChangedBlock(record);
                         }
-                    }else if(!opErr){
-                        opErr = recordErr;
+                    }else if(!localOperationError){
+                        localOperationError = recordError;
                     }
                 }
             }];
         }else if(!operationError){
             operationError = [[NSError alloc] initWithCKErrorDictionary:jsonResponse];
         }
-        if(opErr){
-            operationError = opErr;
+        if(localOperationError){
+            operationError = localOperationError;
         }
 
         if(self.fetchRecordChangesCompletionBlock){
