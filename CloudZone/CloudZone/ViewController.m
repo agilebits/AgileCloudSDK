@@ -157,6 +157,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 	if ([notification.userInfo[@"accountStatus"] integerValue] == CKAccountStatusAvailable) {
 		self.cloudKitView.logoutButton.hidden = NO;
 		self.cloudKitView.loginButton.hidden = YES;
+		[self loadSavedRecord];
 	} else {
 		self.cloudKitView.logoutButton.hidden = YES;
 		self.cloudKitView.loginButton.hidden = NO;
