@@ -36,7 +36,7 @@ AgileCloudKit communicates with iCloud using a mix of JavaScript calls from a Ja
 
 Two apps are bundled with the framework. The CloudZone app uses Apple's CloudKit framework, and the AgileCloudZone uses the AgileCloudKit framework. The sample apps may not contain all functionality of the framework. They are there to act as a playground to test different aspects of the framework as needed.
 
-To use the CloudZone apps you will need to set up a test container in CloudKit Dashboard, and set the appropriate App IDs and credentials in the two apps. The CloudZone app requires the CloudKit Credentials turned on and must have code signing set in order to use native CloudKit. The AgileCloudZone app does not need to be signed as it uses CloudKitJS, but does need the appropriate CloudKitJS credentials in its Info.plist.
+To use the CloudZone apps you will need to set up a test container in CloudKit Dashboard, and set the appropriate App IDs and credentials in the two apps. The CloudZone app requires the iCloud CloudKit capabilities enabled and must have Mac App Store code signing set in order to use native CloudKit. The AgileCloudZone app does not need to be signed as it uses CloudKitJS, but does need the appropriate CloudKitJS credentials and the URL type set in its Info.plist. There are placeholder values in the project that can be modified.
 
 The CloudZone apps are minimal and have a few rough edges, but have a few features:
 
