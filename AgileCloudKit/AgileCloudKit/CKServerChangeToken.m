@@ -11,55 +11,48 @@
 #import "CKServerChangeToken+AgileDictionary.h"
 
 @implementation CKServerChangeToken {
-    NSString *_token;
+	NSString *_token;
 }
 
-- (instancetype)initWithString:(NSString *)token
-{
-    if (self = [super init]) {
-        _token = token;
-    }
-    return self;
+- (instancetype)initWithString:(NSString *)token {
+	if (self = [super init]) {
+		_token = token;
+	}
+	return self;
 }
 
-- (NSString *)token
-{
-    return _token;
+- (NSString *)token {
+	return _token;
 }
 
 #pragma mark - NSCoding
 
-+ (BOOL)supportsSecureCoding
-{
-    return YES;
++ (BOOL)supportsSecureCoding {
+	return YES;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
-    [aCoder encodeObject:self.token forKey:@"token"];
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	[aCoder encodeObject:self.token forKey:@"token"];
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
-    NSString *token = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"token"];
-    if (self = [self initWithString:token]) {
-        // noop
-    }
-    return self;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+	NSString *token = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"token"];
+	if (self = [self initWithString:token]) {
+		// noop
+	}
+	return self;
 }
 
 #pragma mark - NSCopying
 
-- (id)copyWithZone:(NSZone *)zone
-{
-    return [[[self class] allocWithZone:zone] initWithString:[_token copyWithZone:zone]];
+- (id)copyWithZone:(NSZone *)zone {
+	return [[[self class] allocWithZone:zone] initWithString:[_token copyWithZone:zone]];
 }
 
 #pragma mark - Description
 
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"[CKServerChangeToken: %@]", self.token];
+- (NSString *)description {
+	return [NSString stringWithFormat:@"[CKServerChangeToken: %@]", self.token];
 }
 
 @end

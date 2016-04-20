@@ -11,45 +11,39 @@
 #import "Defines.h"
 
 @implementation CKDatabaseOperation {
-    BOOL _executing;
-    BOOL _finished;
+	BOOL _executing;
+	BOOL _finished;
 }
 
-- (void)setExecuting:(BOOL)executing
-{
-    [self willChangeValueForKey:@"isExecuting"];
-    _executing = executing;
-    [self didChangeValueForKey:@"isExecuting"];
+- (void)setExecuting:(BOOL)executing {
+	[self willChangeValueForKey:@"isExecuting"];
+	_executing = executing;
+	[self didChangeValueForKey:@"isExecuting"];
 }
 
-- (BOOL)isExecuting
-{
-    return _executing;
+- (BOOL)isExecuting {
+	return _executing;
 }
 
-- (void)setFinished:(BOOL)finished
-{
-    [self willChangeValueForKey:@"isFinished"];
-    _finished = finished;
-    [self didChangeValueForKey:@"isFinished"];
+- (void)setFinished:(BOOL)finished {
+	[self willChangeValueForKey:@"isFinished"];
+	_finished = finished;
+	[self didChangeValueForKey:@"isFinished"];
 }
 
-- (BOOL)isFinished
-{
-    return _finished;
+- (BOOL)isFinished {
+	return _finished;
 }
 
-- (BOOL)asynchronous
-{
-    return YES;
+- (BOOL)asynchronous {
+	return YES;
 }
 
-- (CKDatabase *)database
-{
-    if (!_database) {
-        _database = [[CKContainer defaultContainer] privateCloudDatabase];
-    }
-    return _database;
+- (CKDatabase *)database {
+	if (!_database) {
+		_database = [[CKContainer defaultContainer] privateCloudDatabase];
+	}
+	return _database;
 }
 
 @end

@@ -9,10 +9,9 @@
 
 @implementation CKRecordZoneID (AgileDictionary)
 
-- (NSDictionary *)asAgileDictionary
-{
-    return @{ @"zoneName": self.zoneName,
-              @"ownerName": self.ownerName };
+- (NSDictionary *)asAgileDictionary {
+	return @{ @"zoneName": self.zoneName,
+			  @"ownerName": self.ownerName };
 }
 
 @end

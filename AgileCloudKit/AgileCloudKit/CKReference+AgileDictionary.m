@@ -9,10 +9,9 @@
 
 @implementation CKReference (AgileDictionary)
 
-- (NSDictionary *)asAgileDictionary
-{
-    return @{ @"recordName": self.recordID.recordName,
-              @"action": @((self.referenceAction == CKReferenceActionNone) ? 0 : 1) };
+- (NSDictionary *)asAgileDictionary {
+	return @{ @"recordName": self.recordID.recordName,
+			  @"action": @((self.referenceAction == CKReferenceActionNone) ? 0 : 1) };
 }
 
 @end

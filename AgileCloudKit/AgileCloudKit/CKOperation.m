@@ -12,20 +12,18 @@
 
 
 /* If no container is set, [CKContainer defaultContainer] is used */
-- (CKContainer *)container
-{
-    if (!_container) {
-        return [CKContainer defaultContainer];
-    }
-    return _container;
+- (CKContainer *)container {
+	if (!_container) {
+		return [CKContainer defaultContainer];
+	}
+	return _container;
 }
 
 
-- (instancetype)init
-{
-    if (self = [super init]) {
-    }
-    return self;
+- (instancetype)init {
+	if (self = [super init]) {
+	}
+	return self;
 }
 
 @end
