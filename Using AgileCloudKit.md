@@ -29,13 +29,13 @@ Log in to CloudKitDashboard with your Developer AppleID: https://icloud.develope
 1. Stand up the CKMediator. CKMediator is the class that mediates native cloudkit calls to CloudKit JS. It must be instantiated and set up first.
 
 	- the following code sets up the mediator and registers for notification types so your app receives cloudkit notifications.
-		```
+	```
 		static dispatch_once_t onceToken;
 		dispatch_once(&onceToken, ^{
 			[CKMediator sharedMediator].delegate = (id<CKMediatorDelegate>)NSApp.delegate;
 			[NSApp registerForRemoteNotificationTypes:0xFFFF];
 		});
-		```
+	```
 		
 1. Implement the CKMediatorDelegate methods. These are defined in CKMediatorDelegate.h
 	- you must implement the methods `-loadSessionTokenForMediator:` and `-mediator:saveSessionToken`, and it is recommended the token be stored securely. This allows your application to continue to communicate with CloudKit without needing to prompt the user to login each time. It can expire, for example, when the user changes their AppleID password, or for other reasons.
@@ -44,13 +44,13 @@ Log in to CloudKitDashboard with your Developer AppleID: https://icloud.develope
 1. Handle the sign-in URL callback.
 
 	- Register an event handle with the AppleEventManager to receive URLs if you are not already. For example,
-		```
+	```
 		[[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleURLSchemeEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
-		```
+	```
 	- In your handleURLSchemeEvent method, hand the cloudkit URL off to the shared mediator
-		```
+	```
 		[[CKMediator sharedMediator] handleGetURLEvent:event withReplyEvent:replyEvent];
-		```
+	```
 
 1. In the appropriate classes, import the framework with the standard header: `#import <AgileCloudKit/AgileCloutKit.h>`
 
