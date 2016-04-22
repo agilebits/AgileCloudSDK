@@ -9,5 +9,6 @@
 
 @interface ViewController : NSViewController
 
+- (void)loadSavedRecord;
 
 @end

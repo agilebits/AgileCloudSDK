@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C52140CB1BA4BC67009D06F5 /* kitten.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C52140CA1BA4BC67009D06F5 /* kitten.jpg */; };
-		C52140CC1BA4BC67009D06F5 /* kitten.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C52140CA1BA4BC67009D06F5 /* kitten.jpg */; };
-		C5233DCB1BA66E500075BC5C /* otherkitten.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5233DCA1BA66E500075BC5C /* otherkitten.jpg */; };
-		C5233DCC1BA66E500075BC5C /* otherkitten.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5233DCA1BA66E500075BC5C /* otherkitten.jpg */; };
+		C52140CB1BA4BC67009D06F5 /* palmtree.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C52140CA1BA4BC67009D06F5 /* palmtree.jpg */; };
+		C52140CC1BA4BC67009D06F5 /* palmtree.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C52140CA1BA4BC67009D06F5 /* palmtree.jpg */; };
+		C5233DCB1BA66E500075BC5C /* sunset.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5233DCA1BA66E500075BC5C /* sunset.jpg */; };
+		C5233DCC1BA66E500075BC5C /* sunset.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5233DCA1BA66E500075BC5C /* sunset.jpg */; };
 		C53391041B8AB56100DD1596 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53391031B8AB56100DD1596 /* WebKit.framework */; };
 		C54C03811B9BE83900EFB597 /* AgileCloudKitView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C03801B9BE83900EFB597 /* AgileCloudKitView.m */; };
 		C54C03841B9BE8F600EFB597 /* CloudKitView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C03831B9BE8F600EFB597 /* CloudKitView.m */; };
@@ -30,8 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C52140CA1BA4BC67009D06F5 /* kitten.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = kitten.jpg; sourceTree = "<group>"; };
-		C5233DCA1BA66E500075BC5C /* otherkitten.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = otherkitten.jpg; sourceTree = "<group>"; };
+		C52140CA1BA4BC67009D06F5 /* palmtree.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = palmtree.jpg; sourceTree = "<group>"; };
+		C5233DCA1BA66E500075BC5C /* sunset.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sunset.jpg; sourceTree = "<group>"; };
 		C53391031B8AB56100DD1596 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C54C037F1B9BE83900EFB597 /* AgileCloudKitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgileCloudKitView.h; sourceTree = "<group>"; };
 		C54C03801B9BE83900EFB597 /* AgileCloudKitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgileCloudKitView.m; sourceTree = "<group>"; };
@@ -135,8 +135,8 @@
 			children = (
 				C5E14DC61B89012B003DE11F /* Main.storyboard */,
 				C5E14DC41B89012B003DE11F /* Images.xcassets */,
-				C5233DCA1BA66E500075BC5C /* otherkitten.jpg */,
-				C52140CA1BA4BC67009D06F5 /* kitten.jpg */,
+				C5233DCA1BA66E500075BC5C /* sunset.jpg */,
+				C52140CA1BA4BC67009D06F5 /* palmtree.jpg */,
 				C5A5730D1B890B7000264AC9 /* CloudZone.entitlements */,
 				C559C74D1BA0013C0081FBA1 /* CloudZone-Info.plist */,
 				C5E14DBB1B89012B003DE11F /* AgileCloudZone-Info.plist */,
@@ -189,10 +189,9 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "Adam Wulf";
+				ORGANIZATIONNAME = AgileBits;
 				TargetAttributes = {
 					C5A573371B890E7700264AC9 = {
-						DevelopmentTeam = MU27A4SCKC;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 0;
@@ -204,7 +203,6 @@
 					};
 					C5E14DB61B89012B003DE11F = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = MU27A4SCKC;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -243,10 +241,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C52140CC1BA4BC67009D06F5 /* kitten.jpg in Resources */,
+				C52140CC1BA4BC67009D06F5 /* palmtree.jpg in Resources */,
 				C5A573551B890E7700264AC9 /* Images.xcassets in Resources */,
 				C5A573561B890E7700264AC9 /* Main.storyboard in Resources */,
-				C5233DCC1BA66E500075BC5C /* otherkitten.jpg in Resources */,
+				C5233DCC1BA66E500075BC5C /* sunset.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,9 +253,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5E14DC51B89012B003DE11F /* Images.xcassets in Resources */,
-				C52140CB1BA4BC67009D06F5 /* kitten.jpg in Resources */,
+				C52140CB1BA4BC67009D06F5 /* palmtree.jpg in Resources */,
 				C5E14DC81B89012B003DE11F /* Main.storyboard in Resources */,
-				C5233DCB1BA66E500075BC5C /* otherkitten.jpg in Resources */,
+				C5233DCB1BA66E500075BC5C /* sunset.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,7 +303,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -319,7 +317,7 @@
 				);
 				INFOPLIST_FILE = "CloudZone/AgileCloudZone-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.AgileCloudZone;
 				PRODUCT_NAME = AgileCloudZone;
 				PROVISIONING_PROFILE = "";
 			};
@@ -329,7 +327,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -338,7 +336,7 @@
 				);
 				INFOPLIST_FILE = "CloudZone/AgileCloudZone-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.AgileCloudZone;
 				PRODUCT_NAME = AgileCloudZone;
 				PROVISIONING_PROFILE = "";
 			};
@@ -434,7 +432,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "CloudZone/CloudZone-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.CloudZone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -450,7 +448,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "CloudZone/CloudZone-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.CloudZone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

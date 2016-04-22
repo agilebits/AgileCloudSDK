@@ -10,4 +10,7 @@
 
 @interface AgileCloudKitView : CloudKitView
 
+@property (nonatomic, strong) NSButton *logoutButton;
+@property (nonatomic, strong) NSButton *loginButton;
+
 @end
