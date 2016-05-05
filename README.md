@@ -2,6 +2,8 @@
 
 AgileCloudKit is a drop-in replacement for CloudKit framework for use in non-Mac App Store apps. It uses CloudKitJS and CloudKit Web Services to communicate with iCloud.
 
+AgileCloudKit is a proven technology currently in use by [1Password](https://1password.com) when purchased from the AgileBits Store. 1Password uses AgileCloudKit to sync password data seamlessly with the Mac App Store and iOS App Store versions which use Apple’s native CloudKit framework.
+
 ## License
 
 See the [license file](License.txt) for AgileCloudKit’s distribution license
