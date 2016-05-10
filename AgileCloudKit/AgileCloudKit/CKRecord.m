@@ -117,6 +117,10 @@
 		}];
 		return refs;
 	}
+	else if ([type isEqualToString:@"UNKNOWN_LIST"]) {
+		// The server appears to return UNKNOWN_LIST for empty STRING_LISTS (and possibly others)
+		return [NSArray array];
+	}
 	else {
 		@throw [NSException exceptionWithName:CKErrorDomain reason:[NSString stringWithFormat:@"Unknown field type: %@", type] userInfo:dictionary];
 	}
