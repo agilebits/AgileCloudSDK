@@ -4,7 +4,7 @@ AgileCloudKit is for use with your Mac app that is not distributed through the M
 
 #### Prepare your container on CloudKit Dashboard
 
-Log in to CloudKitDashboard with your Developer AppleID: https://icloud.developer.apple.com/Dashboard
+Log in to CloudKitDashboard with your Developer AppleID: https://icloud.developer.apple.com/dashboard
 
 1. Go to your Development container
 1. Create a new API key
