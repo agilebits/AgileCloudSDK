@@ -5,7 +5,7 @@
 //  Copyright (c) 2015 AgileBits Inc. All rights reserved.
 //
 
-#import <AgileCloudSDK/CKDatabaseOperation.h>
+#import "CKDatabaseOperation.h"
 
 @class CKRecord;
 

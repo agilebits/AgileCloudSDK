@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AgileCloudSDK/CKOperation.h>
+#import "CKOperation.h"
 
 @interface CKMarkNotificationsReadOperation : CKOperation
 

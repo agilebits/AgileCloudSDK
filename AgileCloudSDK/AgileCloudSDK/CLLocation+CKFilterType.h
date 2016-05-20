@@ -6,7 +6,6 @@
 //
 
 #import <CoreLocation/CoreLocation.h>
-#import <AgileCloudSDK/AgileCloudSDK.h>
 
 @interface CLLocation () <CKFilterType>
 

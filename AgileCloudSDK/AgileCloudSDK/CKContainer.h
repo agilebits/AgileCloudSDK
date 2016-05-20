@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AgileCloudSDK/CKDefines.h>
+#import "CKDefines.h"
 #import <WebKit/WebKit.h>
 
 @class CKDatabase, CKOperation, CKRecordID, CKDiscoveredUserInfo;

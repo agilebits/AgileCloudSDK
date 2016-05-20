@@ -7,9 +7,9 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CLLocation.h>
-#import <AgileCloudSDK/CKAsset.h>
-#import <AgileCloudSDK/CKReference.h>
-#import <AgileCloudSDK/CKDefines.h>
+#import "CKAsset.h"
+#import "CKReference.h"
+#import "CKDefines.h"
 
 @class CKRecordID, CKRecordZoneID;
 

@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AgileCloudSDK/CKDefines.h>
+#import "CKDefines.h"
 
 typedef NS_ENUM(NSInteger, CKSubscriptionType) {
     CKSubscriptionTypeQuery = 1,

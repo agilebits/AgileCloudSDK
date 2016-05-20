@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AgileCloudSDK/CKDefines.h>
+#import "CKDefines.h"
 
 @class CKRecordZoneID;
 

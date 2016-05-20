@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AgileCloudSDK/CKDatabaseOperation.h>
+#import "CKDatabaseOperation.h"
 #import "CKServerChangeToken.h"
 
 @interface CKSubscription ()

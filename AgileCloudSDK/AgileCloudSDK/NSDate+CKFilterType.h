@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AgileCloudSDK/AgileCloudSDK.h>
 
 @interface NSDate () <CKFilterType>
 

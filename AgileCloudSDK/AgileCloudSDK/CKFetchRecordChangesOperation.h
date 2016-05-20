@@ -5,8 +5,8 @@
 //  Copyright (c) 2015 AgileBits Inc. All rights reserved.
 //
 
-#import <AgileCloudSDK/CKDatabaseOperation.h>
-#import <AgileCloudSDK/CKServerChangeToken.h>
+#import "CKDatabaseOperation.h"
+#import "CKServerChangeToken.h"
 
 @class CKRecord, CKRecordID, CKRecordZoneID;
 

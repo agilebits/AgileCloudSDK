@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AgileCloudSDK/CKDefines.h>
+#import "CKDefines.h"
 
 CK_EXTERN NSString *const CKErrorDomain NS_AVAILABLE(10_10, 8_0);
 
