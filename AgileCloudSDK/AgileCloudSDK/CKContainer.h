@@ -71,7 +71,7 @@ typedef NS_ENUM(NSInteger, CKAccountStatus) {
 @end
 
 typedef NS_OPTIONS(NSUInteger, CKApplicationPermissions) {
-    /* Allows the user's record in CloudKit to be discoverable via the user's email address */
+    /* Allows the user's record to be discoverable via the user's email address */
     CKApplicationPermissionUserDiscoverability = 1 << 0,
 } NS_AVAILABLE(10_10, 8_0);
 

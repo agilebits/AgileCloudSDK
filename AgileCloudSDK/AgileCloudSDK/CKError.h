@@ -27,7 +27,7 @@ CK_EXTERN NSString *const CKRecordChangedErrorClientRecordKey NS_AVAILABLE(10_10
 CK_EXTERN NSString *const CKErrorRetryAfterKey NS_AVAILABLE(10_10, 8_0);
 
 typedef NS_ENUM(NSInteger, CKErrorCode) {
-    CKErrorInternalError = 1, /* CloudKit.framework encountered an error.  This is a non-recoverable error. */
+    CKErrorInternalError = 1, /* framework encountered an error.  This is a non-recoverable error. */
     CKErrorPartialFailure = 2, /* Some items failed, but the operation succeeded overall */
     CKErrorNetworkUnavailable = 3, /* Network not available */
     CKErrorNetworkFailure = 4, /* Network error (available but CFNetwork gave us an error) */

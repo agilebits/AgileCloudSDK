@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger, CKNotificationType) {
 
 @property(nonatomic, readonly, copy) NSString *containerIdentifier;
 
-/* push notifications have a limited size.  In some cases, CloudKit servers may not be able to send you a full
+/* push notifications have a limited size.  In some cases, servers may not be able to send you a full
  CKNotification's worth of info in one push.  In those cases, isPruned returns YES.  The order in which we'll
  drop properties is defined in each CKNotification subclass below.
  The CKNotification can be obtained in full via a CKFetchNotificationChangesOperation */

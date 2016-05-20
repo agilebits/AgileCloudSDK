@@ -45,7 +45,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 	((AppDelegate *)[NSApp delegate]).viewController = self;
 
 #if AGILECLOUDSDK
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cloudKitIdentityDidChange:) name:NSUbiquityIdentityDidChangeNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cloudIdentityDidChange:) name:NSUbiquityIdentityDidChangeNotification object:nil];
 
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		[[CKMediator sharedMediator] setDelegate:self];
@@ -61,7 +61,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 	[self.view addSubview:self.cloudSDKView];
 
 	// make sure we register to handle the redirect URL from
-	// a CloudKit login from Safari
+	// a cloud login from Safari
 	NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
 	[appleEventManager setEventHandler:[CKMediator sharedMediator]
 						   andSelector:@selector(handleGetURLEvent:withReplyEvent:)
@@ -99,23 +99,23 @@ NSString *const savedRecordName = @"SavedRecordID";
 		
 		// Yes, it's terrible to pass in the testCompleted block inside the testCompleted block. Will fix someday.  - kevin 2016-04-14
 		if(numberOfCompletedTests == 1) {
-			[self testCloudKitRecordsWithAllFieldTypes:testCompleted];
+			[self testCloudRecordsWithAllFieldTypes:testCompleted];
 		}else if(numberOfCompletedTests == 2) {
-			[self testCloudKitSubscriptions:testCompleted];
+			[self testCloudSubscriptions:testCompleted];
 		}else if(numberOfCompletedTests == 3) {
-			[self testCloudKitOperationAPI:testCompleted];
+			[self testCloudOperationAPI:testCompleted];
 		}else if(numberOfCompletedTests == 4) {
-			[self testCloudKitRecordsWithAllFieldTypesWithOperations:testCompleted];
+			[self testCloudRecordsWithAllFieldTypesWithOperations:testCompleted];
 		}else if(numberOfCompletedTests == 5) {
-			[self testCloudKitRecordConvenienceAPI:testCompleted];
+			[self testCloudRecordConvenienceAPI:testCompleted];
 		}else if(numberOfCompletedTests == 6) {
-			[self testCloudKitZoneConvenienceAPI:testCompleted];
+			[self testCloudZoneConvenienceAPI:testCompleted];
 		}else if(numberOfCompletedTests == 7) {
-			[self testCloudKitAssetsWithOperations:testCompleted];
+			[self testCloudAssetsWithOperations:testCompleted];
 		}
 	};
 	
-	[self testImmediateCloudKitAuth:testCompleted];
+	[self testImmediateCloudAuth:testCompleted];
 	
 	//
 	// this test is useful to run from the CloudZone
@@ -129,12 +129,12 @@ NSString *const savedRecordName = @"SavedRecordID";
 
 - (void)mediator:(CKMediator *)mediator saveSessionToken:(NSString *)token {
 	// this is a sample only. You should store your session token more securely
-	[[NSUserDefaults standardUserDefaults] setObject:token forKey:@"AgileCloudKit_sessionToken"];
+	[[NSUserDefaults standardUserDefaults] setObject:token forKey:@"AgileCloudSDK_sessionToken"];
 }
 
 - (NSString *)loadSessionTokenForMediator:(CKMediator *)mediator {
 	// this is a sample only. You should store your session token more securely
-	return [[NSUserDefaults standardUserDefaults] stringForKey:@"AgileCloudKit_sessionToken"];
+	return [[NSUserDefaults standardUserDefaults] stringForKey:@"AgileCloudSDK_sessionToken"];
 }
 
 - (void)mediator:(CKMediator *)mediator logLevel:(int)level object:(id)object at:(SEL)method format:(NSString *)format,... NS_FORMAT_FUNCTION(5,6) {
@@ -148,12 +148,12 @@ NSString *const savedRecordName = @"SavedRecordID";
 	NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
 	va_end(args);
 	
-	NSLog(@"AgileCloudKitLog %d: %@", level, message);
+	NSLog(@"AgileCloudSDKLog %d: %@", level, message);
 }
 
 #pragma mark - Notifications
 
-- (void)cloudKitIdentityDidChange:(NSNotification *)notification {
+- (void)cloudIdentityDidChange:(NSNotification *)notification {
 	if ([notification.userInfo[@"accountStatus"] integerValue] == CKAccountStatusAvailable) {
 		self.cloudSDKView.logoutButton.hidden = NO;
 		self.cloudSDKView.loginButton.hidden = YES;
@@ -256,7 +256,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 
 #pragma mark - Test Cases
 
-- (void)testImmediateCloudKitAuth:(void (^)())completionBlock {
+- (void)testImmediateCloudAuth:(void (^)())completionBlock {
 	[[CKContainer defaultContainer] accountStatusWithCompletionHandler:^(CKAccountStatus accountStatus, NSError *error) {
 		NSAssert(!error, @"Error fetching auth status: %@", error);
 		
@@ -264,7 +264,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 	}];
 }
 
-- (void)testCloudKitRecordsWithAllFieldTypes:(void (^)())completionBlock {
+- (void)testCloudRecordsWithAllFieldTypes:(void (^)())completionBlock {
 	CKRecordZone *zone = [[CKRecordZone alloc] initWithZoneName:@"persistentRecordZone"];
 	[[[CKContainer defaultContainer] privateCloudDatabase] saveRecordZone:zone completionHandler:^(CKRecordZone *zone, NSError *error) {
 		NSAssert(zone, @"no zone saved");
@@ -282,7 +282,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 				// note, for this test you need to manually create a record with the above ID.
 				// the tests will never delete it, but will fetch it to test fetching existing records
 				NSAssert(record, @"record %@ not found", recordID.recordName);
-				NSAssert(!error, @"testCloudKitRecordsWithAllFieldTypes: error fetching record: %@", recordID.recordName);
+				NSAssert(!error, @"testCloudRecordsWithAllFieldTypes: error fetching record: %@", recordID.recordName);
 				
 				NSImage* image = [[NSImage alloc] initWithData:record[@"BytesField"]];
 				NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, NO );
@@ -302,7 +302,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 	}];
 }
 
-- (void)testCloudKitSubscriptions:(void (^)())completionBlock {
+- (void)testCloudSubscriptions:(void (^)())completionBlock {
 	[[[CKContainer defaultContainer] privateCloudDatabase] fetchAllSubscriptionsWithCompletionHandler:^(NSArray<CKSubscription *> *_Nullable subscriptions, NSError *_Nullable error) {
 		NSAssert(!error, @"Error fetching all subscriptions: %@", error);
 		
@@ -338,11 +338,11 @@ NSString *const savedRecordName = @"SavedRecordID";
 							[[[CKContainer defaultContainer] privateCloudDatabase] deleteSubscriptionWithID:newSub.subscriptionID completionHandler:^(NSString *subscriptionID, NSError *error) {
 								NSAssert(subscriptionID, @"subscription %@ not deleted", subscriptionID);
 								NSAssert(!error, @"error deleting subscription: %@", error);
-								[self _testCloudKitSubscriptionsAfterDelete:completionBlock];
+								[self _testCloudSubscriptionsAfterDelete:completionBlock];
 							}];
 						}];
 					}else{
-						[self _testCloudKitSubscriptionsAfterDelete:completionBlock];
+						[self _testCloudSubscriptionsAfterDelete:completionBlock];
 					}
 				}];
 			}];
@@ -352,7 +352,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 }
 
 
-- (void)_testCloudKitSubscriptionsAfterDelete:(void (^)())completionBlock {
+- (void)_testCloudSubscriptionsAfterDelete:(void (^)())completionBlock {
 	// create subscription for any update on our persistent record
 	CKRecordZone *zone = [[CKRecordZone alloc] initWithZoneName:@"persistentRecordZone"];
 #ifdef AGILECLOUDSDK
@@ -404,7 +404,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 	}];
 }
 
-- (void)testCloudKitAssetsWithOperations:(void (^)())completionBlock {
+- (void)testCloudAssetsWithOperations:(void (^)())completionBlock {
 	CKRecordZone *zone = [[CKRecordZone alloc] initWithZoneName:@"persistentRecordZone"];
 	NSString *recordWithAsset = @"A4A40E35-66D0-4D9E-ACD0-F34D04DF0F69";
 	CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:recordWithAsset zoneID:zone.zoneID];
@@ -419,7 +419,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 			NSLog(@"fetch record progress: %.2f %@", progress, recordID);
 		};
 		fetchOp.perRecordCompletionBlock = ^(CKRecord *record, CKRecordID *recordID, NSError *error) {
-			NSAssert(!error, @"testCloudKitAssetsWithOperations: error fetching record: %@", error);
+			NSAssert(!error, @"testCloudAssetsWithOperations: error fetching record: %@", error);
 			NSLog(@"per record complete: %@", record.recordID);
 			NSLog(@" - : %@", [record[@"AssetField"] fileURL]);
 		};
@@ -466,7 +466,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 }
 
 
-- (void)testCloudKitRecordsWithAllFieldTypesWithOperations:(void (^)())completionBlock {
+- (void)testCloudRecordsWithAllFieldTypesWithOperations:(void (^)())completionBlock {
 	CKRecordZone *zone = [[CKRecordZone alloc] initWithZoneName:@"persistentRecordZone"];
 	CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:@"7A7730D2-8E25-4175-BCCA-A3565DEF025B" zoneID:zone.zoneID];
 	CKRecordID *missingRecordID = [[CKRecordID alloc] initWithRecordName:@"missingRecord" zoneID:zone.zoneID];
@@ -572,21 +572,21 @@ NSString *const savedRecordName = @"SavedRecordID";
 }
 
 
-- (void)testCloudKitRecordConvenienceAPI:(void (^)())completionBlock {
+- (void)testCloudRecordConvenienceAPI:(void (^)())completionBlock {
 	NSLog(@"=============================");
-	NSLog(@"testCloudKitRecordConvenienceAPI");
+	NSLog(@"testCloudRecordConvenienceAPI");
 	NSLog(@"=============================");
 	
 	NSLog(@"Fetching all zones");
 	
 #if AGILECLOUDSDK
-	NSArray *containerProperties = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CloudKitJSContainers"];
-	NSString *cloudKitIdentifier = [containerProperties[0] objectForKey:@"CloudKitJSContainerName"];
+	NSArray *containerProperties = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CloudContainers"];
+	NSString *cloudIdentifier = [containerProperties[0] objectForKey:@"CloudContainerName"];
 #else
-	NSString *cloudKitIdentifier = [[CKContainer defaultContainer] containerIdentifier];
+	NSString *cloudIdentifier = [[CKContainer defaultContainer] containerIdentifier];
 #endif
 	
-	[[[CKContainer containerWithIdentifier:cloudKitIdentifier] privateCloudDatabase] fetchAllRecordZonesWithCompletionHandler:^(NSArray *zones, NSError *error) {
+	[[[CKContainer containerWithIdentifier:cloudIdentifier] privateCloudDatabase] fetchAllRecordZonesWithCompletionHandler:^(NSArray *zones, NSError *error) {
 		NSAssert([zones count], @"could not fetch zones");
 		NSAssert(!error, @"error fetching zones: %@", error);
 	}];
@@ -643,9 +643,9 @@ NSString *const savedRecordName = @"SavedRecordID";
 	}];
 }
 
-- (void)testCloudKitZoneConvenienceAPI:(void (^)())completionBlock {
+- (void)testCloudZoneConvenienceAPI:(void (^)())completionBlock {
 	NSLog(@"=============================");
-	NSLog(@"testCloudKitZoneConvenienceAPI");
+	NSLog(@"testCloudZoneConvenienceAPI");
 	NSLog(@"=============================");
 	
 	NSLog(@"Fetching all zones");
@@ -679,9 +679,9 @@ NSString *const savedRecordName = @"SavedRecordID";
 }
 
 
-- (void)testCloudKitOperationAPI:(void (^)())completionBlock {
+- (void)testCloudOperationAPI:(void (^)())completionBlock {
 	NSLog(@"=============================");
-	NSLog(@"cloudKitOperationAPI");
+	NSLog(@"cloudOperationAPI");
 	NSLog(@"=============================");
 	
 	NSLog(@"Fetching all zones");

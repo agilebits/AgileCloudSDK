@@ -64,7 +64,7 @@
 	}
 	else {
 		// track our pending fetch count. this doesn't need to be
-		// thread safe since cloudkitJS is single threaded
+		// thread safe
 		__block NSInteger requestCount = [self.recordZoneIDs count];
 		
 		// our output

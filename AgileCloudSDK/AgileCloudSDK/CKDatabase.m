@@ -298,11 +298,11 @@
 
 - (void)sendPOSTRequestTo:(NSString *)fragment withJSON:(id)postData completionHandler:(void (^)(id jsonResponse, NSError *error))completionHandler {
 	NSString *fetchURLString = [NSString stringWithFormat:@"https://api.apple-cloudkit.com/database/1/%@/%@/%@/%@?ckAPIToken=%@&ckSession=%@",
-								self.container.cloudSDKContainerName,
-								self.container.cloudSDKEnvironment,
+								self.container.cloudContainerName,
+								self.container.cloudEnvironment,
 								self.isPublic ? @"public" : @"private",
 								fragment,
-								self.container.cloudSDKAPIToken,
+								self.container.cloudAPIToken,
 								[CKContainer percentEscape:[CKMediator sharedMediator].sessionToken]];
 	
 	[CKContainer sendPOSTRequestTo:[NSURL URLWithString:fetchURLString] withJSON:postData completionHandler:completionHandler];

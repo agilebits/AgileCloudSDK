@@ -16,14 +16,14 @@
 #import "NSError+AgileCloudSDKExtensions.h"
 #import "CKError.h"
 
-#define CloudKitJSURL [NSURL URLWithString:@"https://cdn.apple-cloudkit.com/ck/1/cloudkit.js"]
+#define CLOUDURL [NSURL URLWithString:@"https://cdn.apple-cloudkit.com/ck/1/cloudkit.js"]
 
 #define MediatorDebugLog(level,__FORMAT__,...) if ([delegate respondsToSelector:@selector(mediator:logLevel:object:at:format:)]) [delegate mediator:[CKMediator sharedMediator] logLevel:level object:self at:_cmd format:__FORMAT__, ##__VA_ARGS__]
 
 NSString *const kAgileCloudSDKInitializedNotification = @"kAgileCloudSDKInitializedNotification";
-NSString *const CloudKitJSContainerNameKey = @"CloudKitJSContainerName";
-NSString *const CloudKitJSAPITokenKey = @"CloudKitJSAPIToken";
-NSString *const CloudKitJSEnvironmentKey = @"CloudKitJSEnvironment";
+NSString *const CloudContainerNameKey = @"CloudContainerName";
+NSString *const CloudAPITokenKey = @"CloudAPIToken";
+NSString *const CloudEnvironmentKey = @"CloudEnvironment";
 
 NSString *const CKAccountStatusNotificationUserInfoKey = @"accountStatus";
 
@@ -38,7 +38,7 @@ NSString *const CKAccountStatusNotificationUserInfoKey = @"accountStatus";
 }
 
 @synthesize delegate;
-@synthesize cloudKitWebView;
+@synthesize cloudWebView;
 @synthesize isInitialized;
 
 static CKMediator *_mediator;
@@ -53,10 +53,10 @@ static CKMediator *_mediator;
 
 - (instancetype)init {
 	if (self = [super init]) {
-		_containerProperties = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CloudKitJSContainers"];
-		// each container contains keys for: CloudKitJSContainerName, CloudKitJSAPIToken, Environment
+		_containerProperties = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CloudContainers"];
+		// each container contains keys for: CloudContainerName, CloudAPIToken, Environment
 		
-		// shared operation queue for all cloudkit operations
+		// shared operation queue for all operations
 		_queue = [[NSOperationQueue alloc] init];
 		_queue.maxConcurrentOperationCount = 1;
 		_queue.suspended = YES;
@@ -72,26 +72,26 @@ static CKMediator *_mediator;
 		_sessionToken = [self loadSessionToken];
 		
 		dispatch_async(dispatch_get_main_queue(), ^{
-			// setup the WebView that we'll use to host the CloudKitJS
-			cloudKitWebView = [[WebView alloc] initWithFrame:NSMakeRect(0, 40, 300, 100)];
-			cloudKitWebView.resourceLoadDelegate = self;
-			cloudKitWebView.frameLoadDelegate = self;
-			cloudKitWebView.policyDelegate = self;
-			cloudKitWebView.UIDelegate = self;
+			// setup the WebView that we'll use to host
+			cloudWebView = [[WebView alloc] initWithFrame:NSMakeRect(0, 40, 300, 100)];
+			cloudWebView.resourceLoadDelegate = self;
+			cloudWebView.frameLoadDelegate = self;
+			cloudWebView.policyDelegate = self;
+			cloudWebView.UIDelegate = self;
 			
-			// load in our bootstrap HTML to get CloudKitJS loaded
-			[self bootstrapCloudKitJS];
+			// load in our bootstrap HTML
+			[self bootstrapCloud];
 		});
 		
 	}
 	return self;
 }
 
-- (void)bootstrapCloudKitJS {
+- (void)bootstrapCloud {
 	NSBundle *myBundle = [NSBundle bundleForClass:[self class]];
 	NSURL *url = [myBundle URLForResource:@"test" withExtension:@"html"];
 	if (url) {
-		[[cloudKitWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:url]];
+		[[cloudWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:url]];
 	}
 }
 
@@ -101,7 +101,7 @@ static CKMediator *_mediator;
 
 - (NSDictionary *)infoForContainerID:(NSString *)containerID {
 	for (NSDictionary *container in _containerProperties) {
-		if ([container[CloudKitJSContainerNameKey] isEqualToString:containerID]) {
+		if ([container[CloudContainerNameKey] isEqualToString:containerID]) {
 			return container;
 		}
 	}
@@ -167,7 +167,7 @@ static CKMediator *_mediator;
 	_context = context;
 	
 	// re-experiment with JSContext instead of webview
-	MediatorDebugLog(CKLOG_LEVEL_INFO, @"CloudKit JS context created. Setting up…");
+	MediatorDebugLog(CKLOG_LEVEL_INFO, @"Cloud JS context created. Setting up…");
 	[self setupContext:_context];
 }
 
@@ -187,34 +187,32 @@ static CKMediator *_mediator;
 		_targetInterval = MAX(1, MIN(60, _targetInterval * 2));
 		MediatorDebugLog(CKLOG_LEVEL_INFO, @"Trying again in %f seconds…", _targetInterval);
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_targetInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-			[self bootstrapCloudKitJS];
+			[self bootstrapCloud];
 		});
 	});
 }
+
 
 #pragma mark - JSContext
 
 //
-// Loads the CloudKitJS asynchronously from Apple's URL
+// Loads asynchronously from Apple's URL
 // TODO: cache the last successful fetch locally,
 // and then periodically update that local cache. that way
 // for app launch 2+ we can just load the local cache immediatley
 // with no delay.
-- (void)loadCloudKitJSAsync {
+- (void)loadCloudAsync {
 	__block NSString *cloudjs;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		cloudjs = [NSString stringWithContentsOfURL:CloudKitJSURL encoding:NSUTF8StringEncoding error:nil];
+		cloudjs = [NSString stringWithContentsOfURL:CLOUDURL encoding:NSUTF8StringEncoding error:nil];
 		dispatch_async(dispatch_get_main_queue(), ^{
-			[_context evaluateScript:cloudjs withSourceURL:CloudKitJSURL];
+			[_context evaluateScript:cloudjs withSourceURL:CLOUDURL];
 		});
 	});
 }
 
 
-// When an auth token changes,
-// this block will re-fetch the
-// active user from cloudkitjs
-// and signal out to ObjC using URLs
+// When an auth token changes, this block will re-fetch the active user and signal out to ObjC using URLs
 - (void)setupAuth {
 	if ([NSThread isMainThread] == NO) {
 		dispatch_sync(dispatch_get_main_queue(), ^{
@@ -224,7 +222,7 @@ static CKMediator *_mediator;
 	}
 	
 	for (NSDictionary *container in _containerProperties) {
-		NSString *containerID = container[CloudKitJSContainerNameKey];
+		NSString *containerID = container[CloudContainerNameKey];
 		[[[_context evaluateScript:[NSString stringWithFormat:@"CloudKit.getContainer('%@').setUpAuth()", containerID]] invokeMethod:@"then" withArguments:@[^(id response) {
 			if (response && ![[NSNull null] isEqual:response]) {
 				MediatorDebugLog(CKLOG_LEVEL_INFO, @"logged in %@", containerID);
@@ -244,15 +242,15 @@ static CKMediator *_mediator;
 }
 
 //
-// Setup the JSContext to interact with CloudKitJS.
+// Setup the JSContext
 // Important places to tie-in:
 // 1. fetch/save auth token
-// 2. load cloudKitJS config
+// 2. load config
 // 3. URL listeners for events
 - (void)setupContext:(JSContext *)context {
 	// track exceptions and logs from the JSContext
 	context[@"window"][@"doLog"] = ^(id string) {
-		MediatorDebugLog(CKLOG_LEVEL_INFO, @"CloudKit Log: %@", [string description]);
+		MediatorDebugLog(CKLOG_LEVEL_INFO, @"Cloud Log: %@", [string description]);
 	};
 	[context setExceptionHandler:^(JSContext *c, JSValue *ex) {
 		MediatorDebugLog(CKLOG_LEVEL_CRIT, @"JS Exception in context %@: %@", c, ex);
@@ -275,7 +273,7 @@ static CKMediator *_mediator;
 	};
 	
 	//
-	// configure CloudKitJS with our container ID
+	// configure with our container ID
 	// and authentication steps, etc
 	void (^loadConfig)() = ^{
 		NSError* configFormatError;
@@ -298,8 +296,8 @@ static CKMediator *_mediator;
 			
 			NSString* containerConfigString = @"";
 			for (NSDictionary* containerConfig in _containerProperties) {
-				// each container contains keys for: CloudKitJSContainerName, CloudKitJSAPIToken, CloudKitJSEnvironment
-				NSString* configuration = [NSString stringWithFormat:containerConfigFormat, containerConfig[CloudKitJSContainerNameKey], containerConfig[CloudKitJSAPITokenKey], containerConfig[CloudKitJSEnvironmentKey], _sessionToken];
+				// each container contains keys for: CloudContainerName, CloudAPIToken, CloudEnvironment
+				NSString* configuration = [NSString stringWithFormat:containerConfigFormat, containerConfig[CloudContainerNameKey], containerConfig[CloudAPITokenKey], containerConfig[CloudEnvironmentKey], _sessionToken];
 				if ([containerConfigString length]) {
 					containerConfigString = [NSString stringWithFormat:@"%@,%@", containerConfigString, configuration];
 				}
@@ -314,7 +312,7 @@ static CKMediator *_mediator;
 	};
 	
 	// add blocks to the context and listen for events:
-	// when cloudkit loads:
+	// upon load:
 	// load the config, setupAuth to determine if we're
 	// logged in or out, and notify everyone
 	// that we're ready to roll
@@ -326,10 +324,10 @@ static CKMediator *_mediator;
 		[[NSNotificationCenter defaultCenter] postNotificationName:kAgileCloudSDKInitializedNotification object:self];
 	}]];
 	
-	// If CloudKitJS tries to trigger a window.open()
+	// if window.open() is triggered
 	// to login the user, we should pass that on to Safari
 	context[@"window"][@"open"] = ^(id url) {
-		MediatorDebugLog(CKLOG_LEVEL_DEBUG, @"CloudKitJS Context requested to open URL: %@", url);
+		MediatorDebugLog(CKLOG_LEVEL_DEBUG, @"Cloud Context requested to open URL: %@", url);
 	};
 }
 
@@ -337,13 +335,13 @@ static CKMediator *_mediator;
 
 - (IBAction)login {
 	[self getLoginURLWithCompletionBlock:^(NSURL *loginURL, NSError *error) {
-		MediatorDebugLog(CKLOG_LEVEL_INFO, @"Sending user to CloudKit login page.");
+		MediatorDebugLog(CKLOG_LEVEL_INFO, @"Sending user to login page.");
 		[[NSWorkspace sharedWorkspace] openURL:loginURL];
 	}];
 }
 
 - (IBAction)logout {
-	MediatorDebugLog(CKLOG_LEVEL_DEBUG, @"Logging out of CloudKitJS");
+	MediatorDebugLog(CKLOG_LEVEL_DEBUG, @"Logging out of Cloud");
 	_sessionToken = nil;
 	[self.delegate mediator:self saveSessionToken:nil];
 	[self setupAuth];
@@ -355,9 +353,9 @@ static CKMediator *_mediator;
 	CKContainer *defContainer = [CKContainer defaultContainer];
 	
 	NSString *fetchCurrentUserURL = [NSString stringWithFormat:@"https://api.apple-cloudkit.com/database/1/%@/%@/private/users/current?ckAPIToken=%@",
-									 defContainer.cloudSDKContainerName,
-									 defContainer.cloudSDKEnvironment,
-									 defContainer.cloudSDKAPIToken];
+									 defContainer.cloudContainerName,
+									 defContainer.cloudEnvironment,
+									 defContainer.cloudAPIToken];
 	NSURLRequest *pendingRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:fetchCurrentUserURL]];
 	[NSURLConnection sendAsynchronousRequest:pendingRequest queue:_urlQueue completionHandler:^(NSURLResponse *_Nullable response, NSData *_Nullable data, NSError *_Nullable connectionError) {
 		
@@ -398,7 +396,7 @@ static CKMediator *_mediator;
 
 - (void)registerForRemoteNotifications {
 	for (NSDictionary *containerProps in _containerProperties) {
-		[[CKContainer containerWithIdentifier:containerProps[CloudKitJSContainerNameKey]] registerForRemoteNotifications];
+		[[CKContainer containerWithIdentifier:containerProps[CloudContainerNameKey]] registerForRemoteNotifications];
 	}
 }
 

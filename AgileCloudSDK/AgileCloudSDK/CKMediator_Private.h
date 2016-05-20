@@ -7,9 +7,9 @@
 
 #import "CKMediator.h"
 
-extern NSString *const CloudKitJSContainerNameKey;
-extern NSString *const CloudKitJSAPITokenKey;
-extern NSString *const CloudKitJSEnvironmentKey;
+extern NSString *const CloudContainerNameKey;
+extern NSString *const CloudAPITokenKey;
+extern NSString *const CloudEnvironmentKey;
 
 extern NSString *const CKAccountStatusNotificationUserInfoKey;
 
@@ -17,7 +17,7 @@ extern NSString *const CKAccountStatusNotificationUserInfoKey;
 
 @property(nonatomic, readonly) NSOperationQueue *queue;
 @property(nonatomic, readonly) NSOperationQueue *innerQueue;
-@property(nonatomic, readonly) WebView *cloudKitWebView;
+@property(nonatomic, readonly) WebView *cloudWebView;
 @property(nonatomic, readonly) NSString *sessionToken;
 @property(nonatomic, readonly) NSArray *containerProperties;
 

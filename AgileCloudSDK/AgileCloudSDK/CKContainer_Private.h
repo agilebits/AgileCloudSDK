@@ -13,9 +13,9 @@
 + (NSURLSession *)downloadSession;
 + (NSURLSession *)uploadSession;
 
-@property(nonatomic, readonly) NSString *cloudSDKContainerName;
-@property(nonatomic, readonly) NSString *cloudSDKAPIToken;
-@property(nonatomic, readonly) NSString *cloudSDKEnvironment;
+@property(nonatomic, readonly) NSString *cloudContainerName;
+@property(nonatomic, readonly) NSString *cloudAPIToken;
+@property(nonatomic, readonly) NSString *cloudEnvironment;
 
 @property (nonatomic, copy) void (^accountStatusCompletionHandler)(CKAccountStatus, NSError *);
 

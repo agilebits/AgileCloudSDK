@@ -8,7 +8,7 @@ Log in to CloudKitDashboard with your Developer AppleID: https://icloud.develope
 
 1. Go to your Development container
 1. Create a new API key
-1. Set the sign-in callback URL to launch your app with `cloudkit-containerID` as the scheme and `agilecklogin` as the host. For example, `cloudkit-icloud.com.company.appname://agilecklogin` 
+1. Set the sign-in callback URL to launch your app with `cloudkit-containerID` as the scheme and `agilecklogin` as the host. For example, `cloudkit-icloud.com.company.appname://agilecsdklogin` 
 1. Repeat for your Production container
 
 #### Include the framework
@@ -19,10 +19,10 @@ Log in to CloudKitDashboard with your Developer AppleID: https://icloud.develope
 #### Configure your application’s Info.plist file
 
 1. Add a Dictionary to the array with the following key-value pairs:
-1. Create an Array named `CloudKitJSContainers`
-	- `CloudKitJSAPIToken`:`<token>` This is the API token created in CloudKitDashboard
-	- `CloudKitJSEnvironment`:`production` or `development`
-	- `CloudKitJSContainerName`:your app's CloudKit container id. e.g. `iCloud.com.company.app`
+1. Create an Array named `CloudContainers`
+	- `CloudAPIToken`:`<token>` This is the API token created in CloudKitDashboard
+	- `CloudEnvironment`:`production` or `development`
+	- `CloudContainerName`:your app's CloudKit container id. e.g. `iCloud.com.company.app`
 
 #### Add code to your classes
 

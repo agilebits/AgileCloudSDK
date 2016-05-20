@@ -69,7 +69,7 @@ static CKContainer *_defaultContainer;
 + (CKContainer *)defaultContainer {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		_defaultContainer = [CKContainer containerWithIdentifier:[[[CKMediator sharedMediator] containerProperties] firstObject][CloudKitJSContainerNameKey]];
+		_defaultContainer = [CKContainer containerWithIdentifier:[[[CKMediator sharedMediator] containerProperties] firstObject][CloudContainerNameKey]];
 	});
 	return _defaultContainer;
 }
@@ -98,7 +98,7 @@ static NSMutableDictionary *containers;
 		}
 		_containerProperties = properties;
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cloudKitIdentityDidChange:) name:NSUbiquityIdentityDidChangeNotification object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cloudIdentityDidChange:) name:NSUbiquityIdentityDidChangeNotification object:nil];
 	}
 	return self;
 }
@@ -108,20 +108,20 @@ static NSMutableDictionary *containers;
 }
 
 - (NSString *)containerIdentifier {
-	return _containerProperties[CloudKitJSContainerNameKey];
+	return _containerProperties[CloudContainerNameKey];
 }
 
-// each container contains keys for: CloudKitJSContainerName, CloudKitJSAPIToken, CloudKitJSEnvironment
-- (NSString *)cloudSDKContainerName {
-	return [[CKMediator sharedMediator] infoForContainerID:self.containerIdentifier][CloudKitJSContainerNameKey];
+// each container contains keys for: CloudContainerName, CloudAPIToken, CloudEnvironment
+- (NSString *)cloudContainerName {
+	return [[CKMediator sharedMediator] infoForContainerID:self.containerIdentifier][CloudContainerNameKey];
 }
 
-- (NSString *)cloudSDKAPIToken {
-	return [[CKMediator sharedMediator] infoForContainerID:self.containerIdentifier][CloudKitJSAPITokenKey];
+- (NSString *)cloudAPIToken {
+	return [[CKMediator sharedMediator] infoForContainerID:self.containerIdentifier][CloudAPITokenKey];
 }
 
-- (NSString *)cloudSDKEnvironment {
-	return [[CKMediator sharedMediator] infoForContainerID:self.containerIdentifier][CloudKitJSEnvironmentKey];
+- (NSString *)cloudEnvironment {
+	return [[CKMediator sharedMediator] infoForContainerID:self.containerIdentifier][CloudEnvironmentKey];
 }
 
 - (JSValue *)asJSValue {
@@ -211,12 +211,12 @@ static NSMutableDictionary *containers;
 - (void)registerForRemoteNotifications {
 	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
 		NSString *createRemoteNotificationTokenURL = [NSString stringWithFormat:@"https://api.apple-cloudkit.com/device/1/%@/%@/tokens/create?ckAPIToken=%@&ckSession=%@",
-													  self.cloudSDKContainerName,
-													  self.cloudSDKEnvironment,
-													  self.cloudSDKAPIToken,
+													  self.cloudContainerName,
+													  self.cloudEnvironment,
+													  self.cloudAPIToken,
 													  [CKContainer percentEscape:[CKMediator sharedMediator].sessionToken]];
 		
-		NSDictionary *postData = @{ @"apnsEnvironment": self.cloudSDKEnvironment };
+		NSDictionary *postData = @{ @"apnsEnvironment": self.cloudEnvironment };
 		
 		NSURL *url = [NSURL URLWithString:createRemoteNotificationTokenURL];
 		
@@ -386,7 +386,7 @@ static NSMutableDictionary *containers;
 
 #pragma mark - identity notification change
 
-- (void)cloudKitIdentityDidChange:(NSNotification *)note {
+- (void)cloudIdentityDidChange:(NSNotification *)note {
 	if (self.accountStatusCompletionHandler != nil) {
 		self.accountStatusCompletionHandler([note.userInfo[CKAccountStatusNotificationUserInfoKey] integerValue], nil);
 		self.accountStatusCompletionHandler = nil;
