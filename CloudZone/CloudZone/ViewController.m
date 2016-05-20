@@ -6,24 +6,24 @@
 //
 
 #import "ViewController.h"
-#import "CloudKitView.h"
+#import "CloudSDKView.h"
 #import "Constants.h"
 #import "AppDelegate.h"
 
-#import CloudKitImport
+#import CloudSDKImport
 
-#ifdef AGILECLOUDKIT
-#import "AgileCloudKitView.h"
+#ifdef AGILECLOUDSDK
+#import "AgileCloudSDKView.h"
 #endif
 
 NSString *const savedRecordName = @"SavedRecordID";
 
-#if AGILECLOUDKIT
+#if AGILECLOUDSDK
 @interface ViewController ()  <CKMediatorDelegate>
-@property (nonatomic, strong) AgileCloudKitView *cloudKitView;
+@property (nonatomic, strong) AgileCloudSDKView *cloudSDKView;
 #else
 @interface ViewController ()
-@property (nonatomic, strong) CloudKitView *cloudKitView;
+@property (nonatomic, strong) CloudSDKView *cloudSDKView;
 #endif
 
 @property (nonatomic, strong) CKRecord *savedRecord;
@@ -44,7 +44,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 
 	((AppDelegate *)[NSApp delegate]).viewController = self;
 
-#if AGILECLOUDKIT
+#if AGILECLOUDSDK
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cloudKitIdentityDidChange:) name:NSUbiquityIdentityDidChangeNotification object:nil];
 
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -52,13 +52,13 @@ NSString *const savedRecordName = @"SavedRecordID";
 	});
 	
 
-	self.cloudKitView = [[AgileCloudKitView alloc] initWithFrame:self.view.bounds];
-    self.cloudKitView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-	[self.cloudKitView.logoutButton setTarget:self];
-	[self.cloudKitView.logoutButton setAction:@selector(didClickLogoutButton)];
-	[self.cloudKitView.loginButton setTarget:self];
-	[self.cloudKitView.loginButton setAction:@selector(didClickLoginButton)];
-	[self.view addSubview:self.cloudKitView];
+	self.cloudSDKView = [[AgileCloudSDKView alloc] initWithFrame:self.view.bounds];
+    self.cloudSDKView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+	[self.cloudSDKView.logoutButton setTarget:self];
+	[self.cloudSDKView.logoutButton setAction:@selector(didClickLogoutButton)];
+	[self.cloudSDKView.loginButton setTarget:self];
+	[self.cloudSDKView.loginButton setAction:@selector(didClickLoginButton)];
+	[self.view addSubview:self.cloudSDKView];
 
 	// make sure we register to handle the redirect URL from
 	// a CloudKit login from Safari
@@ -68,17 +68,17 @@ NSString *const savedRecordName = @"SavedRecordID";
 						 forEventClass:kInternetEventClass
 							andEventID:kAEGetURL];
 #else
-    self.cloudKitView = [[CloudKitView alloc] initWithFrame:self.view.bounds];
-    self.cloudKitView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-    [self.view addSubview:self.cloudKitView];
+    self.cloudSDKView = [[CloudSDKView alloc] initWithFrame:self.view.bounds];
+    self.cloudSDKView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    [self.view addSubview:self.cloudSDKView];
 #endif
 	
-	[self.cloudKitView.startTestsButton setTarget:self];
-	[self.cloudKitView.startTestsButton setAction:@selector(startTests)];
-	[self.cloudKitView.subscribeButton setTarget:self];
-	[self.cloudKitView.subscribeButton setAction:@selector(listenForPushNotifications)];
-	[self.cloudKitView.saveRecordButton setTarget:self];
-	[self.cloudKitView.saveRecordButton setAction:@selector(saveRecord)];
+	[self.cloudSDKView.startTestsButton setTarget:self];
+	[self.cloudSDKView.startTestsButton setAction:@selector(startTests)];
+	[self.cloudSDKView.subscribeButton setTarget:self];
+	[self.cloudSDKView.subscribeButton setAction:@selector(listenForPushNotifications)];
+	[self.cloudSDKView.saveRecordButton setTarget:self];
+	[self.cloudSDKView.saveRecordButton setAction:@selector(saveRecord)];
 
 	[self loadSavedRecord];
 }
@@ -124,7 +124,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 	//    [self testCreateAndDeleteRecordLoop];
 }
 
-#if AGILECLOUDKIT
+#if AGILECLOUDSDK
 #pragma mark - CKMediatorDelegate
 
 - (void)mediator:(CKMediator *)mediator saveSessionToken:(NSString *)token {
@@ -155,12 +155,12 @@ NSString *const savedRecordName = @"SavedRecordID";
 
 - (void)cloudKitIdentityDidChange:(NSNotification *)notification {
 	if ([notification.userInfo[@"accountStatus"] integerValue] == CKAccountStatusAvailable) {
-		self.cloudKitView.logoutButton.hidden = NO;
-		self.cloudKitView.loginButton.hidden = YES;
+		self.cloudSDKView.logoutButton.hidden = NO;
+		self.cloudSDKView.loginButton.hidden = YES;
 		[self loadSavedRecord];
 	} else {
-		self.cloudKitView.logoutButton.hidden = YES;
-		self.cloudKitView.loginButton.hidden = NO;
+		self.cloudSDKView.logoutButton.hidden = YES;
+		self.cloudSDKView.loginButton.hidden = NO;
 	}
 	
 	CKContainer *defCont = [CKContainer defaultContainer];
@@ -205,7 +205,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 		CKModifySubscriptionsOperation* delSubOp = [[CKModifySubscriptionsOperation alloc] initWithSubscriptionsToSave:@[] subscriptionIDsToDelete:subsToDelete];
 		delSubOp.modifySubscriptionsCompletionBlock = ^(NSArray* savedSubs, NSArray* deletedSubs, NSError* err){
 			NSAssert(!err, @"Error modifying subscription, %@", err);
-#ifdef AGILECLOUDKIT
+#ifdef AGILECLOUDSDK
 			CKSubscription* newSub = [[CKSubscription alloc] initWithRecordType:@"AllFieldType" filters:@[] options:CKSubscriptionOptionsFiresOnRecordCreation];
 #else
 			NSDate* date = [NSDate dateWithTimeInterval:-60.0 * 120 sinceDate:[NSDate date]];
@@ -316,7 +316,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 		delSubOp.modifySubscriptionsCompletionBlock = ^(NSArray* savedSubs, NSArray* deletedSubs, NSError* err){
 			NSAssert([deletedSubs count] == [subsToDelete count], @"Could not Delete the subscription.");
 			NSAssert(!err, @"error modifying subscriptions %@", err);
-#ifdef AGILECLOUDKIT
+#ifdef AGILECLOUDSDK
 			CKSubscription* newSub = [[CKSubscription alloc] initWithRecordType:@"AllFieldType" filters:@[] options:CKSubscriptionOptionsFiresOnRecordUpdate];
 #else
 			CKSubscription* newSub = [[CKSubscription alloc] initWithRecordType:@"AllFieldType" predicate:[NSPredicate predicateWithFormat:@"StringField='asdf'"] options:CKSubscriptionOptionsFiresOnRecordUpdate];
@@ -355,7 +355,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 - (void)_testCloudKitSubscriptionsAfterDelete:(void (^)())completionBlock {
 	// create subscription for any update on our persistent record
 	CKRecordZone *zone = [[CKRecordZone alloc] initWithZoneName:@"persistentRecordZone"];
-#ifdef AGILECLOUDKIT
+#ifdef AGILECLOUDSDK
 	NSArray *filters = @[[[CKFilter alloc] initWithComparator:CK_EQUALS fieldName:@"StringField" fieldType:@"STRING" fieldValue:@"test string"]];
 	CKReference *ref = [[CKReference alloc] initWithRecordID:[[CKRecordID alloc] initWithRecordName:@"foobar"] action:CKReferenceActionNone];
 	filters = @[[[CKFilter alloc] initWithComparator:CK_EQUALS fieldName:@"ReferenceField" fieldType:@"REFERENCE" fieldValue:ref]];
@@ -380,7 +380,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 			CKSubscription* existingSub = [subscriptions firstObject];
 			existingSub.notificationInfo = nil;
 			
-#ifdef AGILECLOUDKIT
+#ifdef AGILECLOUDSDK
 			CKSubscription* newSub = [[CKSubscription alloc] initWithRecordType:@"AllFieldType" filters:@[] options:CKSubscriptionOptionsFiresOnRecordUpdate];
 #else
 			CKSubscription* newSub = [[CKSubscription alloc] initWithRecordType:@"AllFieldType" predicate:[NSPredicate predicateWithFormat:@"StringField='asdf'"] options:CKSubscriptionOptionsFiresOnRecordUpdate];
@@ -579,7 +579,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 	
 	NSLog(@"Fetching all zones");
 	
-#if AGILECLOUDKIT
+#if AGILECLOUDSDK
 	NSArray *containerProperties = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CloudKitJSContainers"];
 	NSString *cloudKitIdentifier = [containerProperties[0] objectForKey:@"CloudKitJSContainerName"];
 #else
@@ -751,7 +751,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 		}
 		else if (record != nil) {
 			self.savedRecord = record;
-			self.cloudKitView.recordTextField.stringValue = record[@"StringField"];
+			self.cloudSDKView.recordTextField.stringValue = record[@"StringField"];
 			NSLog(@"Fetched saved record.");
 		}
 		else {
@@ -762,7 +762,7 @@ NSString *const savedRecordName = @"SavedRecordID";
 
 - (void)saveRecord {
 	CKRecord *recordToSave = self.savedRecord ? : [[CKRecord alloc] initWithRecordType:@"AllFieldType" recordID:[[CKRecordID alloc] initWithRecordName:savedRecordName]];
-	recordToSave[@"StringField"] = self.cloudKitView.recordTextField.stringValue;
+	recordToSave[@"StringField"] = self.cloudSDKView.recordTextField.stringValue;
 	
 	CKModifyRecordsOperation *modifyOperation = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:@[recordToSave] recordIDsToDelete:nil];
 	modifyOperation.atomic = NO;
@@ -778,9 +778,9 @@ NSString *const savedRecordName = @"SavedRecordID";
 	[[[CKContainer defaultContainer] privateCloudDatabase] addOperation:modifyOperation];
 }
 
-#pragma mark - AgileCloudKitView actions
+#pragma mark - AgileCloudSDKView actions
 
-#if AGILECLOUDKIT
+#if AGILECLOUDSDK
 - (void)didClickLogoutButton {
 	[[CKMediator sharedMediator] logout];
 }

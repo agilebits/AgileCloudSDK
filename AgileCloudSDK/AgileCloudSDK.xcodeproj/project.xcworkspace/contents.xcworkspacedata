@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:CloudZone/CloudZone.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>
