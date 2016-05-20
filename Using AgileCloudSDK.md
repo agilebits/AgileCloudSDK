@@ -1,6 +1,6 @@
-## Using AgileCloudKit
+## Using AgileCloudSDK
 
-AgileCloudKit is for use with your Mac app that is not distributed through the Mac App Store. However, you must have a CloudKit container that is already set up for the App Store version of your app.
+AgileCloudSDK is for use with your Mac app that is not distributed through the Mac App Store. However, you must have a CloudKit container that is already set up for the App Store version of your app.
 
 #### Prepare your container on CloudKit Dashboard
 
@@ -13,8 +13,8 @@ Log in to CloudKitDashboard with your Developer AppleID: https://icloud.develope
 
 #### Include the framework
 
-1. Embed the AgileCloudKit project in your project. If you do not wish to do this, build the project separately and add the framework to your project.
-1. Link the AgileCloudKit framework to the appropriate targets.
+1. Embed the AgileCloudSDK project in your project. If you do not wish to do this, build the project separately and add the framework to your project.
+1. Link the AgileCloudSDK framework to the appropriate targets.
 
 #### Configure your application’s Info.plist file
 
@@ -22,13 +22,13 @@ Log in to CloudKitDashboard with your Developer AppleID: https://icloud.develope
 1. Create an Array named `CloudContainers`
 	- `CloudAPIToken`:`<token>` This is the API token created in CloudKitDashboard
 	- `CloudEnvironment`:`production` or `development`
-	- `CloudContainerName`:your app's CloudKit container id. e.g. `iCloud.com.company.app`
+	- `CloudContainerName`:your app's container id. e.g. `iCloud.com.company.app`
 
 #### Add code to your classes
 
-1. Stand up the CKMediator. CKMediator is the class that mediates native cloudkit calls to CloudKit JS. It must be instantiated and set up first.
+1. Stand up the CKMediator. CKMediator is the class that mediates native calls to CloudKit JS. It must be instantiated and set up first.
 
-	- the following code sets up the mediator and registers for notification types so your app receives cloudkit notifications.
+	- the following code sets up the mediator and registers for notification types so your app receives notifications.
 	```
 		static dispatch_once_t onceToken;
 		dispatch_once(&onceToken, ^{
@@ -39,7 +39,7 @@ Log in to CloudKitDashboard with your Developer AppleID: https://icloud.develope
 		
 1. Implement the CKMediatorDelegate methods. These are defined in CKMediatorDelegate.h
 	- you must implement the methods `-loadSessionTokenForMediator:` and `-mediator:saveSessionToken`, and it is recommended the token be stored securely. This allows your application to continue to communicate with CloudKit without needing to prompt the user to login each time. It can expire, for example, when the user changes their AppleID password, or for other reasons.
-	- the optional logging method `mediator:logLevel:object:at:format:` allows your app to receive logging messages from AgileCloudKit with varying levels of severity. Those levels are defined in CKMediatorDelegate.h
+	- the optional logging method `mediator:logLevel:object:at:format:` allows your app to receive logging messages from AgileCloudSDK with varying levels of severity. Those levels are defined in CKMediatorDelegate.h
 	
 1. Handle the sign-in URL callback.
 
@@ -52,10 +52,10 @@ Log in to CloudKitDashboard with your Developer AppleID: https://icloud.develope
 		[[CKMediator sharedMediator] handleGetURLEvent:event withReplyEvent:replyEvent];
 	```
 
-1. In the appropriate classes, import the framework with the standard header: `#import <AgileCloudKit/AgileCloutKit.h>`
+1. In the appropriate classes, import the framework with the standard header: `#import <AgileCloudSDK/AgileCloutSDK.h>`
 
 1. Logging in, logging out, and handling Authorization Errors
 
-	- CloudKit operations will call completion blocks with a CKError object with code `CKErrorNotAuthenticated` when the token is missing or invalid. You must call `[CKMediator sharedMediator] login]` when this happens. This will open a browser page displaying your App's name and icon, and prompt the user to log in to iCloud. Your app will receive a callback URL (the one you registered on CloudKit Dashboard) after the user successfully logs in via a web page and call the CKMediatorDelegate's saveToken method.
+	- operations will call completion blocks with a CKError object with code `CKErrorNotAuthenticated` when the token is missing or invalid. You must call `[CKMediator sharedMediator] login]` when this happens. This will open a browser page displaying your App's name and icon, and prompt the user to log in to iCloud. Your app will receive a callback URL (the one you registered on CloudKit Dashboard) after the user successfully logs in via a web page and call the CKMediatorDelegate's saveToken method.
 	- To invalidate your token and log out of CloudKit, call `[CKMediator sharedMediator] logout]`;
 
