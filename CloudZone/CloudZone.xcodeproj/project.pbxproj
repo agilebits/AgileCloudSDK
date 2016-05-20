@@ -7,20 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0ABE0F3B1CEE861F00F5F2DA /* AgileCloudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ABE0F3A1CEE845900F5F2DA /* AgileCloudSDK.framework */; };
 		C52140CB1BA4BC67009D06F5 /* palmtree.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C52140CA1BA4BC67009D06F5 /* palmtree.jpg */; };
 		C52140CC1BA4BC67009D06F5 /* palmtree.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C52140CA1BA4BC67009D06F5 /* palmtree.jpg */; };
 		C5233DCB1BA66E500075BC5C /* sunset.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5233DCA1BA66E500075BC5C /* sunset.jpg */; };
 		C5233DCC1BA66E500075BC5C /* sunset.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5233DCA1BA66E500075BC5C /* sunset.jpg */; };
 		C53391041B8AB56100DD1596 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53391031B8AB56100DD1596 /* WebKit.framework */; };
-		C54C03811B9BE83900EFB597 /* AgileCloudKitView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C03801B9BE83900EFB597 /* AgileCloudKitView.m */; };
-		C54C03841B9BE8F600EFB597 /* CloudKitView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C03831B9BE8F600EFB597 /* CloudKitView.m */; };
-		C54C03851B9BE8FF00EFB597 /* CloudKitView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C03831B9BE8F600EFB597 /* CloudKitView.m */; };
+		C54C03811B9BE83900EFB597 /* AgileCloudSDKView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C03801B9BE83900EFB597 /* AgileCloudSDKView.m */; };
+		C54C03841B9BE8F600EFB597 /* CloudSDKView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C03831B9BE8F600EFB597 /* CloudSDKView.m */; };
+		C54C03851B9BE8FF00EFB597 /* CloudSDKView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C03831B9BE8F600EFB597 /* CloudSDKView.m */; };
 		C5A5733A1B890E7700264AC9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E14DC21B89012B003DE11F /* ViewController.m */; };
 		C5A5733D1B890E7700264AC9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E14DBF1B89012B003DE11F /* main.m */; };
 		C5A573401B890E7700264AC9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E14DBD1B89012B003DE11F /* AppDelegate.m */; };
 		C5A573551B890E7700264AC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5E14DC41B89012B003DE11F /* Images.xcassets */; };
 		C5A573561B890E7700264AC9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5E14DC61B89012B003DE11F /* Main.storyboard */; };
-		C5A5735F1B890F0600264AC9 /* AgileCloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A5735E1B890F0600264AC9 /* AgileCloudKit.framework */; };
 		C5AB84481BAFADF5000BD1EB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5AB84471BAFADF5000BD1EB /* CloudKit.framework */; };
 		C5E14DBE1B89012B003DE11F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E14DBD1B89012B003DE11F /* AppDelegate.m */; };
 		C5E14DC01B89012B003DE11F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E14DBF1B89012B003DE11F /* main.m */; };
@@ -29,20 +29,29 @@
 		C5E14DC81B89012B003DE11F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5E14DC61B89012B003DE11F /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		0ABE0F391CEE845900F5F2DA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0ABE0F351CEE845900F5F2DA /* AgileCloudSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C57539DB1B859F9900B9B6DE;
+			remoteInfo = AgileCloudSDK;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		0ABE0F351CEE845900F5F2DA /* AgileCloudSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AgileCloudSDK.xcodeproj; path = ../AgileCloudSDK/AgileCloudSDK.xcodeproj; sourceTree = "<group>"; };
 		C52140CA1BA4BC67009D06F5 /* palmtree.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = palmtree.jpg; sourceTree = "<group>"; };
 		C5233DCA1BA66E500075BC5C /* sunset.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sunset.jpg; sourceTree = "<group>"; };
 		C53391031B8AB56100DD1596 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		C54C037F1B9BE83900EFB597 /* AgileCloudKitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgileCloudKitView.h; sourceTree = "<group>"; };
-		C54C03801B9BE83900EFB597 /* AgileCloudKitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgileCloudKitView.m; sourceTree = "<group>"; };
-		C54C03821B9BE8F600EFB597 /* CloudKitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudKitView.h; sourceTree = "<group>"; };
-		C54C03831B9BE8F600EFB597 /* CloudKitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudKitView.m; sourceTree = "<group>"; };
+		C54C037F1B9BE83900EFB597 /* AgileCloudSDKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgileCloudSDKView.h; sourceTree = "<group>"; };
+		C54C03801B9BE83900EFB597 /* AgileCloudSDKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgileCloudSDKView.m; sourceTree = "<group>"; };
+		C54C03821B9BE8F600EFB597 /* CloudSDKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudSDKView.h; sourceTree = "<group>"; };
+		C54C03831B9BE8F600EFB597 /* CloudSDKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudSDKView.m; sourceTree = "<group>"; };
 		C559C74D1BA0013C0081FBA1 /* CloudZone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CloudZone-Info.plist"; sourceTree = "<group>"; };
 		C5A5730D1B890B7000264AC9 /* CloudZone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CloudZone.entitlements; sourceTree = "<group>"; };
 		C5A573361B890D7500264AC9 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		C5A5735A1B890E7700264AC9 /* AgileCloudZone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgileCloudZone.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C5A5735C1B890E8200264AC9 /* AgileCloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgileCloudKit.framework; path = ../AgileCloudKit/build/Debug/AgileCloudKit.framework; sourceTree = "<group>"; };
-		C5A5735E1B890F0600264AC9 /* AgileCloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgileCloudKit.framework; path = "../../../../Library/Developer/Xcode/DerivedData/AgileCloud-gunpumbwsakjhfadxtdcjuydmbko/Build/Products/Debug/AgileCloudKit.framework"; sourceTree = "<group>"; };
 		C5AB84471BAFADF5000BD1EB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		C5E14DB71B89012B003DE11F /* CloudZone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudZone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5E14DBB1B89012B003DE11F /* AgileCloudZone-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AgileCloudZone-Info.plist"; sourceTree = "<group>"; };
@@ -60,8 +69,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ABE0F3B1CEE861F00F5F2DA /* AgileCloudSDK.framework in Frameworks */,
 				C53391041B8AB56100DD1596 /* WebKit.framework in Frameworks */,
-				C5A5735F1B890F0600264AC9 /* AgileCloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,13 +85,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0ABE0F361CEE845900F5F2DA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0ABE0F3A1CEE845900F5F2DA /* AgileCloudSDK.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C54C037E1B9BE82500EFB597 /* AgileCloudKitUI */ = {
 			isa = PBXGroup;
 			children = (
-				C54C037F1B9BE83900EFB597 /* AgileCloudKitView.h */,
-				C54C03801B9BE83900EFB597 /* AgileCloudKitView.m */,
-				C54C03821B9BE8F600EFB597 /* CloudKitView.h */,
-				C54C03831B9BE8F600EFB597 /* CloudKitView.m */,
+				C54C037F1B9BE83900EFB597 /* AgileCloudSDKView.h */,
+				C54C03801B9BE83900EFB597 /* AgileCloudSDKView.m */,
+				C54C03821B9BE8F600EFB597 /* CloudSDKView.h */,
+				C54C03831B9BE8F600EFB597 /* CloudSDKView.m */,
 			);
 			name = AgileCloudKitUI;
 			sourceTree = "<group>";
@@ -92,8 +109,6 @@
 			children = (
 				C5AB84471BAFADF5000BD1EB /* CloudKit.framework */,
 				C53391031B8AB56100DD1596 /* WebKit.framework */,
-				C5A5735E1B890F0600264AC9 /* AgileCloudKit.framework */,
-				C5A5735C1B890E8200264AC9 /* AgileCloudKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -104,6 +119,7 @@
 				C5E14DB91B89012B003DE11F /* CloudZone */,
 				C5A573101B890C8600264AC9 /* Frameworks */,
 				C5E14DB81B89012B003DE11F /* Products */,
+				0ABE0F351CEE845900F5F2DA /* AgileCloudSDK.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -228,6 +244,12 @@
 			mainGroup = C5E14DAE1B89012B003DE11F;
 			productRefGroup = C5E14DB81B89012B003DE11F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 0ABE0F361CEE845900F5F2DA /* Products */;
+					ProjectRef = 0ABE0F351CEE845900F5F2DA /* AgileCloudSDK.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C5E14DB61B89012B003DE11F /* CloudZone */,
@@ -235,6 +257,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		0ABE0F3A1CEE845900F5F2DA /* AgileCloudSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AgileCloudSDK.framework;
+			remoteRef = 0ABE0F391CEE845900F5F2DA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C5A573541B890E7700264AC9 /* Resources */ = {
@@ -269,8 +301,8 @@
 				C5A5733A1B890E7700264AC9 /* ViewController.m in Sources */,
 				C5A5733D1B890E7700264AC9 /* main.m in Sources */,
 				C5A573401B890E7700264AC9 /* AppDelegate.m in Sources */,
-				C54C03851B9BE8FF00EFB597 /* CloudKitView.m in Sources */,
-				C54C03811B9BE83900EFB597 /* AgileCloudKitView.m in Sources */,
+				C54C03851B9BE8FF00EFB597 /* CloudSDKView.m in Sources */,
+				C54C03811B9BE83900EFB597 /* AgileCloudSDKView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,7 +312,7 @@
 			files = (
 				C5E14DC31B89012B003DE11F /* ViewController.m in Sources */,
 				C5E14DC01B89012B003DE11F /* main.m in Sources */,
-				C54C03841B9BE8F600EFB597 /* CloudKitView.m in Sources */,
+				C54C03841B9BE8F600EFB597 /* CloudSDKView.m in Sources */,
 				C5E14DBE1B89012B003DE11F /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,7 +345,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"AGILECLOUDKIT=1",
+					"AGILECLOUDSDK=1",
 				);
 				INFOPLIST_FILE = "CloudZone/AgileCloudZone-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

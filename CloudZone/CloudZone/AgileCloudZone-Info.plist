@@ -35,14 +35,14 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>CloudKitJSContainers</key>
+	<key>CloudContainers</key>
 	<array>
 		<dict>
-			<key>CloudKitJSAPIToken</key>
+			<key>CloudAPIToken</key>
 			<string>apitokenfromcloudkitdashboard</string>
-			<key>CloudKitJSContainerName</key>
+			<key>CloudContainerName</key>
 			<string>iCloud.com.companyname.CloudZone</string>
-			<key>CloudKitJSEnvironment</key>
+			<key>CloudEnvironment</key>
 			<string>development</string>
 		</dict>
 	</array>

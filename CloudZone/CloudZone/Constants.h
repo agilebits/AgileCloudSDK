@@ -8,10 +8,10 @@
 #ifndef CloudZone_Constants_h
 #define CloudZone_Constants_h
 
-#ifdef AGILECLOUDKIT
-#define CloudKitImport <AgileCloudKit/AgileCloudKit.h>
+#ifdef AGILECLOUDSDK
+#define CloudSDKImport <AgileCloudSDK/AgileCloudSDK.h>
 #else
-#define CloudKitImport <CloudKit/CloudKit.h>
+#define CloudSDKImport <CloudKit/CloudKit.h>
 #endif
 
 #endif
