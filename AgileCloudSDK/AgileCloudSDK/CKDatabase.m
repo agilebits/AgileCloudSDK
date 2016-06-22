@@ -12,9 +12,11 @@
 #import "CKMediator_Private.h"
 #import "Defines.h"
 #import "CKRecordID+AgileDictionary.h"
+#import "CKRecordZoneID+AgileDictionary.h"
 #import "CKRecord+AgileDictionary.h"
 #import "CKSubscription+AgileDictionary.h"
 #import "CKSubscription_Private.h"
+#import "CKQuery+AgileDictionary.h"
 #import "CKRecord_Private.h"
 #import "CKContainer_Private.h"
 #import "CKBlockOperation.h"
@@ -25,6 +27,7 @@
 #import "CKModifySubscriptionsOperation.h"
 #import "CKRecordZone.h"
 #import "CKRecordZoneID.h"
+#import "CKQueryOperation.h"
 #import "CKError.h"
 
 
@@ -117,7 +120,17 @@
 
 
 - (void)performQuery:(CKQuery *)query inZoneWithID:(CKRecordZoneID *)zoneID completionHandler:(void (^)(NSArray /* CKRecord */ *results, NSError *error))completionHandler {
-	@throw kAbstractMethodException;
+    
+    NSMutableArray* allFetchedRecords = [NSMutableArray array];
+    CKQueryOperation *queryOp = [[CKQueryOperation alloc] initWithQuery:query];
+    queryOp.zoneID = zoneID;
+    queryOp.recordFetchedBlock = ^(CKRecord* fetchedRecord){
+        [allFetchedRecords addObject:fetchedRecord];
+    };
+    queryOp.queryCompletionBlock = ^(CKQueryCursor* cursor, NSError* error){
+        completionHandler(allFetchedRecords, error);
+    };
+    [self addOperation:queryOp];    
 }
 
 - (void)fetchAllRecordZonesWithCompletionHandler:(void (^)(NSArray /* CKRecordZone */ *zones, NSError *error))completionHandler {

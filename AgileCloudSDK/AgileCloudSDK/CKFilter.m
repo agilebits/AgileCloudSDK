@@ -7,6 +7,7 @@
 
 #import "CKFilter.h"
 #import "CKRecord_Private.h"
+#import "CKRecord+AgileDictionary.h"
 
 NSString *const CK_EQUALS = @"EQUALS";
 NSString *const CK_NOT_EQUALS = @"NOT_EQUALS";
@@ -64,7 +65,7 @@ static NSArray *allowedComparators;
 	return @{ @"comparator": self.comparator,
 			  @"fieldName": self.fieldName,
 			  @"fieldValue": @{@"type": self.fieldType,
-							   @"value": [self.fieldValue respondsToSelector:@selector(asAgileDictionary)] ? [self.fieldValue asAgileDictionary] : self.fieldValue} };
+							   @"value": [CKRecord recordFieldDictionaryForValue:self.fieldValue][@"value"] } };
 }
 
 #pragma mark - NSSecureCoding

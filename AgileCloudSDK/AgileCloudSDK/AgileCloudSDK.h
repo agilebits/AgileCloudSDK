@@ -29,6 +29,8 @@
 #import <AgileCloudSDK/CKNotification.h>
 #import <AgileCloudSDK/CKNotificationInfo.h>
 #import <AgileCloudSDK/CKOperation.h>
+#import <AgileCloudSDK/CKQuery.h>
+#import <AgileCloudSDK/CKQueryOperation.h>
 #import <AgileCloudSDK/CKReference.h>
 #import <AgileCloudSDK/CKRecord.h>
 #import <AgileCloudSDK/CKRecordID.h>

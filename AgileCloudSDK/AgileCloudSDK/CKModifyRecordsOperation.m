@@ -138,7 +138,11 @@
 			[self setExecuting:NO];
 			[self setFinished:YES];
 		}];
-	}
+    }else{
+        // if no records were modified, then immediately end this operation
+        [self setExecuting:NO];
+        [self setFinished:YES];
+    }
 }
 
 @end
