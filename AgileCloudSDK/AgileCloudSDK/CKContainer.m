@@ -17,6 +17,7 @@
 #import "JSValue+AgileCloudSDKExtensions.h"
 #import "NSError+AgileCloudSDKExtensions.h"
 #import "CKError.h"
+#import "CKOperation.h"
 
 // This constant represents the current user's ID for zone ID
 NSString *const CKOwnerDefaultName = @"__defaultOwner__";
