@@ -11,6 +11,7 @@
 #import "Defines.h"
 #import "CKRecordZone.h"
 #import "CKError.h"
+#import "CKRecordZoneID.h"
 
 @implementation CKFetchRecordZonesOperation
 

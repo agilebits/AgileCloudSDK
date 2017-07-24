@@ -17,6 +17,7 @@
 #import "JSValue+AgileCloudSDKExtensions.h"
 #import "NSError+AgileCloudSDKExtensions.h"
 #import "CKError.h"
+#import "CKOperation.h"
 
 // This constant represents the current user's ID for zone ID
 NSString *const CKOwnerDefaultName = @"__defaultOwner__";
@@ -366,6 +367,7 @@ static NSMutableDictionary *containers;
 		if (jsonObj) {
 			targetInterval = 0;
 			[[[NSApplication sharedApplication] delegate] application:[NSApplication sharedApplication] didReceiveRemoteNotification:jsonObj];
+			jsonError = nil; // clear out the error since we're comparing against errors below.
 		}
 		
 		if (!connectionError && !jsonError) {
@@ -375,7 +377,7 @@ static NSMutableDictionary *containers;
 			dispatch_async(dispatch_get_main_queue(), ^{
 				// slowly retry every 1, 2, 4, 8 ... seconds up to 1 minute retry intervals
 				targetInterval = MAX(1, MIN(60, targetInterval * 2));
-				DebugLog(CKLOG_LEVEL_ERR, @"Long poll failed, retrying in: %.2f", targetInterval);
+				DebugLog(CKLOG_LEVEL_ERR, @"Long poll failed, retrying in: %.2f connectionError:%@ jsonError:%@", targetInterval, connectionError, jsonError);
 				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(targetInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 					[self longPollAtURL:urlString];
 				});
