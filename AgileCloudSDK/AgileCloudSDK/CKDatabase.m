@@ -58,7 +58,7 @@
 		@throw [NSException exceptionWithName:@"CannotUseContainerUntilInitialized" reason:@"Before using this container, CKMediator must be initialized" userInfo:nil];
 	}
 	__block JSValue *value;
-	void (^block)() = ^{
+	void (^block)(void) = ^{
 		if (self.isPublic) {
 			value = [[[self container] asJSValue] valueForProperty:@"publicCloudDatabase"];
 		}
@@ -125,7 +125,7 @@
 }
 
 - (void)fetchAllRecordZonesFromSender:(id)sender withCompletionHandler:(void (^)(NSArray /* CKRecordZone */ *zones, NSError *error))completionHandler {
-	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
+	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)(void)) {
 		[[[[self asJSValue] agile_invokeMethod:@"fetchAllRecordZones"] invokeMethod:@"then" withArguments:@[^(id response) {
 			if ([response[@"_errors"] count]) {
 				NSError* error = [[NSError alloc] initWithCKErrorDictionary:response[@"_errors"][0]];
@@ -160,7 +160,7 @@
 }
 
 - (void)fetchRecordZoneWithID:(CKRecordZoneID *)zoneID fromSender:(id)sender completionHandler:(void (^)(CKRecordZone *zone, NSError *error))completionHandler {
-	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
+	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)(void)) {
 		[[[[self asJSValue] invokeMethod:@"fetchRecordZone" withArguments:@[@{ @"zoneName": zoneID.zoneName }]] invokeMethod:@"then" withArguments:@[^(id response) {
 			if ([response[@"_errors"] count]) {
 				NSError* error = [[NSError alloc] initWithCKErrorDictionary:response[@"_errors"][0]];
@@ -191,7 +191,7 @@
 }
 
 - (void)saveRecordZone:(CKRecordZone *)zone completionHandler:(void (^)(CKRecordZone *zone, NSError *error))completionHandler {
-	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
+	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)(void)) {
 		[[[[self asJSValue] invokeMethod:@"saveRecordZone" withArguments:@[@{ @"zoneName": zone.zoneID.zoneName }]] invokeMethod:@"then" withArguments:@[^(id response) {
 			if ([response[@"_errors"] count]) {
 				NSError* error = [[NSError alloc] initWithCKErrorDictionary:response[@"_errors"][0]];
@@ -234,7 +234,7 @@
 }
 
 - (void)fetchAllSubscriptionsWithCompletionHandler:(void (^)(NSArray /* CKSubscription */ *subscriptions, NSError *error))completionHandler {
-	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
+	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)(void)) {
 		[[[[self asJSValue] agile_invokeMethod:@"fetchAllSubscriptions"] invokeMethod:@"then" withArguments:@[^(id response) {
 			if ([response[@"_errors"] count]) {
 				NSError* error = [[NSError alloc] initWithCKErrorDictionary:response[@"_errors"][0]];
@@ -272,7 +272,7 @@
 }
 
 - (void)deleteSubscriptionWithID:(NSString *)subscriptionID completionHandler:(void (^)(NSString *subscriptionID, NSError *error))completionHandler {
-	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
+	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)(void)) {
 		[[[[self asJSValue] invokeMethod:@"deleteSubscription" withArguments:@[@{ @"subscriptionID": subscriptionID }]] invokeMethod:@"then" withArguments:@[^(id response) {
 			if ([response[@"_errors"] count]) {
 				NSError* error = [[NSError alloc] initWithCKErrorDictionary:response[@"_errors"][0]];
