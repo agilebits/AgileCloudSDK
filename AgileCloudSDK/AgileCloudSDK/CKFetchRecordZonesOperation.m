@@ -73,7 +73,7 @@
 		NSMutableDictionary *errors = [NSMutableDictionary dictionary];
 		
 		// call this when we're done
-		void (^completionBlock)() = ^{
+		void (^completionBlock)(void) = ^{
 			[self setExecuting:NO];
 			[self setFinished:YES];
 			

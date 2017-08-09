@@ -275,7 +275,7 @@ static CKMediator *_mediator;
 	//
 	// configure with our container ID
 	// and authentication steps, etc
-	void (^loadConfig)() = ^{
+	void (^loadConfig)(void) = ^{
 		NSError* configFormatError;
 		NSError* containerConfigFormatError;
 		NSURL* configURL = [[NSBundle bundleForClass:[self class]] URLForResource:@"config-format" withExtension:@"js"];

@@ -130,7 +130,7 @@ static NSMutableDictionary *containers;
 		@throw [NSException exceptionWithName:@"CannotUseContainerUntilInitialized" reason:@"Before using this container, CKMediator must be initialized" userInfo:nil];
 	}
 	__block JSValue *value;
-	void (^block)() = ^{
+	void (^block)(void) = ^{
 		value = [[[[CKMediator sharedMediator] context] evaluateScript:@"CloudKit"] invokeMethod:@"getContainer" withArguments:@[self.containerIdentifier]];
 	};
 	if (![NSThread isMainThread]) {
@@ -167,7 +167,7 @@ static NSMutableDictionary *containers;
 }
 
 - (void)accountStatusWithCompletionHandler:(void (^)(CKAccountStatus, NSError *))completionHandler {
-	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
+	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)(void)) {
 		[[[[self asJSValue] agile_invokeMethod:@"fetchUserInfo"] invokeMethod:@"then" withArguments:@[^(id userinfo) {
 			completionHandler(userinfo ? CKAccountStatusAvailable : CKAccountStatusNoAccount, nil);
 			opCompletionBlock();
@@ -188,7 +188,7 @@ static NSMutableDictionary *containers;
 }
 
 - (void)statusForApplicationPermission:(CKApplicationPermissions)applicationPermission completionHandler:(CKApplicationPermissionBlock)completionHandler {
-	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
+	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)(void)) {
 		[[[[self asJSValue] agile_invokeMethod:@"fetchUserInfo"] invokeMethod:@"then" withArguments:@[^(id userinfo) {
 			if ([[userinfo objectForKey:@"isDiscoverable"] boolValue]) {
 				completionHandler(CKApplicationPermissionStatusGranted, nil);
@@ -210,7 +210,7 @@ static NSMutableDictionary *containers;
 #pragma mark - Push Notifications
 
 - (void)registerForRemoteNotifications {
-	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)()) {
+	CKBlockOperation *blockOp = [[CKBlockOperation alloc] initWithBlock:^(void (^opCompletionBlock)(void)) {
 		NSString *createRemoteNotificationTokenURL = [NSString stringWithFormat:@"https://api.apple-cloudkit.com/device/1/%@/%@/tokens/create?ckAPIToken=%@&ckSession=%@",
 													  self.cloudContainerName,
 													  self.cloudEnvironment,

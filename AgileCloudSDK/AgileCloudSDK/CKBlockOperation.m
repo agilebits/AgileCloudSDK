@@ -10,10 +10,10 @@
 @implementation CKBlockOperation {
 	BOOL _executing;
 	BOOL _finished;
-	void (^_block)(void (^)());
+	void (^_block)(void (^)(void));
 }
 
-- (instancetype)initWithBlock:(void (^)(void (^onComplete)()))block {
+- (instancetype)initWithBlock:(void (^)(void (^onComplete)(void)))block {
 	if (self = [super init]) {
 		_block = block;
 	}
