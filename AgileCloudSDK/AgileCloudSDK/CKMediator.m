@@ -150,7 +150,12 @@ static CKMediator *_mediator;
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
 	MediatorDebugLog(CKLOG_LEVEL_INFO, @"Received Callback URL");
-	NSURLComponents *urlComponents = [NSURLComponents componentsWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
+	NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+	[self handleGetURLString:urlString];
+}
+
+- (void)handleGetURLString:(NSString *)urlString {
+	NSURLComponents *urlComponents = [NSURLComponents componentsWithString:urlString];
 	NSArray *queryItems = urlComponents.queryItems;
 	for (NSURLQueryItem *queryItem in queryItems) {
 		if ([queryItem.name isEqualToString:@"ckSession"]) {

@@ -24,5 +24,6 @@ extern NSString *const kAgileCloudSDKInitializedNotification;
 - (void)login;
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
+- (void)handleGetURLString:(NSString *)urlString; // for handling URL from where the NSAppleEventDescriptor is not available - kevin 2017-07-24
 
 @end
