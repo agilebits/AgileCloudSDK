@@ -1,5 +1,11 @@
 # AgileCloudSDK
 
+## Discontinued
+
+AgileCloudSDK is no longer being developed or maintained by AgileBits. No new additions or fixes will be made.
+
+## Description
+
 AgileCloudSDK is a framework for use in non-Mac App Store apps. It uses CloudKitJS and CloudKit Web Services to communicate with iCloud.
 
 AgileCloudSDK is a proven technology currently in use by [1Password](https://1password.com) when purchased from the AgileBits Store. 1Password uses AgileCloudSDK to sync password data seamlessly with the Mac App Store and iOS App Store versions which use Apple’s native CloudKit framework.
