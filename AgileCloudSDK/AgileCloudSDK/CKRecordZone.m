@@ -9,6 +9,8 @@
 #import "CKRecordZone.h"
 #import "CKRecordZoneID.h"
 
+NSString *const CKRecordZoneDefaultName = @"_defaultZone";
+
 @implementation CKRecordZone
 
 + (CKRecordZone *)defaultRecordZone {

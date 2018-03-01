@@ -9,6 +9,8 @@
 
 @interface CKRecord (AgileDictionary)
 
++(NSDictionary*) recordFieldDictionaryForValue:(NSObject<CKRecordValue>*)val;
+
 - (NSDictionary *)asAgileDictionary;
 
 @end

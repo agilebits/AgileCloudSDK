@@ -27,6 +27,8 @@
 		C5233DD01BA671C20075BC5C /* CKSubscription+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5233DCE1BA671C20075BC5C /* CKSubscription+AgileDictionary.m */; };
 		C5233DD31BA672D70075BC5C /* CKNotificationInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = C5233DD11BA672D70075BC5C /* CKNotificationInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5233DD41BA672D70075BC5C /* CKNotificationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C5233DD21BA672D70075BC5C /* CKNotificationInfo.m */; };
+		C52561891D1B51FB00EA9896 /* CKQueryOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C52561871D1B51FB00EA9896 /* CKQueryOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C525618A1D1B51FB00EA9896 /* CKQueryOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C52561881D1B51FB00EA9896 /* CKQueryOperation.m */; };
 		C53390F11B8A5CE200DD1596 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53390F01B8A5CE200DD1596 /* JavaScriptCore.framework */; };
 		C53391021B8AB36300DD1596 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53391011B8AB36300DD1596 /* WebKit.framework */; };
 		C53391081B8AB67400DD1596 /* CKMediator.h in Headers */ = {isa = PBXBuildFile; fileRef = C53391061B8AB67400DD1596 /* CKMediator.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -98,6 +100,12 @@
 		C5A573C71B89153700264AC9 /* CKReference.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573AC1B89153700264AC9 /* CKReference.m */; };
 		C5A573C91B89191800264AC9 /* CKError.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A573C81B89191800264AC9 /* CKError.m */; };
 		C5A66A3C1BAB565E00867BF5 /* container-config-format.json in Resources */ = {isa = PBXBuildFile; fileRef = C5A66A3B1BAB565E00867BF5 /* container-config-format.json */; };
+		C5BDE7C61D1B0EA800F8FF64 /* CKQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = C5BDE7C41D1B0EA800F8FF64 /* CKQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5BDE7C71D1B0EA800F8FF64 /* CKQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BDE7C51D1B0EA800F8FF64 /* CKQuery.m */; };
+		C5BDE7CA1D1B104800F8FF64 /* CKQuery+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5BDE7C81D1B104800F8FF64 /* CKQuery+AgileDictionary.h */; };
+		C5BDE7CB1D1B104800F8FF64 /* CKQuery+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BDE7C91D1B104800F8FF64 /* CKQuery+AgileDictionary.m */; };
+		C5BDE7CE1D1B10FE00F8FF64 /* NSSortDescriptor+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5BDE7CC1D1B10FE00F8FF64 /* NSSortDescriptor+AgileDictionary.h */; };
+		C5BDE7CF1D1B10FE00F8FF64 /* NSSortDescriptor+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BDE7CD1D1B10FE00F8FF64 /* NSSortDescriptor+AgileDictionary.m */; };
 		C5E43FD31B9BBD9500CD93CA /* CKMediatorDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E43FD21B9BBD9500CD93CA /* CKMediatorDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5EBCD531B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = C5EBCD511B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.h */; };
 		C5EBCD541B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EBCD521B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.m */; };
@@ -129,6 +137,8 @@
 		C5233DD21BA672D70075BC5C /* CKNotificationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKNotificationInfo.m; path = AgileCloudSDK/CKNotificationInfo.m; sourceTree = SOURCE_ROOT; };
 		C5233DD51BA675710075BC5C /* CKSubscription_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CKSubscription_Private.h; path = AgileCloudSDK/CKSubscription_Private.h; sourceTree = SOURCE_ROOT; };
 		C5233DD61BA67DEE0075BC5C /* CKRecordZoneID_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CKRecordZoneID_Private.h; path = AgileCloudSDK/CKRecordZoneID_Private.h; sourceTree = SOURCE_ROOT; };
+		C52561871D1B51FB00EA9896 /* CKQueryOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKQueryOperation.h; path = AgileCloudSDK/CKQueryOperation.h; sourceTree = SOURCE_ROOT; };
+		C52561881D1B51FB00EA9896 /* CKQueryOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKQueryOperation.m; path = AgileCloudSDK/CKQueryOperation.m; sourceTree = SOURCE_ROOT; };
 		C53390F01B8A5CE200DD1596 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		C53391011B8AB36300DD1596 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C53391061B8AB67400DD1596 /* CKMediator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKMediator.h; path = AgileCloudSDK/CKMediator.h; sourceTree = SOURCE_ROOT; };
@@ -210,6 +220,12 @@
 		C5A573C81B89191800264AC9 /* CKError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKError.m; path = AgileCloudSDK/CKError.m; sourceTree = SOURCE_ROOT; };
 		C5A66A3B1BAB565E00867BF5 /* container-config-format.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "container-config-format.json"; sourceTree = "<group>"; };
 		C5A66A3D1BAB57B700867BF5 /* CKContainer_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CKContainer_Private.h; path = AgileCloudSDK/CKContainer_Private.h; sourceTree = SOURCE_ROOT; };
+		C5BDE7C41D1B0EA800F8FF64 /* CKQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKQuery.h; path = AgileCloudSDK/CKQuery.h; sourceTree = SOURCE_ROOT; };
+		C5BDE7C51D1B0EA800F8FF64 /* CKQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKQuery.m; path = AgileCloudSDK/CKQuery.m; sourceTree = SOURCE_ROOT; };
+		C5BDE7C81D1B104800F8FF64 /* CKQuery+AgileDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CKQuery+AgileDictionary.h"; path = "AgileCloudSDK/CKQuery+AgileDictionary.h"; sourceTree = SOURCE_ROOT; };
+		C5BDE7C91D1B104800F8FF64 /* CKQuery+AgileDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CKQuery+AgileDictionary.m"; path = "AgileCloudSDK/CKQuery+AgileDictionary.m"; sourceTree = SOURCE_ROOT; };
+		C5BDE7CC1D1B10FE00F8FF64 /* NSSortDescriptor+AgileDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSSortDescriptor+AgileDictionary.h"; path = "AgileCloudSDK/NSSortDescriptor+AgileDictionary.h"; sourceTree = SOURCE_ROOT; };
+		C5BDE7CD1D1B10FE00F8FF64 /* NSSortDescriptor+AgileDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSSortDescriptor+AgileDictionary.m"; path = "AgileCloudSDK/NSSortDescriptor+AgileDictionary.m"; sourceTree = SOURCE_ROOT; };
 		C5E03A751B941D5600FFFA28 /* CKDatabaseOperation_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CKDatabaseOperation_Private.h; path = AgileCloudSDK/CKDatabaseOperation_Private.h; sourceTree = SOURCE_ROOT; };
 		C5E43FD21B9BBD9500CD93CA /* CKMediatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKMediatorDelegate.h; path = AgileCloudSDK/CKMediatorDelegate.h; sourceTree = SOURCE_ROOT; };
 		C5EBCD511B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CKRecordZoneID+AgileDictionary.h"; path = "AgileCloudSDK/CKRecordZoneID+AgileDictionary.h"; sourceTree = SOURCE_ROOT; };
@@ -364,6 +380,8 @@
 				C55554731BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.m */,
 				C5A573841B8911F700264AC9 /* CKOperation.h */,
 				C5A573A91B89153700264AC9 /* CKOperation.m */,
+				C52561871D1B51FB00EA9896 /* CKQueryOperation.h */,
+				C52561881D1B51FB00EA9896 /* CKQueryOperation.m */,
 				C5A5736C1B89115D00264AC9 /* CKRecord.h */,
 				C5EBCD551B9ECEBD006B602E /* CKRecord_Private.h */,
 				C5A5739D1B89153600264AC9 /* CKRecord.m */,
@@ -404,6 +422,12 @@
 				C5150AF21BA6A3CD00850891 /* CKFilter_Private.h */,
 				C5150AC51BA6936600850891 /* CKFilter.m */,
 				C5150AC81BA6948400850891 /* CKFilterType.h */,
+				C5BDE7C41D1B0EA800F8FF64 /* CKQuery.h */,
+				C5BDE7C51D1B0EA800F8FF64 /* CKQuery.m */,
+				C5BDE7C81D1B104800F8FF64 /* CKQuery+AgileDictionary.h */,
+				C5BDE7C91D1B104800F8FF64 /* CKQuery+AgileDictionary.m */,
+				C5BDE7CC1D1B10FE00F8FF64 /* NSSortDescriptor+AgileDictionary.h */,
+				C5BDE7CD1D1B10FE00F8FF64 /* NSSortDescriptor+AgileDictionary.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -418,6 +442,7 @@
 				C578F6E51B9EC51F00F5D43E /* CKRecord+AgileDictionary.h in Headers */,
 				C5A5737D1B89115D00264AC9 /* CKNotification.h in Headers */,
 				C5A573751B89115D00264AC9 /* CKDatabaseOperation.h in Headers */,
+				C5BDE7CA1D1B104800F8FF64 /* CKQuery+AgileDictionary.h in Headers */,
 				C5A5737F1B89115D00264AC9 /* CKRecordID.h in Headers */,
 				C56E2FBF1BA4C26D000365E0 /* CKAsset+AgileDictionary.h in Headers */,
 				C5A573731B89115D00264AC9 /* CKContainer.h in Headers */,
@@ -441,6 +466,7 @@
 				C55554741BA7A3B100347276 /* CKNotificationInfo+AgileDictionary.h in Headers */,
 				0ABE0F311CEE715700F5F2DA /* NSApplication+AgileCloudSDK.h in Headers */,
 				C5A573851B8911F700264AC9 /* CKOperation.h in Headers */,
+				C5BDE7CE1D1B10FE00F8FF64 /* NSSortDescriptor+AgileDictionary.h in Headers */,
 				C55E96EF1BA15EA6007B4A9B /* NSArray+AgileMap.h in Headers */,
 				C5A5738D1B8912D600264AC9 /* CKError.h in Headers */,
 				C5A573761B89115D00264AC9 /* CKDefines.h in Headers */,
@@ -449,8 +475,10 @@
 				C5150AE01BA698C400850891 /* NSNumber+CKFilterType.h in Headers */,
 				C5A573891B89122300264AC9 /* CKDiscoveredUserInfo.h in Headers */,
 				C5150AE81BA6991000850891 /* CLLocation+CKFilterType.h in Headers */,
+				C5BDE7C61D1B0EA800F8FF64 /* CKQuery.h in Headers */,
 				C5150AD81BA697C900850891 /* CKReference+CKFilterType.h in Headers */,
 				C5150AD41BA6975900850891 /* NSString+CKFilterType.h in Headers */,
+				C52561891D1B51FB00EA9896 /* CKQueryOperation.h in Headers */,
 				C5150ADC1BA6987D00850891 /* NSDate+CKFilterType.h in Headers */,
 				C5150AC61BA6936600850891 /* CKFilter.h in Headers */,
 				C5150AEC1BA69BAF00850891 /* CLLocation+AgileDictionary.h in Headers */,
@@ -541,6 +569,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5A573B71B89153700264AC9 /* CKModifySubscriptionsOperation.m in Sources */,
+				C5BDE7CB1D1B104800F8FF64 /* CKQuery+AgileDictionary.m in Sources */,
 				C5150AC71BA6936600850891 /* CKFilter.m in Sources */,
 				C5A573B11B89153700264AC9 /* CKDatabaseOperation.m in Sources */,
 				C5EF10351BD045A00083BE81 /* CKRecordZone+AgileDictionary.m in Sources */,
@@ -559,6 +588,7 @@
 				C5A573B51B89153700264AC9 /* CKModifyRecordsOperation.m in Sources */,
 				C5A573C91B89191800264AC9 /* CKError.m in Sources */,
 				C58B3C081B8EDFF10077F1C0 /* JSValue+AgileCloudSDKExtensions.m in Sources */,
+				C5BDE7CF1D1B10FE00F8FF64 /* NSSortDescriptor+AgileDictionary.m in Sources */,
 				C5EBCD541B9ECC52006B602E /* CKRecordZoneID+AgileDictionary.m in Sources */,
 				0ABE0F321CEE715F00F5F2DA /* NSApplication+AgileCloudSDK.m in Sources */,
 				C5A573B01B89153700264AC9 /* CKContainer.m in Sources */,
@@ -567,6 +597,7 @@
 				C5A573AD1B89153700264AC9 /* CKMarkNotificationsReadOperation.m in Sources */,
 				C5A573C71B89153700264AC9 /* CKReference.m in Sources */,
 				C5233DD01BA671C20075BC5C /* CKSubscription+AgileDictionary.m in Sources */,
+				C525618A1D1B51FB00EA9896 /* CKQueryOperation.m in Sources */,
 				C5A573BA1B89153700264AC9 /* CKServerChangeToken.m in Sources */,
 				C5A573B91B89153700264AC9 /* CKRecordZone.m in Sources */,
 				C5A573C01B89153700264AC9 /* CKRecordZoneID.m in Sources */,
@@ -578,6 +609,7 @@
 				C5A573C11B89153700264AC9 /* CKAsset.m in Sources */,
 				C5A573B61B89153700264AC9 /* CKModifyRecordZonesOperation.m in Sources */,
 				C5A573B41B89153700264AC9 /* CKFetchRecordZonesOperation.m in Sources */,
+				C5BDE7C71D1B0EA800F8FF64 /* CKQuery.m in Sources */,
 				C5A573C61B89153700264AC9 /* CKRecordID.m in Sources */,
 				C5EEC9A81BAC79000027B4F1 /* CKBlockOperation.m in Sources */,
 				C53391091B8AB67400DD1596 /* CKMediator.m in Sources */,

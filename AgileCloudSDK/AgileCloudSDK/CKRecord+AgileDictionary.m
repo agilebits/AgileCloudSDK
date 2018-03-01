@@ -30,13 +30,22 @@
 	NSMutableDictionary *output = [NSMutableDictionary dictionary];
 	
 	for (NSString *key in [self allKeys]) {
-		output[key] = @{ @"value": [self encodedObject:[self objectForKey:key]] };
+		output[key] = [CKRecord recordFieldDictionaryForValue:[self objectForKey:key]];
 	}
 	
 	return output;
 }
 
-- (id)encodedObject:(NSObject<CKRecordValue> *)val {
++(NSDictionary*) recordFieldDictionaryForValue:(NSObject<CKRecordValue>*)val{
+    
+    if([val respondsToSelector:@selector(asAgileDictionary)]){
+        return @{ @"value": [(id)val asAgileDictionary] };
+    }
+    
+    return @{ @"value": [CKRecord encodedObject:val] };
+}
+
++ (id)encodedObject:(NSObject<CKRecordValue> *)val {
 	if ([val isKindOfClass:[NSString class]]) {
 		return val;
 	}
@@ -72,10 +81,11 @@
 	else if ([val isKindOfClass:[CKAsset class]]) {
 		return [(CKAsset *)val asAgileDictionary];
 	}
+    
 	NSMutableDictionary *output = [NSMutableDictionary dictionary];
 	
-	for (NSString *key in [self allKeys]) {
-		output[key] = @{ @"value": [self objectForKey:key] };
+	for (NSString *key in [(id)val allKeys]) {
+		output[key] = @{ @"value": [(id)val objectForKey:key] };
 	}
 	
 	return output;
